@@ -1,5 +1,19 @@
+@import "~antd/dist/antd.min.css";
+@import "~animate.css/animate.min.css";
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.trigger:hover {
+    color: #1890ff;
 }
