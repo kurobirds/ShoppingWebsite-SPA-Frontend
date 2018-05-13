@@ -14,9 +14,7 @@ export default class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(
-			"https://express-mongo-crud-waafrzzorr.now.sh/api"
-		);
+		this.props.fetchData("https://demo-ggpsgdyfcj.now.sh/categories");
 	}
 
 	toggle = () => {
