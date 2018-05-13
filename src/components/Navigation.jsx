@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Icon, Switch } from "antd";
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 export default class Navigation extends Component {
-	state = {
-		theme: "dark",
-		isDark: true,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			theme: "dark",
+			isDark: true,
+		};
+	}
 
 	changeTheme = value => {
 		this.setState({
@@ -63,16 +67,38 @@ export default class Navigation extends Component {
 					<Menu.Item key="1">
 						<Icon type="dashboard" />
 						<span>Dashboard</span>
-						<Link to="/dashboard" />
+						<Link to="/admin" />
 					</Menu.Item>
 					<Menu.Item key="2">
-						<Icon type="video-camera" />
-						<span>nav 2</span>
-						<Link to="/about" />
+						<Icon type="profile" />
+						<span>Orders</span>
+						<Link to="/admin/orders" />
 					</Menu.Item>
-					<Menu.Item key="3">
-						<Icon type="upload" />
-						<span>nav 3</span>
+					<SubMenu
+						title={
+							<span>
+								<Icon type="tags-o" />
+								<span>Catalog</span>
+							</span>
+						}
+					>
+						<Menu.Item key="3">
+							<span>Products</span>
+							<Link to="/admin/products" />
+						</Menu.Item>
+						<Menu.Item key="4">
+							<span>Categories</span>
+							<Link to="/admin/categories" />
+						</Menu.Item>
+						<Menu.Item key="5">
+							<span>Classes</span>
+							<Link to="/admin/classes" />
+						</Menu.Item>
+					</SubMenu>
+					<Menu.Item key="6">
+						<Icon type="team" />
+						<span>Users</span>
+						<Link to="/admin/users" />
 					</Menu.Item>
 				</Menu>
 

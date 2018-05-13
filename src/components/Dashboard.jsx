@@ -5,10 +5,19 @@ import { Layout, Icon } from "antd";
 const { Header, Content, Footer } = Layout;
 
 export default class Dashboard extends Component {
-	state = {
-		collapsed: false,
-		siderColor: null,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			collapsed: false,
+			siderColor: null,
+		};
+	}
+
+	componentDidMount() {
+		this.props.fetchData(
+			"https://express-mongo-crud-waafrzzorr.now.sh/api"
+		);
+	}
 
 	toggle = () => {
 		this.setState({

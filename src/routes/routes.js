@@ -16,7 +16,7 @@ const Dashboard = () => (
 const RouterURL = () => (
 	<Switch>
 		<Route exact path="/" component={Home} />
-		<Route exact path="/dashboard" component={Dashboard} />
+		<Route exact path="/admin" component={Dashboard} />
 		<Route component={NotFound} />
 	</Switch>
 );
