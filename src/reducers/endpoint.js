@@ -1,4 +1,7 @@
-export default function endpoint(state = "http://localhost:3000/api/", action) {
+export default function endpoint(
+	state = "https://demo-viswvzpljs.now.sh/api/",
+	action
+) {
 	switch (action.type) {
 	default:
 		return state;
