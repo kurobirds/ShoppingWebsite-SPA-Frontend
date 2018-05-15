@@ -13,7 +13,6 @@ export default class NotFound extends Component {
 			<div
 				style={{
 					height: "100vh",
-					width: "100vw",
 					background: "#ececec",
 					overflow: "hidden",
 					display: "flex",

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Main from "../routes/routes";
-import Navigation from "../components/Navigation";
+import Main from "../../routes/routes";
+import Navigation from "../Navigation";
 import { Layout, Icon } from "antd";
 const { Header, Content, Footer } = Layout;
 
@@ -11,10 +11,6 @@ export default class Dashboard extends Component {
 			collapsed: false,
 			siderColor: null,
 		};
-	}
-
-	componentDidMount() {
-		this.props.fetchData("https://demo-ggpsgdyfcj.now.sh/categories");
 	}
 
 	toggle = () => {
@@ -42,7 +38,14 @@ export default class Dashboard extends Component {
 							onClick={this.toggle}
 						/>
 					</Header>
-					<Content>
+					<Content
+						style={{
+							margin: "24px 16px",
+							padding: 24,
+							background: "#fff",
+							minHeight: 280,
+						}}
+					>
 						<Main />
 					</Content>
 					<Footer>Footer</Footer>

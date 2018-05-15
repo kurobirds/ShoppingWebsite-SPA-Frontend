@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import DashboardContainer from "../containers/DashboardContainer";
+import ProductsContainer from "../../containers/Admin/ProductsContainer";
 
 export default class Dashboard extends Component {
 	render() {
-		return <DashboardContainer />;
+		return <ProductsContainer />;
 	}
 }

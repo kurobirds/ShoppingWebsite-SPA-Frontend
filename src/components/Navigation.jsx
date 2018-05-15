@@ -91,8 +91,8 @@ export default class Navigation extends Component {
 							<Link to="/admin/categories" />
 						</Menu.Item>
 						<Menu.Item key="5">
-							<span>Classes</span>
-							<Link to="/admin/classes" />
+							<span>Producers</span>
+							<Link to="/admin/producers" />
 						</Menu.Item>
 					</SubMenu>
 					<Menu.Item key="6">

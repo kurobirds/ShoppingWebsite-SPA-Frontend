@@ -1,0 +1,23 @@
+import {
+	PRODUCERS_FETCH_DATA_SUCCESS,
+	ADD_PRODUCER,
+	DELETE_PRODUCER,
+	UPDATE_PRODUCER,
+} from "../actions/producers";
+export default function producers(state = [], action) {
+	switch (action.type) {
+	case PRODUCERS_FETCH_DATA_SUCCESS:
+		return action.payload;
+	case ADD_PRODUCER:
+		return [...state, action.payload];
+	case DELETE_PRODUCER:
+		return state.filter(producer => producer._id !== action.payload);
+	case UPDATE_PRODUCER: {
+		const newState = [...state];
+		newState[action.index] = action.producer;
+		return newState;
+	}
+	default:
+		return state;
+	}
+}
