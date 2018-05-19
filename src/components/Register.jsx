@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Form, Icon, Input, Button, Checkbox, message } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
 const FormItem = Form.Item;
 
 // Styled-component
@@ -22,34 +22,49 @@ const BodyInner = styled.div`
 	}
 `;
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
+	state = {
+		confirmDirty: false,
+		autoCompleteResult: [],
+	};
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				console.log("Received values of form: ", values);
 			}
-			fetch("http://localhost:3000/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": " application/json",
-				},
-				body: JSON.stringify(values),
-			})
-				.then(response => response.json())
-				.then(data => {
-					if (data.message === "ok") {
-						message.success("success login");
-					} else {
-						message.error(data.message);
-					}
-				})
-				.catch(err => console.error("Error:", err));
 		});
+	};
+	handleConfirmBlur = e => {
+		const value = e.target.value;
+		this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+	};
+	compareToFirstPassword = (rule, value, callback) => {
+		const form = this.props.form;
+		if (value && value !== form.getFieldValue("password")) {
+			callback("Two passwords that you enter is inconsistent!");
+		} else {
+			callback();
+		}
+	};
+	validateToNextPassword = (rule, value, callback) => {
+		const form = this.props.form;
+		if (value && this.state.confirmDirty) {
+			form.validateFields(["confirm"], { force: true });
+		}
+		callback();
 	};
 	render() {
 		const { getFieldDecorator } = this.props.form;
 
+		const formItemLayout = {
+			labelCol: {
+				span: 6,
+			},
+			wrapperCol: {
+				span: 14,
+			},
+		};
 		return (
 			<div
 				style={{
@@ -66,7 +81,7 @@ class LoginForm extends Component {
 							border: "1px solid rgba(0, 0, 0, .1)",
 							borderRadius: ".25rem",
 							backgroundColor: "white",
-							width: 400,
+							width: 600,
 						}}
 					>
 						<div
@@ -82,60 +97,69 @@ class LoginForm extends Component {
 									fontWeight: 400,
 								}}
 							>
-								Signin
+								Register
 							</h1>
 							<Form
 								onSubmit={this.handleSubmit}
 								style={{
-									maxWidth: "480px",
+									minWidth: "480px",
 								}}
 							>
-								<FormItem>
-									{getFieldDecorator("username", {
+								<FormItem
+									{...formItemLayout}
+									label="E-mail"
+									hasFeedback
+								>
+									{getFieldDecorator("email", {
 										rules: [
+											{
+												type: "email",
+												message:
+													"The input is not valid E-mail!",
+											},
 											{
 												required: true,
 												message:
-													"Please input your username!",
+													"Please input your E-mail!",
 											},
 										],
-									})(
-										<Input
-											prefix={
-												<Icon
-													type="user"
-													style={{
-														color:
-															"rgba(0,0,0,.25)",
-													}}
-												/>
-											}
-											placeholder="Username"
-										/>
-									)}
+									})(<Input />)}
 								</FormItem>
-								<FormItem>
+								<FormItem {...formItemLayout} label="Password">
 									{getFieldDecorator("password", {
 										rules: [
 											{
 												required: true,
 												message:
-													"Please input your Password!",
+													"Please input your password!",
+											},
+											{
+												validator: this
+													.validateToNextPassword,
+											},
+										],
+									})(<Input type="password" />)}
+								</FormItem>
+								<FormItem
+									{...formItemLayout}
+									label="Confirm Password"
+								>
+									{getFieldDecorator("confirm", {
+										rules: [
+											{
+												required: true,
+												message:
+													"Please confirm your password!",
+											},
+											{
+												validator: this
+													.compareToFirstPassword,
 											},
 										],
 									})(
 										<Input
-											prefix={
-												<Icon
-													type="lock"
-													style={{
-														color:
-															"rgba(0,0,0,.25)",
-													}}
-												/>
-											}
 											type="password"
-											placeholder="Password"
+											onBlur={this.handleConfirmBlur}
 										/>
 									)}
 								</FormItem>
@@ -151,7 +175,7 @@ class LoginForm extends Component {
 											width: "100%",
 										}}
 									>
-										Log in
+										Register
 									</Button>
 								</FormItem>
 							</Form>
@@ -170,9 +194,9 @@ class LoginForm extends Component {
 								fontSize: "1.10rem",
 								color: "white",
 							}}
-							to="/sign-up"
+							to="/sign-in"
 						>
-							Sign up
+							Sign in
 						</Link>
 					</div>
 				</BodyInner>
@@ -181,4 +205,4 @@ class LoginForm extends Component {
 	}
 }
 
-export default Form.create()(LoginForm);
+export default Form.create()(RegisterForm);

@@ -16,7 +16,7 @@ export default class FormUser extends React.Component {
 		return (
 			<Form>
 				<FormItem {...formItemLayout} label="Username">
-					{getFieldDecorator("f_Username", {
+					{getFieldDecorator("username", {
 						rules: [
 							{
 								required: true,
@@ -27,19 +27,19 @@ export default class FormUser extends React.Component {
 					})(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Password">
-					{getFieldDecorator("f_Password")(<Input />)}
+					{getFieldDecorator("password")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Name">
-					{getFieldDecorator("f_Name")(<Input />)}
+					{getFieldDecorator("name")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Email">
-					{getFieldDecorator("f_Email")(<Input />)}
+					{getFieldDecorator("email")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Day of Birth">
-					{getFieldDecorator("f_DOB")(<Input />)}
+					{getFieldDecorator("DOB")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Permission">
-					{getFieldDecorator("f_Permission")(<Input />)}
+					{getFieldDecorator("permission")(<Input />)}
 				</FormItem>
 			</Form>
 		);

@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import NotFound from "../components/NotFound";
-import Signin from "../components/Login";
+import Login from "../components/Login";
 import Dashboard from "../pages/Admin/Dashboard";
+import Register from "../components/Register";
 // Component
 const Home = () => (
 	<div>
@@ -15,13 +16,22 @@ const Home = () => (
 				Admin
 			</div>
 		</Link>
-		<Link to="/signin">
+		<Link to="/sign-in">
 			<div
 				style={{
 					fontSize: "16px",
 				}}
 			>
-				Signin
+				Sign-in
+			</div>
+		</Link>
+		<Link to="/sign-up">
+			<div
+				style={{
+					fontSize: "16px",
+				}}
+			>
+				Sign-up
 			</div>
 		</Link>
 	</div>
@@ -31,7 +41,8 @@ const RouteConfig = () => (
 	<Switch>
 		<Route exact path="/" component={Home} />
 		<Route path="/admin" component={Dashboard} />
-		<Route path="/signin" component={Signin} />
+		<Route path="/sign-in" component={Login} />
+		<Route path="/sign-up" component={Register} />
 		<Route component={NotFound} />
 	</Switch>
 );

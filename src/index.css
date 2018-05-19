@@ -3,7 +3,7 @@ body,
 html {
     margin: 0;
     padding: 0;
-    background-color: #e5e5e5;
+    background-color: #e5e5e5 !important;
     font-size: .75rem;
     height: 100%;
 }
@@ -49,16 +49,4 @@ html {
 
 .editable-add-btn {
     margin-bottom: 8px;
-}
-
-.login-form {
-    max-width: 480px;
-}
-
-.login-form-forgot {
-    float: right;
-}
-
-.login-form-button {
-    width: 100%;
 }
