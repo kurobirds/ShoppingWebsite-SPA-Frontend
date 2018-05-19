@@ -1,21 +1,11 @@
-@import "~antd/dist/antd.min.css";
 @import "~animate.css/animate.min.css";
-body {
+body,
+html {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-}
-
-.trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color .3s;
-}
-
-.trigger:hover {
-    color: #1890ff;
+    background-color: #e5e5e5;
+    font-size: .75rem;
+    height: 100%;
 }
 
 .editable-cell {
@@ -59,4 +49,16 @@ body {
 
 .editable-add-btn {
     margin-bottom: 8px;
+}
+
+.login-form {
+    max-width: 480px;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
 }

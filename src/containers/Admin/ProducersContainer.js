@@ -11,7 +11,7 @@ import Producers from "../../components/Admin/Producers";
 const mapStateToProps = state => {
 	return {
 		producers: state.producers,
-		endpoint: state.endpoint,
+		base_url: state.base_url,
 	};
 };
 

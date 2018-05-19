@@ -11,7 +11,7 @@ import Products from "../../components/Admin/Products";
 const mapStateToProps = state => {
 	return {
 		products: state.products,
-		endpoint: state.endpoint,
+		base_url: state.base_url,
 	};
 };
 

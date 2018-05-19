@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import Route from "../routes/routes";
+
 export default class App extends Component {
 	render() {
-		return <div>Hello World!</div>;
+		return (
+			<div>
+				<Route />
+			</div>
+		);
 	}
 }

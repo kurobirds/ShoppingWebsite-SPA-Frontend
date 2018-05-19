@@ -11,7 +11,7 @@ import Users from "../../components/Admin/Users";
 const mapStateToProps = state => {
 	return {
 		users: state.users,
-		endpoint: state.endpoint,
+		base_url: state.base_url,
 	};
 };
 

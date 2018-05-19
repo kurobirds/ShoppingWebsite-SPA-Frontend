@@ -65,7 +65,7 @@ export default class Users extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(`${this.props.endpoint}products`);
+		this.props.fetchData(`${this.props.base_url}products`);
 	}
 
 	handleAdd = () => {
@@ -88,7 +88,7 @@ export default class Users extends Component {
 
 	handleMenuClick = (record, e) => {
 		const deleteProduct = id => this.props.deleteProduct(id);
-		const endpoint = this.props.endpoint;
+		const base_url = this.props.base_url;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -97,7 +97,7 @@ export default class Users extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${this.props.endpoint}products/${record._id}`, {
+			fetch(`${this.props.base_url}products/${record._id}`, {
 				method: "GET",
 			})
 				.then(response => response.json())
@@ -109,7 +109,7 @@ export default class Users extends Component {
 			confirm({
 				title: "Are you sure delete this record?",
 				onOk() {
-					fetch(`${endpoint}products/${record._id}`, {
+					fetch(`${base_url}products/${record._id}`, {
 						method: "DELETE",
 					})
 						.then(response => response.json())
@@ -136,7 +136,7 @@ export default class Users extends Component {
 			if (err) {
 				return;
 			}
-			fetch(`${this.props.endpoint}products/${id}`, {
+			fetch(`${this.props.base_url}products/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",

@@ -50,7 +50,7 @@ export default class Users extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(`${this.props.endpoint}users`);
+		this.props.fetchData(`${this.props.base_url}users`);
 	}
 
 	handleAdd = () => {
@@ -70,7 +70,7 @@ export default class Users extends Component {
 
 	handleMenuClick = (record, e) => {
 		const deleteUser = id => this.props.deleteUser(id);
-		const endpoint = this.props.endpoint;
+		const base_url = this.props.base_url;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -79,7 +79,7 @@ export default class Users extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${this.props.endpoint}users/${record._id}`, {
+			fetch(`${this.props.base_url}users/${record._id}`, {
 				method: "GET",
 			})
 				.then(response => response.json())
@@ -91,7 +91,7 @@ export default class Users extends Component {
 			confirm({
 				title: "Are you sure delete this record?",
 				onOk() {
-					fetch(`${endpoint}users/${record._id}`, {
+					fetch(`${base_url}users/${record._id}`, {
 						method: "DELETE",
 					})
 						.then(response => response.json())
@@ -118,7 +118,7 @@ export default class Users extends Component {
 			if (err) {
 				return;
 			}
-			fetch(`${this.props.endpoint}users/${id}`, {
+			fetch(`${this.props.base_url}users/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",

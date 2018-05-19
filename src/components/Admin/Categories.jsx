@@ -24,7 +24,7 @@ export default class Categories extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(`${this.props.endpoint}categories`);
+		this.props.fetchData(`${this.props.base_url}categories`);
 	}
 
 	handleAdd = () => {
@@ -39,7 +39,7 @@ export default class Categories extends Component {
 
 	handleMenuClick = (record, e) => {
 		const deleteCategory = id => this.props.deleteCategory(id);
-		const endpoint = this.props.endpoint;
+		const base_url = this.props.base_url;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -48,7 +48,7 @@ export default class Categories extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${this.props.endpoint}categories/${record._id}`, {
+			fetch(`${this.props.base_url}categories/${record._id}`, {
 				method: "GET",
 			})
 				.then(response => response.json())
@@ -60,7 +60,7 @@ export default class Categories extends Component {
 			confirm({
 				title: "Are you sure delete this record?",
 				onOk() {
-					fetch(`${endpoint}categories/${record._id}`, {
+					fetch(`${base_url}categories/${record._id}`, {
 						method: "DELETE",
 					})
 						.then(response => response.json())
@@ -86,7 +86,7 @@ export default class Categories extends Component {
 			if (err) {
 				return;
 			}
-			fetch(`${this.props.endpoint}categories/${id}`, {
+			fetch(`${this.props.base_url}categories/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",

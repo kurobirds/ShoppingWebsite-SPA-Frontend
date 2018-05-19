@@ -11,7 +11,7 @@ import Categories from "../../components/Admin/Categories";
 const mapStateToProps = state => {
 	return {
 		categories: state.categories,
-		endpoint: state.endpoint,
+		base_url: state.base_url,
 	};
 };
 

@@ -56,6 +56,7 @@ export default class Navigation extends Component {
 					background: this.state.isDark ? null : "#fff",
 					overflow: "auto",
 					height: "100vh",
+					position: "fixed",
 					left: 0,
 				}}
 			>

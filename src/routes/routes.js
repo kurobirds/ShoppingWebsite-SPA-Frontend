@@ -1,32 +1,39 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import NotFound from "../components/NotFound";
-import Categories from "../pages/Admin/Categories";
-import Users from "../pages/Admin/Users";
-import Products from "../pages/Admin/Products";
-import Producers from "../pages/Admin/Producers";
+import Signin from "../components/Login";
+import Dashboard from "../pages/Admin/Dashboard";
 // Component
 const Home = () => (
 	<div>
-		<h2>Home</h2>
-	</div>
-);
-const Dashboard = () => (
-	<div>
-		<h2>Dashboard</h2>
+		<Link to="/admin">
+			<div
+				style={{
+					fontSize: "16px",
+				}}
+			>
+				Admin
+			</div>
+		</Link>
+		<Link to="/signin">
+			<div
+				style={{
+					fontSize: "16px",
+				}}
+			>
+				Signin
+			</div>
+		</Link>
 	</div>
 );
 
-const RouterURL = () => (
+const RouteConfig = () => (
 	<Switch>
 		<Route exact path="/" component={Home} />
-		<Route exact path="/admin" component={Dashboard} />
-		<Route exact path="/admin/categories" component={Categories} />
-		<Route exact path="/admin/products" component={Products} />
-		<Route exact path="/admin/producers" component={Producers} />
-		<Route exact path="/admin/users" component={Users} />
+		<Route path="/admin" component={Dashboard} />
+		<Route path="/signin" component={Signin} />
 		<Route component={NotFound} />
 	</Switch>
 );
 
-export default RouterURL;
+export default RouteConfig;
