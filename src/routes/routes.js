@@ -1,9 +1,10 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import NotFound from "../components/NotFound";
-import Login from "../components/Login";
 import Dashboard from "../pages/Admin/Dashboard";
-import Register from "../components/Register";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+
 // Component
 const Home = () => (
 	<div>

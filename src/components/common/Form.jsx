@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input } from 'antd';
+import React from "react";
+import { Form, Input } from "antd";
 const FormItem = Form.Item;
 
 class FormModal extends React.Component {
@@ -8,23 +8,23 @@ class FormModal extends React.Component {
 		return (
 			<Form layout="vertical">
 				<FormItem label="Title">
-					{getFieldDecorator('title', {
+					{getFieldDecorator("title", {
 						rules: [
 							{
 								required: true,
 								message:
-									'Please input the title of collection!',
+									"Please input the title of collection!",
 							},
 						],
 					})(<Input />)}
 				</FormItem>
 				<FormItem label="Description">
-					{getFieldDecorator('description')(
+					{getFieldDecorator("description")(
 						<Input type="textarea" />
 					)}
 				</FormItem>
 				<FormItem label="Image URL">
-					{getFieldDecorator('images')(<Input type="textarea" />)}
+					{getFieldDecorator("images")(<Input type="textarea" />)}
 				</FormItem>
 			</Form>
 		);

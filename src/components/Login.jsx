@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Form, Icon, Input, Button, Checkbox, message } from "antd";
+import { Link, Redirect } from "react-router-dom";
+import { Form, Icon, Input, Button, Checkbox } from "antd";
 const FormItem = Form.Item;
 
 // Styled-component
@@ -23,33 +23,28 @@ const BodyInner = styled.div`
 `;
 
 class LoginForm extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			endpoint: "login",
+		};
+	}
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
-			if (!err) {
-				console.log("Received values of form: ", values);
+			if (values.username && values.password) {
+				this.props.loginUser(
+					`${this.props.base_url}${this.state.endpoint}`,
+					values
+				);
 			}
-			fetch("http://localhost:3000/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": " application/json",
-				},
-				body: JSON.stringify(values),
-			})
-				.then(response => response.json())
-				.then(data => {
-					if (data.message === "ok") {
-						message.success("success login");
-					} else {
-						message.error(data.message);
-					}
-				})
-				.catch(err => console.error("Error:", err));
 		});
 	};
 	render() {
 		const { getFieldDecorator } = this.props.form;
-
+		if (this.props.isAuthenticated) {
+			return <Redirect to="/admin" />;
+		}
 		return (
 			<div
 				style={{
@@ -90,7 +85,7 @@ class LoginForm extends Component {
 									maxWidth: "480px",
 								}}
 							>
-								<FormItem>
+								<FormItem hasFeedback>
 									{getFieldDecorator("username", {
 										rules: [
 											{
@@ -114,7 +109,7 @@ class LoginForm extends Component {
 										/>
 									)}
 								</FormItem>
-								<FormItem>
+								<FormItem hasFeedback>
 									{getFieldDecorator("password", {
 										rules: [
 											{

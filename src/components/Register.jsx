@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
 const FormItem = Form.Item;
 
@@ -23,10 +23,15 @@ const BodyInner = styled.div`
 `;
 
 class RegisterForm extends Component {
-	state = {
-		confirmDirty: false,
-		autoCompleteResult: [],
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			confirmDirty: false,
+			autoCompleteResult: [],
+			endpoint: "register",
+		};
+	}
+
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -55,8 +60,11 @@ class RegisterForm extends Component {
 		callback();
 	};
 	render() {
-		const { getFieldDecorator } = this.props.form;
+		if (this.props.isAuthenticated) {
+			return <Redirect to="/admin" />;
+		}
 
+		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 			labelCol: {
 				span: 6,
@@ -65,6 +73,7 @@ class RegisterForm extends Component {
 				span: 14,
 			},
 		};
+
 		return (
 			<div
 				style={{

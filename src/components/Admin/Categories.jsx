@@ -41,6 +41,7 @@ export default class Categories extends Component {
 	handleMenuClick = (record, e) => {
 		const deleteCategory = id => this.props.deleteCategory(id);
 		const endpoint = this.state.endpoint;
+		const token = localStorage.token;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -51,6 +52,9 @@ export default class Categories extends Component {
 			});
 			fetch(`${endpoint}/${record._id}`, {
 				method: "GET",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
 			})
 				.then(response => response.json())
 				.then(data => {
@@ -63,6 +67,9 @@ export default class Categories extends Component {
 				onOk() {
 					fetch(`${endpoint}/${record._id}`, {
 						method: "DELETE",
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 					})
 						.then(response => response.json())
 						.then(data => {
@@ -83,6 +90,7 @@ export default class Categories extends Component {
 	handleEditOK = () => {
 		const form = this.formRef.props.form;
 		const id = this.state.formItem.id;
+		const token = localStorage.token;
 		form.validateFields((err, values) => {
 			if (err) {
 				return;
@@ -91,6 +99,7 @@ export default class Categories extends Component {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify(values),
 			})

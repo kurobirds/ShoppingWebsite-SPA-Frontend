@@ -40,9 +40,15 @@ export function usersFetchDataSuccess(users) {
 }
 
 export function usersFetchData(url) {
+	const token = localStorage.getItem("token") || null;
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 	return dispatch => {
 		dispatch(usersIsLoading(true));
-		fetch(url)
+		fetch(url, config)
 			.then(response => {
 				if (!response.ok) {
 					throw Error(response.statusText);

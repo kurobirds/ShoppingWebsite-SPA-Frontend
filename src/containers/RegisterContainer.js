@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-
-import { logoutUser } from "../../actions/auth";
-import Dashboard from "../../components/Admin/Dashboard";
+import Register from "../components/Register";
 
 const mapStateToProps = state => {
 	return {
+		base_url: state.base_url,
 		isAuthenticated: state.auth.isAuthenticated,
 		token: state.auth.token,
 		errorMessage: state.auth.errorMessage,
@@ -14,10 +13,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		logoutUser: () => dispatch(logoutUser()),
+		// loginUser: (url, creds) => dispatch(loginUser(url, creds)),
+		// logoutUser: () => dispatch(logoutUser()),
 	};
 };
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+	connect(mapStateToProps, mapDispatchToProps)(Register)
 );

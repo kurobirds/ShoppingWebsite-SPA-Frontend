@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Form } from "antd";
+import PropTypes from "prop-types";
 
 import FormItem from "./Form";
 import FormProducts from "./Form/formProducts";
@@ -22,7 +23,6 @@ class ModalComponent extends React.Component {
 							: "User";
 		const { visible, onOk, onCancel, form } = this.props;
 		const { getFieldDecorator } = form;
-
 		return (
 			<Modal
 				title={`${this.props.titleModal} ${nameModal}`}
@@ -48,3 +48,12 @@ class ModalComponent extends React.Component {
 }
 
 export default Form.create()(ModalComponent);
+
+ModalComponent.propTypes = {
+	visible: PropTypes.bool,
+	onOk: PropTypes.func,
+	onCancel: PropTypes.func,
+	form: PropTypes.object,
+	type: PropTypes.number,
+	titleModal: PropTypes.string,
+};

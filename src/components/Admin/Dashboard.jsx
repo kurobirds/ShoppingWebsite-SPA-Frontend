@@ -2,8 +2,29 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Main from "../../routes/dashboard";
 import Navigation from "../Navigation";
-import { Layout, Icon } from "antd";
+import { Redirect } from "react-router-dom";
+import { Layout, Icon, Dropdown, Menu, message, Avatar } from "antd";
 const { Header, Content, Footer } = Layout;
+
+const StyledIcon = styled(Icon)`
+	font-size: 18px;
+	line-height: 64px;
+	padding: 0 24px;
+	cursor: pointer;
+	transition: color 0.3s;
+	&: hover {
+		color: #1da57a;
+	}
+`;
+
+const StyledAvatar = styled(Avatar)`
+	float: right;
+	margin: 12px 40px 0 0 !important;
+	cursor: pointer;
+	&: hover {
+		background-color: #1da57a;
+	}
+`;
 
 export default class Dashboard extends Component {
 	constructor(props) {
@@ -15,23 +36,42 @@ export default class Dashboard extends Component {
 		};
 	}
 
+	handleMenuClick = e => {
+		switch (e.key) {
+			case "2":
+				this.props.logoutUser();
+				message.success("Logout success");
+				break;
+			default:
+				message.info(`Clicked ${e.item.props.children}`);
+				break;
+		}
+	};
+
+	menu = (
+		<Menu onClick={this.handleMenuClick}>
+			<Menu.Item key="1">About</Menu.Item>
+			<Menu.Item key="2">Logout</Menu.Item>
+		</Menu>
+	);
+
 	toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed,
 		});
 	};
 
+	componentDidMount() {
+		if (!this.props.isAuthenticated) {
+			message.error("Need login to access this site");
+			return <Redirect to="/" />;
+		}
+	}
+
 	render() {
-		const StyledIcon = styled(Icon)`
-			font-size: 18px;
-			line-height: 64px;
-			padding: 0 24px;
-			cursor: pointer;
-			transition: color 0.3s;
-			&: hover {
-				color: #1da57a;
-			}
-		`;
+		if (!this.props.isAuthenticated) {
+			return <Redirect to="/" />;
+		}
 		return (
 			<Layout
 				style={
@@ -50,14 +90,22 @@ export default class Dashboard extends Component {
 				/>
 				<Layout>
 					<Header style={{ background: "#fff", padding: 0 }}>
-						<StyledIcon
-							type={
-								this.state.collapsed
-									? "menu-unfold"
-									: "menu-fold"
-							}
-							onClick={this.toggle}
-						/>
+						<div>
+							<StyledIcon
+								type={
+									this.state.collapsed
+										? "menu-unfold"
+										: "menu-fold"
+								}
+								onClick={this.toggle}
+							/>
+							<Dropdown
+								overlay={this.menu}
+								placement="bottomCenter"
+							>
+								<StyledAvatar size="large" icon="user" />
+							</Dropdown>
+						</div>
 					</Header>
 					<Content
 						style={{
