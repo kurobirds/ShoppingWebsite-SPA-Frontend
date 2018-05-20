@@ -9,6 +9,7 @@ export default class Users extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			endpoint: `${this.props.base_url}products`,
 			formItem: {
 				id: null,
 				index: null,
@@ -65,7 +66,7 @@ export default class Users extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(`${this.props.base_url}products`);
+		this.props.fetchData(`${this.state.endpoint}`);
 	}
 
 	handleAdd = () => {
@@ -78,6 +79,7 @@ export default class Users extends Component {
 			TinyDes: data.TinyDes,
 			Price: data.Price,
 			CatID: data.CatID,
+			IDNSX: data.IDNSX,
 			Quantity: data.Quantity,
 			SLB: data.SLB,
 			LX: data.LX,
@@ -88,7 +90,7 @@ export default class Users extends Component {
 
 	handleMenuClick = (record, e) => {
 		const deleteProduct = id => this.props.deleteProduct(id);
-		const base_url = this.props.base_url;
+		const endpoint = this.state.endpoint;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -97,7 +99,7 @@ export default class Users extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${this.props.base_url}products/${record._id}`, {
+			fetch(`${endpoint}/${record._id}`, {
 				method: "GET",
 			})
 				.then(response => response.json())
@@ -109,7 +111,7 @@ export default class Users extends Component {
 			confirm({
 				title: "Are you sure delete this record?",
 				onOk() {
-					fetch(`${base_url}products/${record._id}`, {
+					fetch(`${endpoint}/${record._id}`, {
 						method: "DELETE",
 					})
 						.then(response => response.json())
@@ -136,7 +138,7 @@ export default class Users extends Component {
 			if (err) {
 				return;
 			}
-			fetch(`${this.props.base_url}products/${id}`, {
+			fetch(`${this.state.endpoint}/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -167,6 +169,7 @@ export default class Users extends Component {
 					deleteProduct={this.props.deleteProduct}
 					handleAdd={this.handleAdd}
 					handleMenuClick={this.handleMenuClick}
+					loading={this.props.productsIsLoading}
 				/>
 				<ModalComponent
 					wrappedComponentRef={this.saveFormRef}

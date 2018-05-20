@@ -41,6 +41,7 @@ export default class TableOption extends Component {
 					bordered
 					dataSource={this.props.dataSource}
 					columns={columns}
+					loading={this.props.loading}
 				/>
 			</div>
 		);

@@ -3,8 +3,19 @@ import {
 	ADD_CATEGORY,
 	DELETE_CATEGORY,
 	UPDATE_CATEGORY,
+	CATEGORIES_IS_LOADING,
 } from "../actions/categories";
-export default function categories(state = [], action) {
+
+export function categoriesIsLoading(state = false, action) {
+	switch (action.type) {
+	case CATEGORIES_IS_LOADING:
+		return action.isLoading;
+	default:
+		return state;
+	}
+}
+
+export function categories(state = [], action) {
 	switch (action.type) {
 	case CATEGORIES_FETCH_DATA_SUCCESS:
 		return action.payload;

@@ -12,6 +12,7 @@ const mapStateToProps = state => {
 	return {
 		users: state.users,
 		base_url: state.base_url,
+		usersIsLoading: state.usersIsLoading,
 	};
 };
 

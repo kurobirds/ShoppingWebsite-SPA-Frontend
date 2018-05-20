@@ -3,8 +3,18 @@ import {
 	ADD_PRODUCER,
 	DELETE_PRODUCER,
 	UPDATE_PRODUCER,
+	PRODUCERS_IS_LOADING,
 } from "../actions/producers";
-export default function producers(state = [], action) {
+
+export function producersIsLoading(state = false, action) {
+	switch (action.type) {
+	case PRODUCERS_IS_LOADING:
+		return action.isLoading;
+	default:
+		return state;
+	}
+}
+export function producers(state = [], action) {
 	switch (action.type) {
 	case PRODUCERS_FETCH_DATA_SUCCESS:
 		return action.payload;

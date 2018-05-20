@@ -30,7 +30,7 @@ export default class FormProduct extends React.Component {
 					{getFieldDecorator("TinyDes")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Price">
-					{getFieldDecorator("description")(<InputNumber />)}
+					{getFieldDecorator("Price")(<InputNumber />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="CatID">
 					{getFieldDecorator("CatID")(<InputNumber />)}

@@ -12,6 +12,7 @@ const mapStateToProps = state => {
 	return {
 		categories: state.categories,
 		base_url: state.base_url,
+		categoriesIsLoading: state.categoriesIsLoading,
 	};
 };
 

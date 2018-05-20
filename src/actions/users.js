@@ -2,7 +2,14 @@ export const ADD_USER = "ADD_CATEGORY";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const USERS_FETCH_DATA_SUCCESS = "USERS_FETCH_DATA_SUCCESS";
+export const USERS_IS_LOADING = "USERS_IS_LOADING";
 
+export function usersIsLoading(bool) {
+	return {
+		type: USERS_IS_LOADING,
+		isLoading: bool,
+	};
+}
 export function addUser(user) {
 	return {
 		type: ADD_USER,
@@ -34,7 +41,15 @@ export function usersFetchDataSuccess(users) {
 
 export function usersFetchData(url) {
 	return dispatch => {
+		dispatch(usersIsLoading(true));
 		fetch(url)
+			.then(response => {
+				if (!response.ok) {
+					throw Error(response.statusText);
+				}
+				dispatch(usersIsLoading(false));
+				return response;
+			})
 			.then(response => response.json())
 			.then(users => dispatch(usersFetchDataSuccess(users)))
 			.catch(err => console.log(err));

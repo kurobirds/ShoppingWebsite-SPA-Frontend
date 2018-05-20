@@ -12,6 +12,7 @@ const mapStateToProps = state => {
 	return {
 		producers: state.producers,
 		base_url: state.base_url,
+		producersIsLoading: state.producersIsLoading,
 	};
 };
 

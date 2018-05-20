@@ -9,6 +9,7 @@ export default class Categories extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			endpoint: `${this.props.base_url}categories`,
 			formItem: {
 				id: null,
 				index: null,
@@ -24,7 +25,7 @@ export default class Categories extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchData(`${this.props.base_url}categories`);
+		this.props.fetchData(`${this.state.endpoint}`);
 	}
 
 	handleAdd = () => {
@@ -39,7 +40,7 @@ export default class Categories extends Component {
 
 	handleMenuClick = (record, e) => {
 		const deleteCategory = id => this.props.deleteCategory(id);
-		const base_url = this.props.base_url;
+		const endpoint = this.state.endpoint;
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
@@ -48,7 +49,7 @@ export default class Categories extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${this.props.base_url}categories/${record._id}`, {
+			fetch(`${endpoint}/${record._id}`, {
 				method: "GET",
 			})
 				.then(response => response.json())
@@ -60,7 +61,7 @@ export default class Categories extends Component {
 			confirm({
 				title: "Are you sure delete this record?",
 				onOk() {
-					fetch(`${base_url}categories/${record._id}`, {
+					fetch(`${endpoint}/${record._id}`, {
 						method: "DELETE",
 					})
 						.then(response => response.json())
@@ -86,7 +87,7 @@ export default class Categories extends Component {
 			if (err) {
 				return;
 			}
-			fetch(`${this.props.base_url}categories/${id}`, {
+			fetch(`${this.state.endpoint}/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -117,6 +118,7 @@ export default class Categories extends Component {
 					deleteCategory={this.props.deleteCategory}
 					handleAdd={this.handleAdd}
 					handleMenuClick={this.handleMenuClick}
+					loading={this.props.categoriesIsLoading}
 				/>
 				<ModalComponent
 					wrappedComponentRef={this.saveFormRef}

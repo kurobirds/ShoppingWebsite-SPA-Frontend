@@ -3,8 +3,19 @@ import {
 	ADD_USER,
 	DELETE_USER,
 	UPDATE_USER,
+	USERS_IS_LOADING,
 } from "../actions/users";
-export default function users(state = [], action) {
+
+export function usersIsLoading(state = false, action) {
+	switch (action.type) {
+	case USERS_IS_LOADING:
+		return action.isLoading;
+	default:
+		return state;
+	}
+}
+
+export function users(state = [], action) {
 	switch (action.type) {
 	case USERS_FETCH_DATA_SUCCESS:
 		return action.payload;
