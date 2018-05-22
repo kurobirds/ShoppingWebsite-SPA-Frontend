@@ -100,12 +100,7 @@ export default class Users extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${endpoint}/${record._id}`, {
-				method: "GET",
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
+			fetch(`${endpoint}/${record._id}`)
 				.then(response => response.json())
 				.then(data => {
 					this.setFormFields(data);

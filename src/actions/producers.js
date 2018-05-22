@@ -41,15 +41,9 @@ export function producersFetchDataSuccess(producers) {
 }
 
 export function producersFetchData(url) {
-	const token = localStorage.getItem("token") || null;
-	const config = {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	};
 	return dispatch => {
 		dispatch(producersIsLoading(true));
-		fetch(url, config)
+		fetch(url)
 			.then(response => {
 				if (!response.ok) {
 					throw Error(response.statusText);

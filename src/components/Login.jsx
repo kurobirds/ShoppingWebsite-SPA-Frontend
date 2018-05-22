@@ -26,7 +26,7 @@ class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			endpoint: "login",
+			endpoint: "sign-in",
 		};
 	}
 	handleSubmit = e => {

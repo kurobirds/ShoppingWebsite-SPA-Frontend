@@ -41,15 +41,9 @@ export function categoriesFetchDataSuccess(categories) {
 }
 
 export function categoriesFetchData(url) {
-	const token = localStorage.getItem("token") || null;
-	const config = {
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	};
 	return dispatch => {
 		dispatch(categoriesIsLoading(true));
-		fetch(url, config)
+		fetch(url)
 			.then(response => {
 				if (!response.ok) {
 					throw Error(response.statusText);

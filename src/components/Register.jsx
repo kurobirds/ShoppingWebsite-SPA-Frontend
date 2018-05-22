@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link, Redirect } from "react-router-dom";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 const FormItem = Form.Item;
 
 // Styled-component
@@ -26,42 +26,74 @@ class RegisterForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isSuccess: false,
 			confirmDirty: false,
 			autoCompleteResult: [],
-			endpoint: "register",
+			endpoint: "sign-up",
 		};
 	}
 
 	handleSubmit = e => {
 		e.preventDefault();
+
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				console.log("Received values of form: ", values);
+				let config = {
+					method: "POST",
+					headers: { "Content-Type": " application/json" },
+					body: JSON.stringify(values),
+				};
+				fetch(`${this.props.base_url}${this.state.endpoint}`, config)
+					.then(res => res.json())
+					.then(data => {
+						message.success(data.message);
+						this.setState({ isSuccess: true });
+					})
+					.catch(err => console.log(err));
 			}
 		});
+	};
+
+	handleValidUsername = (rule, value, callback) => {
+		if (value) {
+			fetch(`${this.props.base_url}${this.state.endpoint}/${value}`)
+				.then(res => res.json())
+				.then(data => {
+					if (!data.ok) {
+						callback(data.message);
+					}
+					callback();
+				})
+				.catch(err => console.log(err));
+		} else {
+			callback();
+		}
 	};
 	handleConfirmBlur = e => {
 		const value = e.target.value;
 		this.setState({ confirmDirty: this.state.confirmDirty || !!value });
 	};
 	compareToFirstPassword = (rule, value, callback) => {
-		const form = this.props.form;
-		if (value && value !== form.getFieldValue("password")) {
+		const { getFieldValue } = this.props.form;
+		if (value && value !== getFieldValue("password")) {
 			callback("Two passwords that you enter is inconsistent!");
 		} else {
 			callback();
 		}
 	};
 	validateToNextPassword = (rule, value, callback) => {
-		const form = this.props.form;
+		const { validateFields } = this.props.form;
 		if (value && this.state.confirmDirty) {
-			form.validateFields(["confirm"], { force: true });
+			validateFields(["confirm"], { force: true });
 		}
 		callback();
 	};
 	render() {
 		if (this.props.isAuthenticated) {
 			return <Redirect to="/admin" />;
+		}
+		if (this.state.isSuccess) {
+			return <Redirect to="/" />;
 		}
 
 		const { getFieldDecorator } = this.props.form;
@@ -116,25 +148,28 @@ class RegisterForm extends Component {
 							>
 								<FormItem
 									{...formItemLayout}
-									label="E-mail"
+									label="Username"
 									hasFeedback
 								>
-									{getFieldDecorator("email", {
+									{getFieldDecorator("username", {
 										rules: [
-											{
-												type: "email",
-												message:
-													"The input is not valid E-mail!",
-											},
 											{
 												required: true,
 												message:
-													"Please input your E-mail!",
+													"Please input your username!",
+											},
+											{
+												validator: this
+													.handleValidUsername,
 											},
 										],
 									})(<Input />)}
 								</FormItem>
-								<FormItem {...formItemLayout} label="Password">
+								<FormItem
+									{...formItemLayout}
+									label="Password"
+									hasFeedback
+								>
 									{getFieldDecorator("password", {
 										rules: [
 											{
@@ -152,6 +187,7 @@ class RegisterForm extends Component {
 								<FormItem
 									{...formItemLayout}
 									label="Confirm Password"
+									hasFeedback
 								>
 									{getFieldDecorator("confirm", {
 										rules: [

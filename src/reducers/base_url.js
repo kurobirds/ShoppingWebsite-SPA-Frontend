@@ -1,5 +1,5 @@
 export default function endpoint(
-	state = "https://demo-meaurflrih.now.sh/api/",
+	state = "https://demo-dwuxszmlsz.now.sh/api/",
 	action
 ) {
 	switch (action.type) {
