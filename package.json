@@ -1,31 +1,31 @@
 {
-    "name": "Shopping Website - SPA",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "animate.css": "^3.6.1",
-        "antd": "^3.5.2",
-        "prop-types": "^15.6.1",
-        "react": "^16.3.2",
-        "react-dom": "^16.3.2",
-        "react-redux": "^5.0.7",
-        "react-router-dom": "^4.2.2",
-        "react-scripts": "1.1.4",
-        "redux": "^4.0.0",
-        "redux-thunk": "^2.2.0",
-        "styled-components": "^3.2.6"
-    },
-    "scripts": {
-        "start": "set port=8000 && react-app-rewired start",
-        "build": "react-app-rewired build",
-        "test": "react-app-rewired test --env=jsdom",
-        "eject": "react-scripts eject"
-    },
-    "devDependencies": {
-        "babel-plugin-import": "^1.7.0",
-        "eslint": "^4.19.1",
-        "eslint-plugin-react": "^7.8.2",
-        "react-app-rewire-less": "^2.1.1",
-        "react-app-rewired": "^1.5.2"
-    }
+	"name": "ShoppingWebsite-SPA",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"animate.css": "^3.6.1",
+		"antd": "^3.5.2",
+		"prop-types": "^15.6.1",
+		"react": "^16.3.2",
+		"react-dom": "^16.3.2",
+		"react-redux": "^5.0.7",
+		"react-router-dom": "^4.2.2",
+		"react-scripts": "1.1.4",
+		"redux": "^4.0.0",
+		"redux-thunk": "^2.2.0",
+		"styled-components": "^3.2.6"
+	},
+	"scripts": {
+		"start": "set port=8000 && react-app-rewired start",
+		"build": "react-app-rewired build",
+		"test": "react-app-rewired test --env=jsdom",
+		"eject": "react-scripts eject"
+	},
+	"devDependencies": {
+		"babel-plugin-import": "^1.7.0",
+		"eslint": "^4.19.1",
+		"eslint-plugin-react": "^7.8.2",
+		"react-app-rewire-less": "^2.1.1",
+		"react-app-rewired": "^1.5.2"
+	}
 }
