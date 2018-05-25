@@ -16,9 +16,9 @@ export default class Categories extends Component {
 			},
 			columns: [
 				{
-					title: "Category",
-					dataIndex: "CatName",
-					key: "category",
+					title: "Name",
+					dataIndex: "Name",
+					key: "Name",
 				},
 			],
 		};
@@ -34,7 +34,7 @@ export default class Categories extends Component {
 
 	setFormFields = data => {
 		this.formRef.props.form.setFieldsValue({
-			CatName: data.CatName,
+			Name: data.Name,
 		});
 	};
 

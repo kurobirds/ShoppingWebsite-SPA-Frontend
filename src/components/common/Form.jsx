@@ -19,7 +19,7 @@ class FormModal extends React.Component {
 					})(<Input />)}
 				</FormItem>
 				<FormItem label="Description">
-					{getFieldDecorator("description")(
+					{getFieldDecorator("Description")(
 						<Input type="textarea" />
 					)}
 				</FormItem>

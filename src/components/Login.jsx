@@ -32,7 +32,7 @@ class LoginForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
-			if (values.username && values.password) {
+			if (values.Username && values.Password) {
 				this.props.loginUser(
 					`${this.props.base_url}${this.state.endpoint}`,
 					values
@@ -86,12 +86,12 @@ class LoginForm extends Component {
 								}}
 							>
 								<FormItem hasFeedback>
-									{getFieldDecorator("username", {
+									{getFieldDecorator("Username", {
 										rules: [
 											{
 												required: true,
 												message:
-													"Please input your username!",
+													"Please input your Username!",
 											},
 										],
 									})(
@@ -110,7 +110,7 @@ class LoginForm extends Component {
 									)}
 								</FormItem>
 								<FormItem hasFeedback>
-									{getFieldDecorator("password", {
+									{getFieldDecorator("Password", {
 										rules: [
 											{
 												required: true,

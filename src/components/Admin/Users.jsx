@@ -18,23 +18,23 @@ export default class Users extends Component {
 			columns: [
 				{
 					title: "Username",
-					dataIndex: "username",
-					key: "username",
+					dataIndex: "Username",
+					key: "Username",
 				},
 				{
 					title: "Password",
-					dataIndex: "password",
-					key: "password",
+					dataIndex: "Password",
+					key: "Password",
 				},
 				{
 					title: "Name",
-					dataIndex: "name",
-					key: "name",
+					dataIndex: "Name",
+					key: "Name",
 				},
 				{
 					title: "Email",
-					dataIndex: "email",
-					key: "email",
+					dataIndex: "Email",
+					key: "Email",
 				},
 				{
 					title: "Day of Birth",
@@ -43,8 +43,8 @@ export default class Users extends Component {
 				},
 				{
 					title: "Permission",
-					dataIndex: "permission",
-					key: "permission",
+					dataIndex: "Permission",
+					key: "Permission",
 				},
 			],
 		};
@@ -60,12 +60,12 @@ export default class Users extends Component {
 
 	setFormFields = data => {
 		this.formRef.props.form.setFieldsValue({
-			username: data.username,
-			password: data.password,
-			name: data.name,
-			email: data.email,
+			Username: data.Username,
+			Password: data.Password,
+			Name: data.Name,
+			Email: data.Email,
 			DOB: data.DOB,
-			permission: data.permission,
+			Permission: data.Permission,
 		});
 	};
 

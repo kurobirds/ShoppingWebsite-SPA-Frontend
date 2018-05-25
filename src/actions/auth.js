@@ -1,3 +1,5 @@
+import { message } from "antd";
+
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -49,10 +51,11 @@ export function loginUser(url, creds) {
 					return Promise.reject(user);
 				} else {
 					localStorage.setItem("token", user.token);
+					message.success("Sign-in success");
 					dispatch(receiveLogin(user));
 				}
 			})
-			.catch(err => console.log("Error: ", err));
+			.catch(err => message.error(err.message));
 	};
 }
 

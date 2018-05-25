@@ -16,7 +16,7 @@ export default class FormCategories extends React.Component {
 		return (
 			<Form>
 				<FormItem {...formItemLayout} label="Name">
-					{getFieldDecorator("CatName", {
+					{getFieldDecorator("Name", {
 						rules: [
 							{
 								required: true,

@@ -18,8 +18,8 @@ export default class Users extends Component {
 			columns: [
 				{
 					title: "Name",
-					dataIndex: "NameNSX",
-					key: "name",
+					dataIndex: "Name",
+					key: "Name",
 				},
 			],
 		};
@@ -35,7 +35,7 @@ export default class Users extends Component {
 
 	setFormFields = data => {
 		this.formRef.props.form.setFieldsValue({
-			NameNSX: data.NameNSX,
+			Name: data.Name,
 		});
 	};
 

@@ -18,13 +18,13 @@ export default class Users extends Component {
 			columns: [
 				{
 					title: "Name",
-					dataIndex: "ProName",
-					key: "ProName",
+					dataIndex: "Name",
+					key: "Name",
 				},
 				{
-					title: "Tiny Description",
-					dataIndex: "TinyDes",
-					key: "TinyDes",
+					title: "Description",
+					dataIndex: "Description",
+					key: "Description",
 				},
 				{
 					title: "Price",
@@ -32,9 +32,14 @@ export default class Users extends Component {
 					key: "Price",
 				},
 				{
-					title: "CatID",
-					dataIndex: "CatID",
-					key: "CatID",
+					title: "Categories_Detail",
+					dataIndex: "Categories_Detail.Name",
+					key: "Categories_Detail",
+				},
+				{
+					title: "Producer_Detail",
+					dataIndex: "Producer_Detail.Name",
+					key: "Producer_Detail",
 				},
 				{
 					title: "Quantity",
@@ -42,24 +47,14 @@ export default class Users extends Component {
 					key: "Quantity",
 				},
 				{
-					title: "Amount",
-					dataIndex: "SLB",
-					key: "Amount",
+					title: "Sell_Quantity",
+					dataIndex: "Sell_Quantity",
+					key: "Sell_Quantity",
 				},
 				{
-					title: "LX",
-					dataIndex: "LX",
-					key: "LX",
-				},
-				{
-					title: "XX",
-					dataIndex: "XX",
-					key: "XX",
-				},
-				{
-					title: "SLAnh",
-					dataIndex: "SLAnh",
-					key: "SLAnh",
+					title: "View",
+					dataIndex: "View",
+					key: "View",
 				},
 			],
 		};
@@ -67,6 +62,8 @@ export default class Users extends Component {
 
 	componentDidMount() {
 		this.props.fetchData(`${this.state.endpoint}`);
+		this.props.fetchCategories(`${this.props.base_url}categories`);
+		this.props.fetchProducers(`${this.props.base_url}producers`);
 	}
 
 	handleAdd = () => {
@@ -75,16 +72,14 @@ export default class Users extends Component {
 
 	setFormFields = data => {
 		this.formRef.props.form.setFieldsValue({
-			ProName: data.ProName,
-			TinyDes: data.TinyDes,
+			Name: data.Name,
+			Description: data.Description,
 			Price: data.Price,
-			CatID: data.CatID,
-			IDNSX: data.IDNSX,
+			Categories_Detail: data.Categories_Detail._id,
+			Producer_Detail: data.Producer_Detail._id,
 			Quantity: data.Quantity,
-			SLB: data.SLB,
-			LX: data.LX,
-			XX: data.XX,
-			SLAnh: data.SLAnh,
+			Sell_Quantity: data.Sell_Quantity,
+			View: data.View,
 		});
 	};
 
@@ -138,6 +133,7 @@ export default class Users extends Component {
 		const id = this.state.formItem.id;
 		const token = localStorage.token;
 		form.validateFields((err, values) => {
+			console.log(values);
 			if (err) {
 				return;
 			}
@@ -151,6 +147,7 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
+					console.log(data);
 					this.props.updateProduct(data, this.state.formItem.index);
 					message.success("Edited");
 				})
@@ -181,6 +178,8 @@ export default class Users extends Component {
 					onOk={this.handleEditOK}
 					onCancel={this.handleEditCancel}
 					titleModal="Update"
+					listCategory={this.props.categories}
+					listProducer={this.props.producers}
 					type={2}
 				/>
 			</div>

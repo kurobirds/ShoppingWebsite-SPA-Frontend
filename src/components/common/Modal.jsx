@@ -34,7 +34,11 @@ class ModalComponent extends React.Component {
 				{type === 1 ? (
 					<FormItem formField={{ getFieldDecorator }} />
 				) : type === 2 ? (
-					<FormProducts formField={{ getFieldDecorator }} />
+					<FormProducts
+						formField={{ getFieldDecorator }}
+						listCategory={this.props.listCategory}
+						listProducer={this.props.listProducer}
+					/>
 				) : type === 3 ? (
 					<FormCategories formField={{ getFieldDecorator }} />
 				) : type === 4 ? (

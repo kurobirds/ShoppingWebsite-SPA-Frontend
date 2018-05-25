@@ -151,12 +151,12 @@ class RegisterForm extends Component {
 									label="Username"
 									hasFeedback
 								>
-									{getFieldDecorator("username", {
+									{getFieldDecorator("Username", {
 										rules: [
 											{
 												required: true,
 												message:
-													"Please input your username!",
+													"Please input your Username!",
 											},
 											{
 												validator: this
@@ -170,12 +170,12 @@ class RegisterForm extends Component {
 									label="Password"
 									hasFeedback
 								>
-									{getFieldDecorator("password", {
+									{getFieldDecorator("Password", {
 										rules: [
 											{
 												required: true,
 												message:
-													"Please input your password!",
+													"Please input your Password!",
 											},
 											{
 												validator: this
@@ -194,7 +194,7 @@ class RegisterForm extends Component {
 											{
 												required: true,
 												message:
-													"Please confirm your password!",
+													"Please confirm your Password!",
 											},
 											{
 												validator: this

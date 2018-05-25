@@ -16,7 +16,7 @@ export default class FormProducers extends React.Component {
 		return (
 			<Form>
 				<FormItem {...formItemLayout} label="Name">
-					{getFieldDecorator("NameNSX", {
+					{getFieldDecorator("Name", {
 						rules: [
 							{
 								required: true,
