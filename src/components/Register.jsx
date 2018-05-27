@@ -75,7 +75,7 @@ class RegisterForm extends Component {
 	};
 	compareToFirstPassword = (rule, value, callback) => {
 		const { getFieldValue } = this.props.form;
-		if (value && value !== getFieldValue("password")) {
+		if (value && value !== getFieldValue("Password")) {
 			callback("Two passwords that you enter is inconsistent!");
 		} else {
 			callback();
