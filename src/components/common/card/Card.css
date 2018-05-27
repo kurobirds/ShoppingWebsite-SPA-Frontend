@@ -101,7 +101,6 @@
 
 .snip1268 figcaption {
     padding: 20px 20px 30px;
-    height: 120px;
 }
 
 .snip1268 h2,
@@ -113,6 +112,7 @@
 .snip1268 h2 {
     margin-bottom: 10px;
     font-weight: 700;
+    height: 40px;
 }
 
 .snip1268 p {

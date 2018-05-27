@@ -61,14 +61,11 @@ export default class Dashboard extends Component {
 		});
 	};
 
-	componentDidMount() {
+	render() {
 		if (!this.props.isAuthenticated) {
 			message.error("Need login to access this site");
 			return <Redirect to="/" />;
 		}
-	}
-
-	render() {
 		return (
 			<Layout
 				style={
