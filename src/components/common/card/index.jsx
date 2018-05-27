@@ -11,7 +11,7 @@ export default class Card extends Component {
 						alt={this.props.infoCard.Name}
 					/>
 					<div className="icons">
-						<a onClick={() => console.log(this.props.index)}>
+						<a onClick={() => console.log(this.props.infoCard._id)}>
 							Read more
 						</a>
 					</div>

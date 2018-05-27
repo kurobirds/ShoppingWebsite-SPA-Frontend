@@ -28,9 +28,9 @@ export default class App extends Component {
 					xxl: 6,
 				}}
 				dataSource={this.props.products}
-				renderItem={(card, index) => (
+				renderItem={card => (
 					<List.Item>
-						<Card infoCard={card} index={index} />
+						<Card infoCard={card} />
 					</List.Item>
 				)}
 			/>

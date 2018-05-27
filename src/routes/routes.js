@@ -8,7 +8,7 @@ import App from "../pages/App";
 
 // Component
 const Home = () => (
-	<div>
+	<React.Fragment>
 		<Link to="/admin">
 			<div
 				style={{
@@ -36,12 +36,13 @@ const Home = () => (
 				Sign-up
 			</div>
 		</Link>
-	</div>
+		<App />
+	</React.Fragment>
 );
 
 const RouteConfig = () => (
 	<Switch>
-		<Route exact path="/" component={App} />
+		<Route exact path="/" component={Home} />
 		<Route path="/admin" component={Dashboard} />
 		<Route path="/sign-in" component={Login} />
 		<Route path="/sign-up" component={Register} />

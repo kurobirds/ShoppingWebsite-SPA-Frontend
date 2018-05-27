@@ -1,5 +1,5 @@
 export default function endpoint(
-	state = "https://demo-bmcaekckjp.now.sh/api/",
+	state = "https://demo-wpsxbjbthq.now.sh/api/",
 	// state = "http://localhost:3000/api/",
 	action
 ) {
