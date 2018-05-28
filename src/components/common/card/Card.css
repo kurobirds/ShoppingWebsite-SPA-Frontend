@@ -15,6 +15,10 @@
     line-height: 1.6em;
 }
 
+.snip1268:hover {
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
 .snip1268 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -31,6 +35,7 @@
     vertical-align: top;
     -webkit-transition: opacity 0.35s;
     transition: opacity 0.35s;
+    height: 220px;
 }
 
 .snip1268 .icons,
@@ -39,6 +44,7 @@
     left: 20px;
     right: 20px;
     opacity: 0;
+    border: 1px solid black;
 }
 
 .snip1268 .icons {

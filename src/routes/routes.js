@@ -5,6 +5,7 @@ import Dashboard from "../pages/Admin/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import App from "../pages/App";
+import SingleProduct from "../pages/SingleProduct";
 
 // Component
 const Home = () => (
@@ -42,10 +43,12 @@ const Home = () => (
 
 const RouteConfig = () => (
 	<Switch>
-		<Route exact path="/" component={Home} />
+		<Route exact path="/" component={App} />
 		<Route path="/admin" component={Dashboard} />
 		<Route path="/sign-in" component={Login} />
 		<Route path="/sign-up" component={Register} />
+
+		<Route path="/product/:id" component={SingleProduct} />
 		<Route component={NotFound} />
 	</Switch>
 );
