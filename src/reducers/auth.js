@@ -7,8 +7,9 @@ import {
 
 export default function auth(
 	state = {
+		token: localStorage.token || null,
 		isFetching: false,
-		isAuthenticated: localStorage.getItem("token") ? true : false,
+		isAuthenticated: localStorage.token ? true : false,
 	},
 	action
 ) {
@@ -24,6 +25,7 @@ export default function auth(
 	case LOGIN_SUCCESS:
 		return {
 			...state,
+			token: action.token,
 			isFetching: false,
 			isAuthenticated: true,
 			errorMessage: "",

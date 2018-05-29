@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from "react";
 import Card from "./common/card";
+import UserDropdown from "./common/Dropdown/UserDropdown";
+import GuestMenu from "./common/Menu/GuestMenu";
+import decode from "jwt-decode";
 import { Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, List } from "antd";
+import styled from "styled-components";
+import { Layout, Menu, Breadcrumb, List, message } from "antd";
 const { Header, Content, Footer } = Layout;
 
 export default class App extends Component {
@@ -11,9 +15,33 @@ export default class App extends Component {
 		this.props.fetchProducers(`${this.props.base_url}producers`);
 	}
 
+	handleMenuClick = e => {
+		switch (e.key) {
+			case "1":
+				message.info(`Clicked ${e.item.props.children}`);
+				break;
+			case "3":
+				this.props.logoutUser();
+				message.success("Logout success");
+				break;
+			default:
+				console.log(`Clicked ${e.item.props.children}`);
+				break;
+		}
+	};
+
+	menu = (
+		<Menu onClick={this.handleMenuClick}>
+			<Menu.Item key="1">About</Menu.Item>
+			<Menu.Item key="2">
+				<Link to="/admin">Dashboard</Link>
+			</Menu.Item>
+			<Menu.Item key="3">Logout</Menu.Item>
+		</Menu>
+	);
+
 	render() {
 		let products = this.props.products;
-
 		return (
 			<Fragment>
 				<Layout>
@@ -33,45 +61,14 @@ export default class App extends Component {
 								float: "left",
 							}}
 						/>
-						<Menu
-							theme="dark"
-							mode="horizontal"
-							style={{ lineHeight: "64px", float: "right" }}
-						>
-							<Menu.Item key="1">
-								<Link to="/admin">
-									<div
-										style={{
-											fontSize: "16px",
-										}}
-									>
-										Admin
-									</div>
-								</Link>
-							</Menu.Item>
-							<Menu.Item key="2">
-								<Link to="/sign-in">
-									<div
-										style={{
-											fontSize: "16px",
-										}}
-									>
-										Sign-in
-									</div>
-								</Link>
-							</Menu.Item>
-							<Menu.Item key="3">
-								<Link to="/sign-up">
-									<div
-										style={{
-											fontSize: "16px",
-										}}
-									>
-										Sign-up
-									</div>
-								</Link>
-							</Menu.Item>
-						</Menu>
+						{this.props.isAuthenticated ? (
+							<UserDropdown
+								menu={this.menu}
+								handleMenuClick={this.handleMenuClick}
+							/>
+						) : (
+							<GuestMenu />
+						)}
 					</Header>
 					<Content style={{ padding: "0 50px", marginTop: 64 }}>
 						<Breadcrumb style={{ margin: "16px 0" }}>

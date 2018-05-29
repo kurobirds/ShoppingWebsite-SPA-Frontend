@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UserDropDown from "../common/Dropdown/UserDropdown";
 import styled from "styled-components";
 import Main from "../../routes/dashboard";
 import Navigation from "../Navigation";
@@ -15,15 +16,6 @@ const StyledIcon = styled(Icon)`
 	transition: color 0.3s;
 	&: hover {
 		color: #1da57a;
-	}
-`;
-
-const StyledAvatar = styled(Avatar)`
-	float: right;
-	margin: 12px 40px 0 0 !important;
-	cursor: pointer;
-	&: hover {
-		background-color: #1da57a;
 	}
 `;
 
@@ -64,7 +56,7 @@ export default class Dashboard extends Component {
 
 	isTokenExpired = () => {
 		try {
-			const decoded = decode(localStorage.token);
+			const decoded = decode(this.props.token);
 			if (decoded.exp < Date.now() / 1000) {
 				return true;
 			} else return false;
@@ -75,7 +67,7 @@ export default class Dashboard extends Component {
 
 	isAdmin = () => {
 		try {
-			const decoded = decode(localStorage.token);
+			const decoded = decode(this.props.token);
 			if (decoded.Permission === 1) {
 				return true;
 			} else return false;
@@ -92,16 +84,17 @@ export default class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		!this.props.isAuthenticated &&
+		if (!this.props.isAuthenticated) {
 			message.error("Need login to access this site");
-
-		if (this.isTokenExpired()) {
-			message.error("Token expired");
-			this.props.logoutUser();
-		}
-
-		if (!this.isAdmin()) {
-			message.error("This site need Admin Permission");
+		} else {
+			if (this.isTokenExpired()) {
+				message.error("Token expired");
+				this.props.logoutUser();
+			} else {
+				if (!this.isAdmin()) {
+					message.error("This site need Admin Permission");
+				}
+			}
 		}
 	}
 
@@ -141,12 +134,10 @@ export default class Dashboard extends Component {
 								}
 								onClick={this.toggle}
 							/>
-							<Dropdown
-								overlay={this.menu}
-								placement="bottomCenter"
-							>
-								<StyledAvatar size="large" icon="user" />
-							</Dropdown>
+							<UserDropDown
+								menu={this.menu}
+								handleMenuClick={this.handleMenuClick}
+							/>
 						</div>
 					</Header>
 					<Content

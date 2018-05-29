@@ -7,8 +7,6 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 function requestLogin(creds) {
 	return {
 		type: LOGIN_REQUEST,
-		isFetching: true,
-		isAuthenticated: false,
 		creds,
 	};
 }
@@ -16,8 +14,6 @@ function requestLogin(creds) {
 function receiveLogin(user) {
 	return {
 		type: LOGIN_SUCCESS,
-		isFetching: false,
-		isAuthenticated: true,
 		token: user.token,
 	};
 }
@@ -25,8 +21,6 @@ function receiveLogin(user) {
 function loginError(message) {
 	return {
 		type: LOGIN_FAILURE,
-		isFetching: false,
-		isAuthenticated: false,
 		message,
 	};
 }

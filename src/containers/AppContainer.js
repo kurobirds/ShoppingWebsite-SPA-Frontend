@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { productsFetchData } from "../actions/products";
 import { categoriesFetchData } from "../actions/categories";
 import { producersFetchData } from "../actions/producers";
+import { logoutUser } from "../actions/auth";
 import { withRouter } from "react-router-dom";
 import App from "../components/App";
 
@@ -11,6 +12,8 @@ const mapStateToProps = state => {
 		categories: state.categories,
 		producers: state.producers,
 		base_url: state.base_url,
+		isAuthenticated: state.auth.isAuthenticated,
+		token: state.auth.token,
 	};
 };
 
@@ -19,6 +22,7 @@ const mapDispatchToProps = dispatch => {
 		fetchProducts: url => dispatch(productsFetchData(url)),
 		fetchCategories: url => dispatch(categoriesFetchData(url)),
 		fetchProducers: url => dispatch(producersFetchData(url)),
+		logoutUser: () => dispatch(logoutUser()),
 	};
 };
 

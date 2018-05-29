@@ -89,10 +89,7 @@ class RegisterForm extends Component {
 		callback();
 	};
 	render() {
-		if (this.props.isAuthenticated) {
-			return <Redirect to="/admin" />;
-		}
-		if (this.state.isSuccess) {
+		if (this.props.isAuthenticated || this.state.isSuccess) {
 			return <Redirect to="/" />;
 		}
 
