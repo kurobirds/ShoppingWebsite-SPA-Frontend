@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserDropDown from "../common/Dropdown/UserDropdown";
 import styled from "styled-components";
 import Main from "../../routes/dashboard";
-import Navigation from "../Navigation";
+import DashboardNavigation from "../common/Navigation/DashboardNavigation";
 import decode from "jwt-decode";
 import { Redirect } from "react-router-dom";
 import { Layout, Icon, Dropdown, Menu, message, Avatar } from "antd";
@@ -119,7 +119,7 @@ export default class Dashboard extends Component {
 						  }
 				}
 			>
-				<Navigation
+				<DashboardNavigation
 					collapsed={this.state.collapsed}
 					toggle={this.toggle}
 				/>

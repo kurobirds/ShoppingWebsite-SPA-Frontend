@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import { productsFetchData } from "../actions/products";
-import { categoriesFetchData } from "../actions/categories";
-import { producersFetchData } from "../actions/producers";
+import { productsFetchData } from "../../actions/products";
+import { categoriesFetchData } from "../../actions/categories";
+import { producersFetchData } from "../../actions/producers";
 import { withRouter } from "react-router-dom";
-import SingleProduct from "../components/common/SingleProduct";
+import HomeProduct from "../../components/common/Products/HomeProduct";
 
 const mapStateToProps = state => {
 	return {
@@ -23,5 +23,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
+	connect(mapStateToProps, mapDispatchToProps)(HomeProduct)
 );

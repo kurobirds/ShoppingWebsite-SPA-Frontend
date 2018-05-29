@@ -1,14 +1,28 @@
 import React, { Component, Fragment } from "react";
 import Card from "./common/card";
-import UserDropdown from "./common/Dropdown/UserDropdown";
-import GuestMenu from "./common/Menu/GuestMenu";
+import NormalNavigation from "./common/Navigation/NormalNavigation";
+import RouteProduct from "../routes/products";
+
 import decode from "jwt-decode";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Layout, Menu, Breadcrumb, List, message } from "antd";
-const { Header, Content, Footer } = Layout;
+
+const { Header, Content, Footer, Sider } = Layout;
+
+const breadcrumbNameMap = {
+	"/product": "Product List",
+};
+
+let location, pathSnippets, extraBreadcrumbItems, breadcrumbItems;
 
 export default class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isDark: true,
+		};
+	}
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
@@ -40,75 +54,78 @@ export default class App extends Component {
 		</Menu>
 	);
 
+	UNSAFE_componentWillUpdate(props) {
+		location = props.history.location;
+		pathSnippets = location.pathname.split("/").filter(i => i);
+		console.log(pathSnippets);
+		extraBreadcrumbItems = pathSnippets.map((_, index) => {
+			const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+			if (index === pathSnippets.length - 1) {
+				return (
+					<Breadcrumb.Item key={url}>
+						{index === 0 ? "Product List" : pathSnippets[index]}
+					</Breadcrumb.Item>
+				);
+			}
+			return (
+				<Breadcrumb.Item key={url}>
+					<Link to={url}>{breadcrumbNameMap[url]}</Link>
+				</Breadcrumb.Item>
+			);
+		});
+		breadcrumbItems = [
+			<Breadcrumb.Item key="home">
+				<Link to="/">Home</Link>
+			</Breadcrumb.Item>,
+		].concat(extraBreadcrumbItems);
+	}
+
 	render() {
 		let products = this.props.products;
 		return (
 			<Fragment>
 				<Layout>
-					<Header
-						style={{
-							zIndex: "9",
-							position: "fixed",
-							width: "100%",
-						}}
-					>
-						<div
+					<NormalNavigation
+						menu={this.menu}
+						handleMenuClick={this.handleMenuClick}
+						isAuthenticated={this.props.isAuthenticated}
+						isDark={this.state.isDark}
+					/>
+					<Layout>
+						<Sider
 							style={{
-								width: "120px",
-								height: "31px",
-								background: "rgba(255,255,255,.2)",
-								margin: "16px 24px 16px 0",
-								float: "left",
-							}}
-						/>
-						{this.props.isAuthenticated ? (
-							<UserDropdown
-								menu={this.menu}
-								handleMenuClick={this.handleMenuClick}
-							/>
-						) : (
-							<GuestMenu />
-						)}
-					</Header>
-					<Content style={{ padding: "0 50px", marginTop: 64 }}>
-						<Breadcrumb style={{ margin: "16px 0" }}>
-							<Breadcrumb.Item>Home</Breadcrumb.Item>
-							<Breadcrumb.Item>List</Breadcrumb.Item>
-							<Breadcrumb.Item>App</Breadcrumb.Item>
-						</Breadcrumb>
-						<div
-							style={{
-								background: "#fff",
-								padding: 24,
-								minHeight: 380,
+								overflow: "auto",
+								height: "100vh",
+								position: "fixed",
+								left: 0,
+								background: this.state.isDark ? null : "#fff",
 							}}
 						>
-							<List
-								pagination={{
-									showQuickJumper: true,
-									onChange: page => {
-										console.log(page);
-									},
-									pageSize: 12,
+							Sider
+						</Sider>
+						<Content
+							style={{
+								marginLeft: 200,
+								padding: "0 50px",
+								marginTop: 64,
+							}}
+						>
+							<Breadcrumb style={{ margin: "16px 0" }}>
+								{breadcrumbItems}
+							</Breadcrumb>
+
+							<div
+								style={{
+									background: "#fff",
+									padding: 24,
+									minHeight: 380,
 								}}
-								grid={{
-									gutter: 16,
-									xs: 1,
-									sm: 2,
-									md: 4,
-									lg: 4,
-									xl: 6,
-									xxl: 6,
-								}}
-								dataSource={products}
-								renderItem={card => (
-									<List.Item>
-										<Card infoCard={card} />
-									</List.Item>
-								)}
-							/>
-						</div>
-					</Content>
+							>
+								<RouteProduct products={products} />
+							</div>
+						</Content>
+					</Layout>
+
 					<Footer style={{ textAlign: "center" }}>
 						Ant Design ©2016 Created by Ant UED
 					</Footer>

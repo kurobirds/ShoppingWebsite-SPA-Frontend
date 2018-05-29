@@ -6,7 +6,7 @@ export default class GuestMenu extends Component {
 	render() {
 		return (
 			<Menu
-				theme="dark"
+				theme={this.props.isDark ? "dark" : "light"}
 				mode="horizontal"
 				style={{ lineHeight: "64px", float: "right" }}
 			>

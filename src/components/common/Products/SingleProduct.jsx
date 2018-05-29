@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-export default class Product extends Component {
+
+export default class SingleProduct extends Component {
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
@@ -11,7 +12,6 @@ export default class Product extends Component {
 			element => element._id === this.props.match.params.id
 		);
 		const listImage = [];
-		console.log(product);
 		if (product.length > 0) {
 			for (let i = 0; i < product[0].Images.length; i++) {
 				const element = product[0].Images[i];
