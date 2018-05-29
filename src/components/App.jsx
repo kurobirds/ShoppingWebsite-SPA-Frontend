@@ -56,8 +56,9 @@ export default class App extends Component {
 
 	UNSAFE_componentWillUpdate(props) {
 		location = props.history.location;
+
 		pathSnippets = location.pathname.split("/").filter(i => i);
-		console.log(pathSnippets);
+
 		extraBreadcrumbItems = pathSnippets.map((_, index) => {
 			const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
 			if (index === pathSnippets.length - 1) {
@@ -75,9 +76,14 @@ export default class App extends Component {
 		});
 		breadcrumbItems = [
 			<Breadcrumb.Item key="home">
-				<Link to="/">Home</Link>
+				{extraBreadcrumbItems.length === 0 ? (
+					"Home"
+				) : (
+					<Link to="/">Home</Link>
+				)}
 			</Breadcrumb.Item>,
-		].concat(extraBreadcrumbItems);
+			...extraBreadcrumbItems,
+		];
 	}
 
 	render() {
