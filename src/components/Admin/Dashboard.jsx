@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Main from "../../routes/dashboard";
 import Navigation from "../Navigation";
+import decode from "jwt-decode";
 import { Redirect } from "react-router-dom";
 import { Layout, Icon, Dropdown, Menu, message, Avatar } from "antd";
 const { Header, Content, Footer } = Layout;
@@ -61,11 +62,58 @@ export default class Dashboard extends Component {
 		});
 	};
 
+	isTokenExpired = () => {
+		try {
+			const decoded = decode(localStorage.token);
+			if (decoded.exp < Date.now() / 1000) {
+				return true;
+			} else return false;
+		} catch (err) {
+			return false;
+		}
+	};
+
+	isAdmin = () => {
+		try {
+			const decoded = decode(localStorage.token);
+			if (decoded.Permission === 1) {
+				return true;
+			} else return false;
+		} catch (err) {
+			return false;
+		}
+	};
+
+	componentDidUpdate() {
+		if (this.isTokenExpired()) {
+			message.error("Token expired");
+			this.props.logoutUser();
+		}
+	}
+
+	componentDidMount() {
+		!this.props.isAuthenticated &&
+			message.error("Need login to access this site");
+
+		if (this.isTokenExpired()) {
+			message.error("Token expired");
+			this.props.logoutUser();
+		}
+
+		if (!this.isAdmin()) {
+			message.error("This site need Admin Permission");
+		}
+	}
+
 	render() {
 		if (!this.props.isAuthenticated) {
-			message.error("Need login to access this site");
 			return <Redirect to="/" />;
 		}
+
+		if (!this.isAdmin()) {
+			return <Redirect to="/" />;
+		}
+
 		return (
 			<Layout
 				style={

@@ -23,6 +23,7 @@ export default class Product extends Component {
 							width: "320px",
 						}}
 						src={element}
+						alt={product[0].Name}
 					/>
 				);
 			}

@@ -43,7 +43,7 @@ class LoginForm extends Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		if (this.props.isAuthenticated) {
-			return <Redirect to="/admin" />;
+			return <Redirect to="/" />;
 		}
 		return (
 			<div
