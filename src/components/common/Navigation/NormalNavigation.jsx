@@ -7,7 +7,10 @@ const { Header } = Layout;
 export default class NormalNavigation extends Component {
 	render() {
 		const carts = this.props.carts || [];
-		const cartsLength = carts.length;
+		let cartsLength = 0;
+		for (const index in carts) {
+			cartsLength += carts[index].quantity;
+		}
 		return (
 			<Header
 				style={{
