@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
-import { Carousel, Row, Col, Input, InputNumber, Icon, Button } from "antd";
+import { Carousel, Row, Col, Input, Button } from "antd";
 const InputGroup = Input.Group;
 
 const Name = styled.h1`
@@ -148,7 +148,7 @@ export default class SingleProduct extends Component {
 								>
 									Description
 								</Name>
-								<Name>{product[0].Description}</Name>
+								<Detail>{product[0].Description}</Detail>
 							</Fragment>
 						)}
 					</Col>
