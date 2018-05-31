@@ -23,7 +23,7 @@ export default function carts(
 		}
 
 		if (!duplicate) {
-			action.cart.quantity = 1;
+			action.cart.quantity = action.quantity || 1;
 			newState.push(action.cart);
 		}
 

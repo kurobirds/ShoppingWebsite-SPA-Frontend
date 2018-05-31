@@ -53,8 +53,7 @@ html {
 }
 
 .ant-carousel {
-    width: 500px;
-    height: 500px;
+    margin-right: 24px !important;
 }
 
 .ant-carousel .slick-slide {
