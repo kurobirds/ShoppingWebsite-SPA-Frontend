@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => {
 		fetchProducts: url => dispatch(productsFetchData(url)),
 		fetchCategories: url => dispatch(categoriesFetchData(url)),
 		fetchProducers: url => dispatch(producersFetchData(url)),
-		addCart: item => dispatch(addCart(item)),
+		addCart: (item, quantity) => dispatch(addCart(item, quantity)),
 		deleteCart: id => dispatch(deleteCart(id)),
 		updateCart: (item, index) => dispatch(updateCart(item, index)),
 	};

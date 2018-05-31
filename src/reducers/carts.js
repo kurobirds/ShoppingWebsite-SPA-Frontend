@@ -5,8 +5,33 @@ export default function carts(
 	action
 ) {
 	switch (action.type) {
-	case ADD_CART:
-		return [...state, action.payload];
+	case ADD_CART: {
+		const newState = [...state];
+
+		let duplicate = false;
+
+		for (const index in newState) {
+			if (newState[index]._id === action.cart._id) {
+				duplicate = true;
+
+				const currentQuantity = newState[index].quantity;
+				const newQuantity = currentQuantity + action.quantity;
+
+				newState[index].quantity = newQuantity;
+				break;
+			}
+		}
+
+		if (!duplicate) {
+			action.cart.quantity = 1;
+			newState.push(action.cart);
+		}
+
+		localStorage.setItem("carts", JSON.stringify(newState));
+
+		return newState;
+	}
+
 	case UPDATE_CART:
 		return state.filter(cart => cart._id !== action.payload);
 	case DELETE_CART: {

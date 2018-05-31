@@ -21,17 +21,14 @@ export default class Card extends Component {
 					<div
 						className="add-to-cart"
 						onClick={() => {
-							const product = this.props.infoCard;
-							let carts = JSON.parse(localStorage.carts || "[]");
+							const infoCard = this.props.infoCard;
 
-							carts.push(product);
+							const product = {
+								_id: infoCard._id,
+								Name: infoCard.Name,
+							};
 
-							localStorage.setItem(
-								"carts",
-								JSON.stringify(carts)
-							);
-
-							this.props.addCart(product);
+							this.props.addCart(product, 1);
 						}}
 					>
 						Add to Cart
