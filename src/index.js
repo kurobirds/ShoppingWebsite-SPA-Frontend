@@ -8,6 +8,8 @@ import Route from "./routes/routes";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 
+require("./helpers");
+
 const store = configureStore();
 
 store.subscribe(() => {

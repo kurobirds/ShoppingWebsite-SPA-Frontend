@@ -6,7 +6,6 @@ const { Header } = Layout;
 
 export default class NormalNavigation extends Component {
 	render() {
-		console.log(this.props);
 		const carts = this.props.carts || [];
 		const cartsLength = carts.length;
 		return (

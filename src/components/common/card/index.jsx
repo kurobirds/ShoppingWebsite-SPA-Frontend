@@ -39,7 +39,9 @@ export default class Card extends Component {
 				</div>
 				<figcaption>
 					<h2>{this.props.infoCard.Name}</h2>
-					<div className="price">${this.props.infoCard.Price}</div>
+					<div className="price">
+						{Number(this.props.infoCard.Price).formatVND()}
+					</div>
 				</figcaption>
 			</figure>
 		);

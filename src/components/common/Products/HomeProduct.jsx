@@ -4,7 +4,6 @@ import { List } from "antd";
 
 export default class HomeProduct extends Component {
 	render() {
-		console.log(this.props);
 		return (
 			<List
 				pagination={{

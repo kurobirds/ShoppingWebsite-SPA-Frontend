@@ -1,5 +1,19 @@
 import React, { Component, Fragment } from "react";
-import { Carousel } from "antd";
+import { Carousel, Row, Col } from "antd";
+import styled from "styled-components";
+
+const Title = styled.h1`
+	font-size: 26px;
+	font-weight: 450;
+	line-height: 1.125;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+`;
+
+const Detail = styled.p`
+	font-size: 16px;
+	font-weight: 400px;
+`;
 
 export default class SingleProduct extends Component {
 	componentDidMount() {
@@ -24,21 +38,33 @@ export default class SingleProduct extends Component {
 
 		return (
 			<Fragment>
-				{product[0] ? `ID: ${product[0]._id}` : ""}
-				<br />
-				{product[0] ? `Name: ${product[0].Name}` : ""}
-				<br />
-				{product[0] ? `Description: ${product[0].Description}` : ""}
-				<br />
-				{product[0] ? `Price: ${product[0].Price}` : ""}
-				<br />
-				{product[0] ? `Quantity: ${product[0].Quantity}` : ""}
-				<br />
-				{product[0] ? `Sell_Quantity: ${product[0].Sell_Quantity}` : ""}
-				<br />
-				<Carousel autoplay swipeToSlide="true">
-					{listImage.map(element => element)}
-				</Carousel>
+				<Row>
+					<Col span={12}>
+						<Carousel autoplay swipeToSlide="true">
+							{listImage.map(element => element)}
+						</Carousel>
+					</Col>
+					<Col span={12}>
+						{!product[0] ? null : (
+							<Fragment>
+								<Title>{product[0].Name}</Title>
+								<Title>
+									{Number(product[0].Price).formatVND()}
+								</Title>
+								<Title
+									style={{
+										marginTop: "30px",
+										paddingTop: "30px",
+										borderTop: "1px solid #eee",
+									}}
+								>
+									Description
+								</Title>
+								<Detail>{product[0].Description}</Detail>
+							</Fragment>
+						)}
+					</Col>
+				</Row>
 			</Fragment>
 		);
 	}
