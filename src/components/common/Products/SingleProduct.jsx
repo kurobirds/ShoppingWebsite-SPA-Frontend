@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Carousel } from "antd";
 
 export default class SingleProduct extends Component {
 	componentDidMount() {
@@ -13,18 +14,10 @@ export default class SingleProduct extends Component {
 		);
 		const listImage = [];
 		if (product.length > 0) {
-			for (let i = 0; i < product[0].Images.length; i++) {
-				const element = product[0].Images[i];
+			for (const index in product[0].Images) {
+				const element = product[0].Images[index];
 				listImage.push(
-					<img
-						key={i}
-						style={{
-							height: "220px",
-							width: "320px",
-						}}
-						src={element}
-						alt={product[0].Name}
-					/>
+					<img key={index} src={element} alt={product[0].Name} />
 				);
 			}
 		}
@@ -43,7 +36,9 @@ export default class SingleProduct extends Component {
 				<br />
 				{product[0] ? `Sell_Quantity: ${product[0].Sell_Quantity}` : ""}
 				<br />
-				{listImage.map(element => element)}
+				<Carousel autoplay swipeToSlide="true">
+					{listImage.map(element => element)}
+				</Carousel>
 			</Fragment>
 		);
 	}

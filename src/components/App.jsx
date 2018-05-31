@@ -1,14 +1,11 @@
 import React, { Component, Fragment } from "react";
-import Card from "./common/card";
 import NormalNavigation from "./common/Navigation/NormalNavigation";
 import RouteProduct from "../routes/products";
 
-import decode from "jwt-decode";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Layout, Menu, Breadcrumb, List, message } from "antd";
+import { Layout, Menu, Breadcrumb, message } from "antd";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const breadcrumbNameMap = {
 	"/product": "Product List",
@@ -20,7 +17,7 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isDark: true,
+			isDark: false,
 		};
 	}
 	componentDidMount() {
@@ -96,6 +93,7 @@ export default class App extends Component {
 						handleMenuClick={this.handleMenuClick}
 						isAuthenticated={this.props.isAuthenticated}
 						isDark={this.state.isDark}
+						carts={this.props.carts}
 					/>
 					<Layout>
 						<Sider

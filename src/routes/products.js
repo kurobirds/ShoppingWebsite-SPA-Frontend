@@ -8,7 +8,7 @@ const RouteConfig = () => (
 	<React.Fragment>
 		<Switch>
 			<Route exact path="/" component={HomeProduct} />
-			<Route exact path="/product" component={() => <h2>Yolo</h2>} />
+			<Route exact path="/product" component={HomeProduct} />
 			<Route path="/product/:id" component={SingleProduct} />
 			<Route component={NotFound} />
 		</Switch>

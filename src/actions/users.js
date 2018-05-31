@@ -1,4 +1,4 @@
-export const ADD_USER = "ADD_CATEGORY";
+export const ADD_USER = "ADD_USER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const USERS_FETCH_DATA_SUCCESS = "USERS_FETCH_DATA_SUCCESS";

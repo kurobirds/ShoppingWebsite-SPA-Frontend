@@ -14,6 +14,7 @@ const mapStateToProps = state => {
 		base_url: state.base_url,
 		isAuthenticated: state.auth.isAuthenticated,
 		token: state.auth.token,
+		carts: state.carts,
 	};
 };
 

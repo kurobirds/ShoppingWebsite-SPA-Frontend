@@ -18,7 +18,24 @@ export default class Card extends Component {
 					<div className="icons">
 						<Link to={productLink}>Read more</Link>
 					</div>
-					<a className="add-to-cart">Add to Cart</a>
+					<div
+						className="add-to-cart"
+						onClick={() => {
+							const product = this.props.infoCard;
+							let carts = JSON.parse(localStorage.carts || "[]");
+
+							carts.push(product);
+
+							localStorage.setItem(
+								"carts",
+								JSON.stringify(carts)
+							);
+
+							this.props.addCart(product);
+						}}
+					>
+						Add to Cart
+					</div>
 				</div>
 				<figcaption>
 					<h2>{this.props.infoCard.Name}</h2>

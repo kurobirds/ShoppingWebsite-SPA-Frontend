@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Card from "../card";
 import { List } from "antd";
 
 export default class HomeProduct extends Component {
 	render() {
+		console.log(this.props);
 		return (
 			<List
 				pagination={{
@@ -25,7 +26,11 @@ export default class HomeProduct extends Component {
 				dataSource={this.props.products}
 				renderItem={card => (
 					<List.Item>
-						<Card match={this.props.match} infoCard={card} />
+						<Card
+							match={this.props.match}
+							infoCard={card}
+							addCart={this.props.addCart}
+						/>
 					</List.Item>
 				)}
 			/>

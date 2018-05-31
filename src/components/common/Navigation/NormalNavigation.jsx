@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import UserDropdown from "../Dropdown/UserDropdown";
 import GuestMenu from "../Menu/GuestMenu";
-import { Layout } from "antd";
+import { Layout, Badge, Icon } from "antd";
 const { Header } = Layout;
 
 export default class NormalNavigation extends Component {
 	render() {
+		console.log(this.props);
+		const carts = this.props.carts || [];
+		const cartsLength = carts.length;
 		return (
 			<Header
 				style={{
@@ -24,6 +27,12 @@ export default class NormalNavigation extends Component {
 						float: "left",
 					}}
 				/>
+				<Badge count={cartsLength}>
+					<Icon
+						type="shopping-cart"
+						style={{ fontSize: 24, marginRight: 8 }}
+					/>
+				</Badge>
 				{this.props.isAuthenticated ? (
 					<UserDropdown
 						menu={this.props.menu}

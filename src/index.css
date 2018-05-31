@@ -1,4 +1,5 @@
 @import "~animate.css/animate.min.css";
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 body,
 html {
     margin: 0;
@@ -49,4 +50,21 @@ html {
 
 .editable-add-btn {
     margin-bottom: 8px;
+}
+
+.ant-carousel {
+    width: 500px;
+    height: 500px;
+}
+
+.ant-carousel .slick-slide {
+    text-align: center;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+}
+
+.ant-carousel .slick-slide img {
+    height: 300px;
+    width: 300px;
 }

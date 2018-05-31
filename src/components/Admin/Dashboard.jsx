@@ -5,7 +5,7 @@ import Main from "../../routes/dashboard";
 import DashboardNavigation from "../common/Navigation/DashboardNavigation";
 import decode from "jwt-decode";
 import { Redirect } from "react-router-dom";
-import { Layout, Icon, Dropdown, Menu, message, Avatar } from "antd";
+import { Layout, Icon, Menu, message } from "antd";
 const { Header, Content, Footer } = Layout;
 
 const StyledIcon = styled(Icon)`
