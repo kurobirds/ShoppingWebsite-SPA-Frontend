@@ -1,9 +1,11 @@
 import React from "react";
-import { Form, Input } from "antd";
+import moment from "moment";
+import { Form, Input, DatePicker } from "antd";
 const FormItem = Form.Item;
 
 export default class FormUser extends React.Component {
 	render() {
+		const dateFormat = "YYYY-MM-DD";
 		const { getFieldDecorator } = this.props.formField;
 		const formItemLayout = {
 			labelCol: {
@@ -36,7 +38,9 @@ export default class FormUser extends React.Component {
 					{getFieldDecorator("Email")(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Day of Birth">
-					{getFieldDecorator("DOB")(<Input />)}
+					{getFieldDecorator("DOB")(
+						<DatePicker format={dateFormat} />
+					)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Permission">
 					{getFieldDecorator("Permission")(<Input />)}

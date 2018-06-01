@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
+import SpinnerInputNumber from "../SpinnerInputNumber";
 import { Carousel, Row, Col, Input, Button } from "antd";
 const InputGroup = Input.Group;
 
@@ -45,15 +46,39 @@ export default class SingleProduct extends Component {
 	};
 
 	addProductToCart = product => {
-		const infoCard = product[0];
+		const infoProduct = product[0];
 		const quantity = this.state.quantityValue;
 
 		const productItem = {
-			_id: infoCard._id,
-			Name: infoCard.Name,
+			_id: infoProduct._id,
+			Name: infoProduct.Name,
 		};
 
 		this.props.addCart(productItem, quantity);
+	};
+
+	spinnerInputOnChange = (type = 0, product) => {
+		const infoProduct = product[0];
+		let quantityValue = this.state.quantityValue;
+
+		switch (type) {
+			case 1:
+				if (quantityValue > 1) {
+					quantityValue--;
+				}
+
+				break;
+
+			default:
+				if (quantityValue < infoProduct.Quantity) {
+					quantityValue++;
+				}
+
+				break;
+		}
+		this.setState({
+			quantityValue,
+		});
 	};
 
 	render() {
@@ -94,36 +119,16 @@ export default class SingleProduct extends Component {
 								</Name>
 								<InputGroup compact>
 									<Col span={6}>
-										<InputGroup compact>
-											<Button icon="minus" />
-											<Input
-												style={{
-													width: "100px",
-													textAlign: "center",
-												}}
-												value={this.state.quantityValue}
-												defaultValue={
-													this.state.quantityValue
-												}
-												onChange={this.onChange}
-												onPressEnter={() =>
-													this.addProductToCart(
-														product
-													)
-												}
-											/>
-											<Button
-												icon="plus"
-												onClick={() => {
-													let quantityValue = this
-														.state.quantityValue;
-													quantityValue++;
-													this.setState({
-														quantityValue,
-													});
-												}}
-											/>
-										</InputGroup>
+										<SpinnerInputNumber
+											product={product}
+											quantityValue={
+												this.state.quantityValue
+											}
+											onChange={this.onChange}
+											spinnerInputOnChange={
+												this.spinnerInputOnChange
+											}
+										/>
 									</Col>
 									<Col span={6}>
 										<Button

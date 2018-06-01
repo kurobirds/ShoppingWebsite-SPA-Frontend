@@ -1,3 +1,4 @@
+import moment from "moment";
 export const ADD_USER = "ADD_USER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
@@ -57,7 +58,12 @@ export function usersFetchData(url) {
 				return response;
 			})
 			.then(response => response.json())
-			.then(users => dispatch(usersFetchDataSuccess(users)))
+			.then(users => {
+				users.map(element => {
+					element.DOB = moment.unix(element.DOB).format("YYYY-MM-DD");
+				});
+				dispatch(usersFetchDataSuccess(users));
+			})
 			.catch(err => console.log(err));
 	};
 }

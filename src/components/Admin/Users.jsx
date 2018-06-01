@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import Table from "../common/Table";
 import ModalComponent from "../common/Modal";
 
@@ -64,7 +65,7 @@ export default class Users extends Component {
 			Password: data.Password,
 			Name: data.Name,
 			Email: data.Email,
-			DOB: data.DOB,
+			DOB: moment.unix(data.DOB),
 			Permission: data.Permission,
 		});
 	};
@@ -89,6 +90,7 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
+					console.log(data);
 					this.setFormFields(data);
 				})
 				.catch(err => console.error(err));
@@ -127,6 +129,10 @@ export default class Users extends Component {
 			if (err) {
 				return;
 			}
+
+			// Moment to Unix
+			values.DOB = values.DOB.unix();
+
 			fetch(`${this.state.endpoint}/${id}`, {
 				method: "PUT",
 				headers: {
@@ -137,6 +143,7 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
+					data.DOB = moment.unix(data.DOB).format("YYYY-MM-DD");
 					this.props.updateUser(data, this.state.formItem.index);
 					message.success("Edited");
 				})
