@@ -31,7 +31,19 @@ export default class CardPopover extends Component {
 					itemLayout="horizontal"
 					dataSource={carts}
 					renderItem={item => (
-						<List.Item>
+						<List.Item
+							actions={[
+								<Button
+									type="danger"
+									onClick={() =>
+										this.props.deleteCart(item._id)
+									}
+									key={1}
+								>
+									Remove
+								</Button>,
+							]}
+						>
 							<List.Item.Meta
 								avatar={
 									<Avatar

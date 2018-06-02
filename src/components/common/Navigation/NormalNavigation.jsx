@@ -33,7 +33,12 @@ export default class NormalNavigation extends Component {
 				<Badge count={cartsLength}>
 					<Popover
 						placement="bottom"
-						content={<CartPopover carts={carts} />}
+						content={
+							<CartPopover
+								carts={carts}
+								deleteCart={this.props.deleteCart}
+							/>
+						}
 						trigger="click"
 					>
 						<Icon

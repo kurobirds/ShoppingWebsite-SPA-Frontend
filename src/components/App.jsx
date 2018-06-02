@@ -94,6 +94,7 @@ export default class App extends Component {
 						isAuthenticated={this.props.isAuthenticated}
 						isDark={this.state.isDark}
 						carts={this.props.carts}
+						deleteCart={this.props.deleteCart}
 					/>
 					<Layout>
 						<Sider

@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { productsFetchData } from "../actions/products";
 import { categoriesFetchData } from "../actions/categories";
 import { producersFetchData } from "../actions/producers";
+
+import { deleteCart } from "../actions/carts";
 import { logoutUser } from "../actions/auth";
 import { withRouter } from "react-router-dom";
 import App from "../components/App";
@@ -24,6 +26,7 @@ const mapDispatchToProps = dispatch => {
 		fetchCategories: url => dispatch(categoriesFetchData(url)),
 		fetchProducers: url => dispatch(producersFetchData(url)),
 		logoutUser: () => dispatch(logoutUser()),
+		deleteCart: id => dispatch(deleteCart(id)),
 	};
 };
 

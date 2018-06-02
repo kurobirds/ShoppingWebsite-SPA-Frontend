@@ -38,14 +38,17 @@ export default function carts(
 
 		return newState;
 	}
-
-	case UPDATE_CART:
-		return state.filter(cart => cart._id !== action.payload);
-	case DELETE_CART: {
+	case UPDATE_CART: {
 		const newState = [...state];
 		newState[action.index] = action.category;
 		return newState;
 	}
+	case DELETE_CART: {
+		let newState = state.filter(cart => cart._id !== action.payload);
+		localStorage.setItem("carts", JSON.stringify(newState));
+		return newState;
+	}
+
 	default:
 		return state;
 	}
