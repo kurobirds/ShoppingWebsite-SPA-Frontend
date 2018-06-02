@@ -59,7 +59,7 @@ export function usersFetchData(url) {
 			})
 			.then(response => response.json())
 			.then(users => {
-				users.map(element => {
+				users.forEach(element => {
 					element.DOB = moment.unix(element.DOB).format("YYYY-MM-DD");
 				});
 				dispatch(usersFetchDataSuccess(users));

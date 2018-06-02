@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import UserDropdown from "../Dropdown/UserDropdown";
 import GuestMenu from "../Menu/GuestMenu";
-import { Layout, Badge, Icon } from "antd";
+import CartPopover from "../CartPopover";
+import { Layout, Badge, Icon, Popover } from "antd";
 const { Header } = Layout;
 
 export default class NormalNavigation extends Component {
@@ -30,10 +31,20 @@ export default class NormalNavigation extends Component {
 					}}
 				/>
 				<Badge count={cartsLength}>
-					<Icon
-						type="shopping-cart"
-						style={{ fontSize: 24, marginRight: 8 }}
-					/>
+					<Popover
+						placement="bottom"
+						content={<CartPopover carts={carts} />}
+						trigger="click"
+					>
+						<Icon
+							type="shopping-cart"
+							style={{
+								fontSize: 24,
+								marginRight: 8,
+								cursor: "pointer",
+							}}
+						/>
+					</Popover>
 				</Badge>
 				{this.props.isAuthenticated ? (
 					<UserDropdown

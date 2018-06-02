@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import SpinnerInputNumber from "../SpinnerInputNumber";
-import { Carousel, Row, Col, Input, Button } from "antd";
+import { Carousel, Row, Col, Input, Button, Divider } from "antd";
 const InputGroup = Input.Group;
 
 const Name = styled.h1`
@@ -52,6 +52,8 @@ export default class SingleProduct extends Component {
 		const productItem = {
 			_id: infoProduct._id,
 			Name: infoProduct.Name,
+			Image: infoProduct.Images[0],
+			Price: infoProduct.Price,
 		};
 
 		this.props.addCart(productItem, quantity);
@@ -144,15 +146,9 @@ export default class SingleProduct extends Component {
 										</Button>
 									</Col>
 								</InputGroup>
-								<Name
-									style={{
-										marginTop: "30px",
-										paddingTop: "30px",
-										borderTop: "1px solid #eee",
-									}}
-								>
-									Description
-								</Name>
+
+								<Divider style={{ marginTop: "30px" }} />
+								<Name>Description</Name>
 								<Detail>{product[0].Description}</Detail>
 							</Fragment>
 						)}

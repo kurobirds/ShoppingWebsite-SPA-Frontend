@@ -26,6 +26,8 @@ export default class Card extends Component {
 							const product = {
 								_id: infoCard._id,
 								Name: infoCard.Name,
+								Image: infoCard.Images[0],
+								Price: infoCard.Price,
 							};
 
 							this.props.addCart(product, 1);

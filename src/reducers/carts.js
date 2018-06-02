@@ -14,10 +14,17 @@ export default function carts(
 			if (newState[index]._id === action.cart._id) {
 				duplicate = true;
 
+				// Quantity
 				const currentQuantity = newState[index].quantity;
 				const newQuantity = currentQuantity + action.quantity;
-
 				newState[index].quantity = newQuantity;
+
+				// Price
+
+				const basePrice = action.cart.Price;
+				const newPrice = basePrice * newQuantity;
+				newState[index].Price = newPrice;
+
 				break;
 			}
 		}

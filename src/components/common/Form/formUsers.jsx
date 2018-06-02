@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { Form, Input, DatePicker } from "antd";
 const FormItem = Form.Item;
 
