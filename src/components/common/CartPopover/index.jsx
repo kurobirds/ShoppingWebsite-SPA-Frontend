@@ -23,7 +23,7 @@ export default class CardPopover extends Component {
 									type="primary"
 									style={{ width: "100%" }}
 								>
-									CHECKOUT
+									<Link to="/checkout">CHECKOUT</Link>
 								</Button>
 							</div>
 						</React.Fragment>

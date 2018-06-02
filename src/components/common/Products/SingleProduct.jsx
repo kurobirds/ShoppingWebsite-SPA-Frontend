@@ -151,7 +151,11 @@ export default class SingleProduct extends Component {
 
 								<Divider style={{ marginTop: "30px" }} />
 								<Name>Description</Name>
-								<Detail>{product[0].Description}</Detail>
+								<Detail
+									dangerouslySetInnerHTML={{
+										__html: product[0].Description,
+									}}
+								/>
 							</Fragment>
 						)}
 					</Col>
