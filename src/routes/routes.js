@@ -10,9 +10,11 @@ const RouteConfig = () => (
 	<Switch>
 		<Route exact path="/" component={App} />
 		<Route path="/product" component={App} />
+		<Route path="/checkout" component={App} />
 		<Route path="/admin" component={Dashboard} />
 		<Route path="/sign-in" component={Login} />
 		<Route path="/sign-up" component={Register} />
+
 		<Route component={NotFound} />
 	</Switch>
 );

@@ -8,7 +8,12 @@ export default class GuestMenu extends Component {
 			<Menu
 				theme={this.props.isDark ? "dark" : "light"}
 				mode="horizontal"
-				style={{ lineHeight: "64px", float: "right" }}
+				style={{
+					lineHeight: "64px",
+					float: "right",
+					height: "99%",
+					border: "none",
+				}}
 			>
 				<Menu.Item key="1">
 					<Link to="/admin">

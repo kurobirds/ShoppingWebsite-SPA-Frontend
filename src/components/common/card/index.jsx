@@ -30,6 +30,7 @@ export default class Card extends Component {
 									infoCard.Images[0] ||
 									"https://static1.squarespace.com/static/5937e362be659441f72e7c12/t/595120eadb29d60c5983e4a2/1498489067243/Sorry-image-not-available.png",
 								Price: infoCard.Price,
+								Sell_Quantity: infoCard.Quantity,
 							};
 
 							this.props.addCart(product, 1);

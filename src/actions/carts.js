@@ -10,11 +10,11 @@ export function addCart(cart, quantity) {
 	};
 }
 
-export function updateCart(cart, index) {
+export function updateCart(cart, id) {
 	return {
 		type: UPDATE_CART,
 		cart,
-		index,
+		id,
 	};
 }
 

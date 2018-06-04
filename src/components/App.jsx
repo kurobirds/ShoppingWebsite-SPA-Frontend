@@ -3,9 +3,9 @@ import NormalNavigation from "./common/Navigation/NormalNavigation";
 import RouteProduct from "../routes/products";
 
 import { Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, message } from "antd";
+import { Layout, Menu, Breadcrumb, message, Row, Col, Checkbox } from "antd";
 
-const { Content, Footer, Sider } = Layout;
+const { Content, Footer } = Layout;
 
 const breadcrumbNameMap = {
 	"/product": "Product List",
@@ -61,7 +61,9 @@ export default class App extends Component {
 			if (index === pathSnippets.length - 1) {
 				return (
 					<Breadcrumb.Item key={url}>
-						{index === 0 ? "Product List" : pathSnippets[index]}
+						{pathSnippets[index] === "product"
+							? "Product List"
+							: pathSnippets[index]}
 					</Breadcrumb.Item>
 				);
 			}
@@ -85,6 +87,18 @@ export default class App extends Component {
 
 	render() {
 		let products = this.props.products;
+		let checkboxOption = this.props.categories.map(element => {
+			return {
+				label: element.Name,
+				value: element._id,
+			};
+		});
+		const checkboxStyle = {
+			display: "block",
+			height: "30px",
+			lineHeight: "30px",
+			marginLeft: "8px",
+		};
 		return (
 			<Fragment>
 				<Layout>
@@ -96,40 +110,63 @@ export default class App extends Component {
 						carts={this.props.carts}
 						deleteCart={this.props.deleteCart}
 					/>
-					<Layout>
-						<Sider
+					<Row
+						style={{
+							padding: "0 20px",
+							marginTop: 64,
+						}}
+					>
+						<Col
 							style={{
-								overflow: "auto",
-								height: "100vh",
-								position: "fixed",
-								left: 0,
-								background: this.state.isDark ? null : "#fff",
+								padding: "20px 20px 0px 0px",
 							}}
+							span={4}
 						>
-							Sider
-						</Sider>
-						<Content
-							style={{
-								marginLeft: 200,
-								padding: "0 50px",
-								marginTop: 64,
-							}}
-						>
-							<Breadcrumb style={{ margin: "16px 0" }}>
-								{breadcrumbItems}
-							</Breadcrumb>
-
-							<div
+							<Layout
 								style={{
 									background: "#fff",
-									padding: 24,
-									minHeight: 380,
 								}}
 							>
-								<RouteProduct products={products} />
-							</div>
-						</Content>
-					</Layout>
+								<Content>
+									<h3
+										style={{
+											margin: "8px 0 5px 8px",
+											fontWeight: "bold",
+										}}
+									>
+										Category
+									</h3>
+									{checkboxOption.map(element => (
+										<Checkbox
+											style={checkboxStyle}
+											key={element.value}
+										>
+											{element.label}
+										</Checkbox>
+									))}
+								</Content>
+							</Layout>
+						</Col>
+						<Col span={20}>
+							<Layout>
+								<Content>
+									<Breadcrumb style={{ margin: "16px 0" }}>
+										{breadcrumbItems}
+									</Breadcrumb>
+
+									<div
+										style={{
+											background: "#fff",
+											padding: 24,
+											minHeight: 380,
+										}}
+									>
+										<RouteProduct products={products} />
+									</div>
+								</Content>
+							</Layout>
+						</Col>
+					</Row>
 
 					<Footer style={{ textAlign: "center" }}>
 						Ant Design ©2016 Created by Ant UED

@@ -1,5 +1,5 @@
 import { ADD_CART, UPDATE_CART, DELETE_CART } from "../actions/carts";
-
+import { message } from "antd";
 export default function carts(
 	state = JSON.parse(localStorage.carts || "[]"),
 	action
@@ -16,11 +16,15 @@ export default function carts(
 
 				// Quantity
 				const currentQuantity = newState[index].quantity;
-				const newQuantity = currentQuantity + action.quantity;
+				let newQuantity = currentQuantity + action.quantity;
+
+				if (newQuantity > newState[index].Sell_Quantity) {
+					message.warning("Out of stock");
+					newQuantity = currentQuantity;
+				}
 				newState[index].quantity = newQuantity;
 
 				// Price
-
 				const basePrice = action.cart.Price;
 				const newPrice = basePrice * newQuantity;
 				newState[index].Price = newPrice;
@@ -40,7 +44,14 @@ export default function carts(
 	}
 	case UPDATE_CART: {
 		const newState = [...state];
-		newState[action.index] = action.category;
+		const index = newState.findIndex(
+			element => element._id === action.id
+		);
+
+		newState[index] = action.cart;
+
+		localStorage.setItem("carts", JSON.stringify(newState));
+
 		return newState;
 	}
 	case DELETE_CART: {
