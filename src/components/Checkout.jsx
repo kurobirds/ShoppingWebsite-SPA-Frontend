@@ -7,7 +7,6 @@ export default class Checkout extends Component {
 
 	render() {
 		const carts = this.props.carts;
-		carts.map(element => (element.key = element._id));
 		const Subtotal = carts.reduce((accumulator, currentValue) => {
 			return accumulator + currentValue.Price;
 		}, 0);
@@ -90,21 +89,22 @@ export default class Checkout extends Component {
 		];
 		return (
 			<Table
+				rowKey="_id"
 				dataSource={carts}
 				columns={columns}
 				pagination={false}
-				footer={() => {
-					return (
-						<React.Fragment>
-							<span
-								style={{ float: "right", marginRight: "12%" }}
-							>
-								<b style={{ marginRight: "50px" }}>Subtotal:</b>
-								{Subtotal.formatVND()}
-							</span>
-						</React.Fragment>
-					);
-				}}
+				footer={() => (
+					<div
+						style={{
+							textAlign: "right",
+							marginRight: "12%",
+							fontSize: "18px",
+						}}
+					>
+						<b style={{ marginRight: "50px" }}>Total:</b>
+						{Subtotal.formatVND()}
+					</div>
+				)}
 			/>
 		);
 	}
