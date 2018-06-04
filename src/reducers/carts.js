@@ -21,6 +21,8 @@ export default function carts(
 				if (newQuantity > newState[index].Sell_Quantity) {
 					message.warning("Out of stock");
 					newQuantity = currentQuantity;
+				} else {
+					message.success("Add Successfully");
 				}
 				newState[index].quantity = newQuantity;
 
@@ -36,6 +38,7 @@ export default function carts(
 		if (!duplicate) {
 			action.cart.quantity = action.quantity || 1;
 			newState.push(action.cart);
+			message.success("Add Successfully");
 		}
 
 		localStorage.setItem("carts", JSON.stringify(newState));
@@ -52,11 +55,14 @@ export default function carts(
 
 		localStorage.setItem("carts", JSON.stringify(newState));
 
+		message.success("Update Successfully");
+
 		return newState;
 	}
 	case DELETE_CART: {
 		let newState = state.filter(cart => cart._id !== action.payload);
 		localStorage.setItem("carts", JSON.stringify(newState));
+		message.success("Delete Successfully");
 		return newState;
 	}
 
