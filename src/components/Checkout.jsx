@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Table, Icon, InputNumber } from "antd";
+import { Button, notification } from "antd";
+import decode from "jwt-decode";
+import moment from "moment";
+
 export default class Checkout extends Component {
 	onChange = value => {
 		console.log("changed", value);
@@ -103,6 +107,63 @@ export default class Checkout extends Component {
 					>
 						<b style={{ marginRight: "50px" }}>Total:</b>
 						{Subtotal.formatVND()}
+						<br />
+						<Button
+							type="primary"
+							style={{
+								marginTop: "10px",
+								width: "16%",
+							}}
+							onClick={() => {
+								if (!this.props.isAuthenticated) {
+									return;
+								}
+								const decoded = decode(localStorage.token);
+
+								const ListProduct = carts.map(
+									element => element._id
+								);
+
+								if (ListProduct.length === 0) {
+									notification.warning({
+										message: "Nothing in your cart",
+										description:
+											"You need more than 1 product in your cart to checkout.",
+										duration: 2,
+									});
+									return;
+								}
+
+								const order = {
+									OrderDate: moment().unix(),
+									UserDetail: decoded._id,
+									ListProduct,
+									Price: Subtotal,
+									Status: 0,
+								};
+
+								fetch(`${this.props.base_url}orders`, {
+									method: "POST",
+									headers: {
+										"Content-Type": "application/json",
+									},
+									body: JSON.stringify(order),
+								})
+									.then(response => response.json())
+									.then(data => {
+										console.log(data);
+										notification.success({
+											message: "Checkout Successfully",
+											description:
+												"We received your order but need time your we check it.",
+										});
+										this.props.cleanCart();
+									})
+									.catch(err => console.error(err));
+							}}
+						>
+							CHECKOUT
+						</Button>
 					</div>
 				)}
 			/>

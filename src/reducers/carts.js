@@ -1,4 +1,9 @@
-import { ADD_CART, UPDATE_CART, DELETE_CART } from "../actions/carts";
+import {
+	ADD_CART,
+	UPDATE_CART,
+	DELETE_CART,
+	CLEAN_CART,
+} from "../actions/carts";
 import { message } from "antd";
 export default function carts(
 	state = JSON.parse(localStorage.carts || "[]"),
@@ -64,6 +69,11 @@ export default function carts(
 		localStorage.setItem("carts", JSON.stringify(newState));
 		message.success("Delete Successfully");
 		return newState;
+	}
+
+	case CLEAN_CART: {
+		localStorage.removeItem("carts");
+		return [];
 	}
 
 	default:
