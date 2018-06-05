@@ -1,6 +1,7 @@
 import React from "react";
-import { Form, Input, DatePicker } from "antd";
+import { Form, Input, DatePicker, Radio } from "antd";
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 export default class FormUser extends React.Component {
 	render() {
@@ -42,7 +43,12 @@ export default class FormUser extends React.Component {
 					)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Permission">
-					{getFieldDecorator("Permission")(<Input />)}
+					{getFieldDecorator("Permission")(
+						<RadioGroup>
+							<Radio value={0}>User</Radio>
+							<Radio value={1}>Admin</Radio>
+						</RadioGroup>
+					)}
 				</FormItem>
 			</Form>
 		);
