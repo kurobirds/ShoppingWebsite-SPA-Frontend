@@ -4,7 +4,6 @@ import { Table, Badge, Select, message } from "antd";
 const Option = Select.Option;
 
 const expandedRowRender = props => {
-	console.log(props);
 	const columns = [
 		{
 			title: "ID",
@@ -16,11 +15,6 @@ const expandedRowRender = props => {
 			title: "Name",
 			dataIndex: "Product_Info.Name",
 			key: "Name",
-		},
-		{
-			title: "Stock_Quantity",
-			dataIndex: "Product_Info.Stock_Quantity",
-			key: "Stock_Quantity",
 		},
 		{
 			title: "Select_Quantity",
@@ -120,20 +114,23 @@ export default class Orders extends Component {
 											);
 									}}
 								>
+									<Option value={0}>
+										<Badge
+											style={{ paddingLeft: "10px" }}
+											status="error"
+										/>On Hold
+									</Option>
 									<Option value={1}>
-										<Badge status="success" />Success
+										<Badge
+											style={{ paddingLeft: "10px" }}
+											status="success"
+										/>Shipped
 									</Option>
 									<Option value={2}>
-										<Badge status="error" />Error
-									</Option>
-									<Option value={0}>
-										<Badge status="default" />Default
-									</Option>
-									<Option value={3}>
-										<Badge status="processing" />Processing
-									</Option>
-									<Option value={4}>
-										<Badge status="warning" />Warning
+										<Badge
+											style={{ paddingLeft: "10px" }}
+											status="processing"
+										/>Processing
 									</Option>
 								</Select>
 							</span>

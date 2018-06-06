@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import SpinnerInputNumber from "../SpinnerInputNumber";
-import { Carousel, Row, Col, Input, Button, Divider } from "antd";
+import { Carousel, Row, Col, Input, Button, Divider, notification } from "antd";
 const InputGroup = Input.Group;
 
 const Name = styled.h1`
@@ -56,7 +56,16 @@ export default class SingleProduct extends Component {
 			value === "" ||
 			value === "-"
 		) {
-			this.setState({ quantityValue: Number(value) });
+			const product = this.state.product;
+			if (value <= product.Stock_Quantity) {
+				this.setState({ quantityValue: Number(value) });
+			} else {
+				this.setState({ quantityValue: 1 });
+				notification.warning({
+					message: "Out of Stock",
+					description: `Our Stock is ${product.Stock_Quantity}`,
+				});
+			}
 		}
 	};
 

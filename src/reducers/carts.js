@@ -41,9 +41,13 @@ export default function carts(
 		}
 
 		if (!duplicate) {
-			action.cart.Select_Quantity = action.Select_Quantity || 1;
-			newState.push(action.cart);
-			message.success("Add Successfully");
+			if (action.cart.Stock_Quantity >= action.cart.Select_Quantity) {
+				action.cart.Select_Quantity = action.Select_Quantity || 1;
+				newState.push(action.cart);
+				message.success("Add Successfully");
+			} else {
+				message.warning("Out of stock");
+			}
 		}
 
 		localStorage.setItem("carts", JSON.stringify(newState));
