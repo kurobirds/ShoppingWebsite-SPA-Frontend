@@ -4,41 +4,42 @@ import { Table, Badge, Select, message } from "antd";
 const Option = Select.Option;
 
 const expandedRowRender = props => {
+	console.log(props);
 	const columns = [
 		{
 			title: "ID",
-			dataIndex: "_id",
+			dataIndex: "Product_Info._id",
 			key: "_id",
 			width: "20%",
 		},
 		{
 			title: "Name",
-			dataIndex: "Name",
+			dataIndex: "Product_Info.Name",
 			key: "Name",
 		},
 		{
-			title: "Stock",
-			dataIndex: "Sell_Quantity",
-			key: "Sell_Quantity",
+			title: "Stock_Quantity",
+			dataIndex: "Product_Info.Stock_Quantity",
+			key: "Stock_Quantity",
 		},
 		{
-			title: "Quantity",
-			dataIndex: "Quantity",
-			key: "Quantity",
+			title: "Select_Quantity",
+			dataIndex: "Select_Quantity",
+			key: "Select_Quantity",
 		},
 		{
 			title: "Price",
 			key: "Price",
 			render(element) {
-				const Quantity = Number(element.Quantity);
-				const Price = Number(element.Price);
-				const Total = (Quantity * Price).formatVND();
+				const Select_Quantity = Number(element.Select_Quantity);
+				const Price = Number(element.Product_Info.Price);
+				const Total = (Select_Quantity * Price).formatVND();
 				return <div>{Total}</div>;
 			},
 		},
 	];
 
-	const data = props.ListProduct || [];
+	const data = props.List_Product || [];
 
 	return (
 		<Table
@@ -62,14 +63,14 @@ export default class Orders extends Component {
 					width: "20%",
 				},
 				{
-					title: "Order Date",
-					dataIndex: "OrderDate",
-					key: "OrderDate",
+					title: "Order_Date",
+					dataIndex: "Order_Date",
+					key: "Order_Date",
 				},
 				{
-					title: "UserDetail",
-					dataIndex: "UserDetail.Name",
-					key: "UserDetail",
+					title: "User_Detail",
+					dataIndex: "User_Detail.Name",
+					key: "User_Detail",
 				},
 				{
 					title: "Price",

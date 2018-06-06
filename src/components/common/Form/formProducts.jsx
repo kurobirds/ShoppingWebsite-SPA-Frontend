@@ -2,12 +2,16 @@ import React from "react";
 import { Form, Input, InputNumber, Select } from "antd";
 const FormItem = Form.Item;
 const Option = Select.Option;
+const { TextArea } = Input;
 
-const selectCategories = [];
-const selectProducers = [];
+var selectCategories = [];
+var selectProducers = [];
 
 export default class FormProduct extends React.Component {
 	initList = (categories, producers) => {
+		selectCategories = [];
+		selectProducers = [];
+
 		for (let element of categories) {
 			selectCategories.push(
 				<Option key={element._id}>{element.Name}</Option>
@@ -31,15 +35,15 @@ export default class FormProduct extends React.Component {
 		const { getFieldDecorator } = this.props.formField;
 		const formItemLayout = {
 			labelCol: {
-				span: 6,
+				span: 8,
 			},
 			wrapperCol: {
-				span: 14,
+				span: 12,
 			},
 		};
 		return (
 			<Form layout="horizontal">
-				<FormItem {...formItemLayout} label="Name">
+				<FormItem {...formItemLayout} hasFeedback label="Name">
 					{getFieldDecorator("Name", {
 						rules: [
 							{
@@ -51,22 +55,42 @@ export default class FormProduct extends React.Component {
 					})(<Input />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Description">
-					{getFieldDecorator("Description")(<Input />)}
+					{getFieldDecorator("Description")(
+						<TextArea autosize={{ minRows: 2, maxRows: 6 }} />
+					)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Price">
 					{getFieldDecorator("Price")(
 						<InputNumber style={{ width: 150 }} />
 					)}
 				</FormItem>
-				<FormItem {...formItemLayout} label="Categories_Detail">
-					{getFieldDecorator("Categories_Detail")(
-						<Select>{selectCategories}</Select>
-					)}
+				<FormItem
+					{...formItemLayout}
+					hasFeedback
+					label="Categories_Detail"
+				>
+					{getFieldDecorator("Categories_Detail", {
+						rules: [
+							{
+								required: true,
+								message: "Please select category!",
+							},
+						],
+					})(<Select>{selectCategories}</Select>)}
 				</FormItem>
-				<FormItem {...formItemLayout} label="Producer_Detail">
-					{getFieldDecorator("Producer_Detail")(
-						<Select>{selectProducers}</Select>
-					)}
+				<FormItem
+					{...formItemLayout}
+					hasFeedback
+					label="Producer_Detail"
+				>
+					{getFieldDecorator("Producer_Detail", {
+						rules: [
+							{
+								required: true,
+								message: "Please select producer!",
+							},
+						],
+					})(<Select>{selectProducers}</Select>)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Quantity">
 					{getFieldDecorator("Quantity")(

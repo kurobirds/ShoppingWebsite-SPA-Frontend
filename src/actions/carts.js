@@ -3,11 +3,11 @@ export const DELETE_CART = "DELETE_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const CLEAN_CART = "CLEAN_CART";
 
-export function addCart(cart, quantity) {
+export function addCart(cart, Select_Quantity) {
 	return {
 		type: ADD_CART,
 		cart,
-		quantity,
+		Select_Quantity,
 	};
 }
 

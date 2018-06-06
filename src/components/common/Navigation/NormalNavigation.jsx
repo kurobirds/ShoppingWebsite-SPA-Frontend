@@ -10,7 +10,7 @@ export default class NormalNavigation extends Component {
 		const carts = this.props.carts || [];
 		let cartsLength = 0;
 		for (const index in carts) {
-			cartsLength += carts[index].quantity;
+			cartsLength += carts[index].Select_Quantity;
 		}
 		return (
 			<Header

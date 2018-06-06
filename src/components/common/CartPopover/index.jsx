@@ -57,7 +57,9 @@ export default class CardPopover extends Component {
 										{item.Name}
 									</Link>
 								}
-								description={`Quantity: ${item.quantity}`}
+								description={`Quantity: ${
+									item.Select_Quantity
+								}`}
 							/>
 						</List.Item>
 					)}

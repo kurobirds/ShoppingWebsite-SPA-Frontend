@@ -68,11 +68,12 @@ export default class Checkout extends Component {
 					return (
 						<InputNumber
 							min={1}
-							max={product.Quantity}
-							defaultValue={record.quantity}
+							max={product.Stock_Quantity}
+							defaultValue={record.Select_Quantity}
 							onChange={e => {
-								record.quantity = e;
-								record.Price = product.Price * record.quantity;
+								record.Select_Quantity = e;
+								record.Price =
+									product.Price * record.Select_Quantity;
 								this.props.updateCart(record, record._id);
 							}}
 						/>
@@ -87,7 +88,9 @@ export default class Checkout extends Component {
 						this.props.products.find(
 							element => element._id === record._id
 						) || {};
-					return Number(product.Price * record.quantity).formatVND();
+					return Number(
+						product.Price * record.Select_Quantity
+					).formatVND();
 				},
 			},
 		];
@@ -126,11 +129,12 @@ export default class Checkout extends Component {
 								}
 								const decoded = decode(localStorage.token);
 
-								const ListProduct = carts.map(
-									element => element._id
-								);
+								const List_Product = carts.map(element => ({
+									Product_Info: element._id,
+									Select_Quantity: element.Select_Quantity,
+								}));
 
-								if (ListProduct.length === 0) {
+								if (List_Product.length === 0) {
 									notification.warning({
 										message: "Nothing in your cart",
 										description:
@@ -141,12 +145,14 @@ export default class Checkout extends Component {
 								}
 
 								const order = {
-									OrderDate: moment().unix(),
-									UserDetail: decoded._id,
-									ListProduct,
+									Order_Date: moment().unix(),
+									User_Detail: decoded._id,
+									List_Product,
 									Price: Subtotal,
 									Status: 0,
 								};
+
+								console.log(order);
 
 								fetch(`${this.props.base_url}orders`, {
 									method: "POST",

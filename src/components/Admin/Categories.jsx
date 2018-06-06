@@ -21,6 +21,7 @@ export default class Categories extends Component {
 					key: "Name",
 				},
 			],
+			modalTitle: null,
 		};
 	}
 
@@ -28,8 +29,47 @@ export default class Categories extends Component {
 		this.props.fetchData(`${this.state.endpoint}`);
 	}
 
+	modalEvent = (name, type) => {
+		const form = this.formRef.props.form;
+		const id = this.state.formItem.id;
+		const token = localStorage.token;
+		form.validateFields((err, values) => {
+			if (err) {
+				return;
+			}
+			fetch(`${this.state.endpoint}${type ? `/${id}` : ""}`, {
+				method: type ? "PUT" : "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(values),
+			})
+				.then(response => response.json())
+				.then(data => {
+					type
+						? this.props.updateCategory(data, id)
+						: this.props.addCategory(data);
+
+					message.success(`${name}d`);
+				})
+				.catch(err => console.error(err));
+			form.resetFields();
+			this.setState({ visible: false });
+		});
+	};
+
 	handleAdd = () => {
-		console.log("handleAdd");
+		this.setState({
+			visible: true,
+			modalTitle: "Create",
+		});
+
+		this.formRef.props.form.resetFields();
+	};
+
+	handleAddOK = () => {
+		this.modalEvent("Create", 0);
 	};
 
 	setFormFields = data => {
@@ -45,6 +85,7 @@ export default class Categories extends Component {
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
+				modalTitle: "Update",
 				formItem: {
 					id: record._id,
 					index: record.key,
@@ -82,31 +123,9 @@ export default class Categories extends Component {
 			visible: false,
 		});
 	};
+
 	handleEditOK = () => {
-		const form = this.formRef.props.form;
-		const id = this.state.formItem.id;
-		const token = localStorage.token;
-		form.validateFields((err, values) => {
-			if (err) {
-				return;
-			}
-			fetch(`${this.state.endpoint}/${id}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(values),
-			})
-				.then(response => response.json())
-				.then(data => {
-					this.props.updateCategory(data, id);
-					message.success("Edited");
-				})
-				.catch(err => console.error(err));
-			form.resetFields();
-			this.setState({ visible: false });
-		});
+		this.modalEvent("Update", 1);
 	};
 
 	saveFormRef = formRef => {
@@ -127,9 +146,13 @@ export default class Categories extends Component {
 				<ModalComponent
 					wrappedComponentRef={this.saveFormRef}
 					visible={this.state.visible}
-					onOk={this.handleEditOK}
+					onOk={
+						this.state.modalTitle === "Create"
+							? this.handleAddOK
+							: this.handleEditOK
+					}
 					onCancel={this.handleEditCancel}
-					titleModal="Update"
+					titleModal={this.state.modalTitle}
 					type={3}
 				/>
 			</div>

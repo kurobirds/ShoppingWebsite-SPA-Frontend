@@ -39,8 +39,8 @@ export function ordersFetchData(url) {
 			.then(response => response.json())
 			.then(orders => {
 				orders.forEach(element => {
-					element.OrderDate = moment
-						.unix(element.OrderDate)
+					element.Order_Date = moment
+						.unix(element.Order_Date)
 						.format("YYYY-MM-DD HH:mm:ss");
 					element.Price = Number(element.Price).formatVND();
 				});

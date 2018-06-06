@@ -15,7 +15,7 @@ export default class FormProducers extends React.Component {
 		};
 		return (
 			<Form>
-				<FormItem {...formItemLayout} label="Name">
+				<FormItem {...formItemLayout} hasFeedback label="Name">
 					{getFieldDecorator("Name", {
 						rules: [
 							{

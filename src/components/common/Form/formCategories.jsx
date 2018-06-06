@@ -15,11 +15,13 @@ export default class FormCategories extends React.Component {
 		};
 		return (
 			<Form>
-				<FormItem {...formItemLayout} label="Name">
+				<FormItem {...formItemLayout} hasFeedback label="Name">
 					{getFieldDecorator("Name", {
 						rules: [
 							{
 								required: true,
+								message:
+									"Please input the title of collection!",
 							},
 						],
 					})(<Input />)}

@@ -48,6 +48,7 @@ export default class Users extends Component {
 					key: "Permission",
 				},
 			],
+			modalTitle: null,
 		};
 	}
 
@@ -55,8 +56,53 @@ export default class Users extends Component {
 		this.props.fetchData(`${this.state.endpoint}`);
 	}
 
+	modalEvent = (name, type) => {
+		const form = this.formRef.props.form;
+		const id = this.state.formItem.id;
+		const token = localStorage.token;
+		form.validateFields((err, values) => {
+			if (err) {
+				return;
+			}
+
+			// Moment to Unix
+			values.DOB = values.DOB.unix();
+
+			fetch(`${this.state.endpoint}${type ? `/${id}` : ""}`, {
+				method: type ? "PUT" : "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(values),
+			})
+				.then(response => response.json())
+				.then(data => {
+					data.DOB = moment.unix(data.DOB).format("YYYY-MM-DD");
+
+					type
+						? this.props.updateUser(data, id)
+						: this.props.addUser(data);
+
+					message.success(`${name}d`);
+				})
+				.catch(err => console.error(err));
+			form.resetFields();
+			this.setState({ visible: false });
+		});
+	};
+
 	handleAdd = () => {
-		console.log("handleAdd");
+		this.setState({
+			visible: true,
+			modalTitle: "Create",
+		});
+
+		this.formRef.props.form.resetFields();
+	};
+
+	handleAddOK = () => {
+		this.modalEvent("Create", 0);
 	};
 
 	setFormFields = data => {
@@ -77,6 +123,7 @@ export default class Users extends Component {
 		if (e.key === "1") {
 			this.setState({
 				visible: true,
+				modalTitle: "Update",
 				formItem: {
 					id: record._id,
 					index: record.key,
@@ -121,35 +168,7 @@ export default class Users extends Component {
 	};
 
 	handleEditOK = () => {
-		const form = this.formRef.props.form;
-		const id = this.state.formItem.id;
-		const token = localStorage.token;
-		form.validateFields((err, values) => {
-			if (err) {
-				return;
-			}
-
-			// Moment to Unix
-			values.DOB = values.DOB.unix();
-			console.log(values);
-			fetch(`${this.state.endpoint}/${id}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(values),
-			})
-				.then(response => response.json())
-				.then(data => {
-					data.DOB = moment.unix(data.DOB).format("YYYY-MM-DD");
-					this.props.updateUser(data, id);
-					message.success("Edited");
-				})
-				.catch(err => console.error(err));
-			form.resetFields();
-			this.setState({ visible: false });
-		});
+		this.modalEvent("Update", 1);
 	};
 
 	saveFormRef = formRef => {
@@ -170,9 +189,13 @@ export default class Users extends Component {
 				<ModalComponent
 					wrappedComponentRef={this.saveFormRef}
 					visible={this.state.visible}
-					onOk={this.handleEditOK}
+					onOk={
+						this.state.modalTitle === "Create"
+							? this.handleAddOK
+							: this.handleEditOK
+					}
 					onCancel={this.handleEditCancel}
-					titleModal="Update"
+					titleModal={this.state.modalTitle}
 					type={5}
 				/>
 			</div>

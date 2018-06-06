@@ -20,16 +20,16 @@ export default function carts(
 				duplicate = true;
 
 				// Quantity
-				const currentQuantity = newState[index].quantity;
-				let newQuantity = currentQuantity + action.quantity;
+				const currentQuantity = newState[index].Select_Quantity;
+				let newQuantity = currentQuantity + action.Select_Quantity;
 
-				if (newQuantity > newState[index].Sell_Quantity) {
+				if (newQuantity > newState[index].Stock_Quantity) {
 					message.warning("Out of stock");
 					newQuantity = currentQuantity;
 				} else {
 					message.success("Add Successfully");
 				}
-				newState[index].quantity = newQuantity;
+				newState[index].Select_Quantity = newQuantity;
 
 				// Price
 				const basePrice = action.cart.Price;
@@ -41,7 +41,7 @@ export default function carts(
 		}
 
 		if (!duplicate) {
-			action.cart.quantity = action.quantity || 1;
+			action.cart.Select_Quantity = action.Select_Quantity || 1;
 			newState.push(action.cart);
 			message.success("Add Successfully");
 		}

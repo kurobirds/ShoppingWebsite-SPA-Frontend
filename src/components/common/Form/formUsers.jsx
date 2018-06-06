@@ -17,7 +17,7 @@ export default class FormUser extends React.Component {
 		};
 		return (
 			<Form>
-				<FormItem {...formItemLayout} label="Username">
+				<FormItem {...formItemLayout} hasFeedback label="Username">
 					{getFieldDecorator("Username", {
 						rules: [
 							{
@@ -37,10 +37,15 @@ export default class FormUser extends React.Component {
 				<FormItem {...formItemLayout} label="Email">
 					{getFieldDecorator("Email")(<Input />)}
 				</FormItem>
-				<FormItem {...formItemLayout} label="Day of Birth">
-					{getFieldDecorator("DOB")(
-						<DatePicker format={dateFormat} />
-					)}
+				<FormItem {...formItemLayout} hasFeedback label="Day of Birth">
+					{getFieldDecorator("DOB", {
+						rules: [
+							{
+								required: true,
+								message: "Please select time!!",
+							},
+						],
+					})(<DatePicker format={dateFormat} />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="Permission">
 					{getFieldDecorator("Permission")(
