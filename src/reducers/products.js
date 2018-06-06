@@ -25,7 +25,13 @@ export function products(state = [], action) {
 		return state.filter(product => product._id !== action.payload);
 	case UPDATE_PRODUCT: {
 		const newState = [...state];
-		newState[action.index] = action.product;
+
+		const index = newState.findIndex(
+			element => element._id === action.id
+		);
+
+		newState[index] = action.product;
+
 		return newState;
 	}
 	default:

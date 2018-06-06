@@ -100,7 +100,7 @@ export default class Categories extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					this.props.updateCategory(data, this.state.formItem.index);
+					this.props.updateCategory(data, id);
 					message.success("Edited");
 				})
 				.catch(err => console.error(err));

@@ -95,7 +95,7 @@ export default class Users extends Component {
 					index: record.key,
 				},
 			});
-			fetch(`${endpoint}/${record._id}`)
+			fetch(`${endpoint}/${record._id}/admin`)
 				.then(response => response.json())
 				.then(data => {
 					this.setFormFields(data);
@@ -148,7 +148,7 @@ export default class Users extends Component {
 				.then(response => response.json())
 				.then(data => {
 					console.log(data);
-					this.props.updateProduct(data, this.state.formItem.index);
+					this.props.updateProduct(data, id);
 					message.success("Edited");
 				})
 				.catch(err => console.error(err));

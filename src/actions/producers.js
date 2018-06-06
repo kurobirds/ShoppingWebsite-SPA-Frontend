@@ -18,11 +18,11 @@ export function addProducer(producer) {
 	};
 }
 
-export function updateProducer(producer, index) {
+export function updateProducer(producer, id) {
 	return {
 		type: UPDATE_PRODUCER,
 		producer,
-		index,
+		id,
 	};
 }
 

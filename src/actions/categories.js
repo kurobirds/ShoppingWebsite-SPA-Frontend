@@ -18,11 +18,11 @@ export function addCategory(category) {
 	};
 }
 
-export function updateCategory(category, index) {
+export function updateCategory(category, id) {
 	return {
 		type: UPDATE_CATEGORY,
 		category,
-		index,
+		id,
 	};
 }
 

@@ -18,11 +18,11 @@ export function addUser(user) {
 	};
 }
 
-export function updateUser(user, index) {
+export function updateUser(user, id) {
 	return {
 		type: UPDATE_USER,
 		user,
-		index,
+		id,
 	};
 }
 

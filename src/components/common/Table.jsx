@@ -4,7 +4,6 @@ import DropOption from "../common/DropOption";
 
 export default class TableOption extends Component {
 	render() {
-		this.props.dataSource.map((item, index) => (item["key"] = index));
 		const columns = [
 			...this.props.columns,
 			{
@@ -38,6 +37,7 @@ export default class TableOption extends Component {
 					Add
 				</Button>
 				<Table
+					rowKey="_id"
 					bordered
 					dataSource={this.props.dataSource}
 					columns={columns}

@@ -102,7 +102,7 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					this.props.updateProducer(data, this.state.formItem.index);
+					this.props.updateProducer(data, id);
 					message.success("Edited");
 				})
 				.catch(err => console.error(err));

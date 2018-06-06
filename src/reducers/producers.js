@@ -24,7 +24,13 @@ export function producers(state = [], action) {
 		return state.filter(producer => producer._id !== action.payload);
 	case UPDATE_PRODUCER: {
 		const newState = [...state];
-		newState[action.index] = action.producer;
+
+		const index = newState.findIndex(
+			element => element._id === action.id
+		);
+
+		newState[index] = action.producer;
+
 		return newState;
 	}
 	default:

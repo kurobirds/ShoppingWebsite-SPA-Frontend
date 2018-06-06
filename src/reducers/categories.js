@@ -25,7 +25,13 @@ export function categories(state = [], action) {
 		return state.filter(category => category._id !== action.payload);
 	case UPDATE_CATEGORY: {
 		const newState = [...state];
-		newState[action.index] = action.category;
+
+		const index = newState.findIndex(
+			element => element._id === action.id
+		);
+
+		newState[index] = action.category;
+
 		return newState;
 	}
 	default:

@@ -25,7 +25,13 @@ export function users(state = [], action) {
 		return state.filter(user => user._id !== action.payload);
 	case UPDATE_USER: {
 		const newState = [...state];
-		newState[action.index] = action.user;
+
+		const index = newState.findIndex(
+			element => element._id === action.id
+		);
+
+		newState[index] = action.user;
+
 		return newState;
 	}
 	default:

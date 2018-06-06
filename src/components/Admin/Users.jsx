@@ -90,7 +90,6 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-					console.log(data);
 					this.setFormFields(data);
 				})
 				.catch(err => console.error(err));
@@ -132,7 +131,7 @@ export default class Users extends Component {
 
 			// Moment to Unix
 			values.DOB = values.DOB.unix();
-
+			console.log(values);
 			fetch(`${this.state.endpoint}/${id}`, {
 				method: "PUT",
 				headers: {
@@ -144,7 +143,7 @@ export default class Users extends Component {
 				.then(response => response.json())
 				.then(data => {
 					data.DOB = moment.unix(data.DOB).format("YYYY-MM-DD");
-					this.props.updateUser(data, this.state.formItem.index);
+					this.props.updateUser(data, id);
 					message.success("Edited");
 				})
 				.catch(err => console.error(err));

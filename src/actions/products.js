@@ -18,11 +18,11 @@ export function addProduct(product) {
 	};
 }
 
-export function updateProduct(product, index) {
+export function updateProduct(product, id) {
 	return {
 		type: UPDATE_PRODUCT,
 		product,
-		index,
+		id,
 	};
 }
 
