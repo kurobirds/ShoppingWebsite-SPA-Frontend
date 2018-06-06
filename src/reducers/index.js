@@ -7,11 +7,15 @@ import { categories, categoriesIsLoading } from "./categories";
 import { producers, producersIsLoading } from "./producers";
 import { products, productsIsLoading } from "./products";
 import { users, usersIsLoading } from "./users";
+import { orders, ordersIsLoading } from "./orders";
 
 export default combineReducers({
 	base_url,
 	auth,
 	carts,
+
+	orders,
+	ordersIsLoading,
 
 	categories,
 	categoriesIsLoading,

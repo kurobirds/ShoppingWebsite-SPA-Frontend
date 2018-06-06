@@ -116,6 +116,12 @@ export default class Checkout extends Component {
 							}}
 							onClick={() => {
 								if (!this.props.isAuthenticated) {
+									notification.error({
+										message:
+											"You not had permission to do this",
+										description: "You need login first.",
+										duration: 2,
+									});
 									return;
 								}
 								const decoded = decode(localStorage.token);
@@ -146,12 +152,14 @@ export default class Checkout extends Component {
 									method: "POST",
 									headers: {
 										"Content-Type": "application/json",
+										Authorization: `Bearer ${
+											localStorage.token
+										}`,
 									},
 									body: JSON.stringify(order),
 								})
 									.then(response => response.json())
-									.then(data => {
-										console.log(data);
+									.then(() => {
 										notification.success({
 											message: "Checkout Successfully",
 											description:

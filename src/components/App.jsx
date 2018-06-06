@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import NormalNavigation from "./common/Navigation/NormalNavigation";
 import RouteProduct from "../routes/products";
 
+import decode from "jwt-decode";
+
 import { Link } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, message, Row, Col, Checkbox } from "antd";
 
@@ -44,9 +46,12 @@ export default class App extends Component {
 	menu = (
 		<Menu onClick={this.handleMenuClick}>
 			<Menu.Item key="1">About</Menu.Item>
-			<Menu.Item key="2">
-				<Link to="/admin">Dashboard</Link>
-			</Menu.Item>
+			{this.props.isAuthenticated &&
+			decode(localStorage.token).Permission === 1 ? (
+				<Menu.Item key="2">
+					<Link to="/admin">Dashboard</Link>
+				</Menu.Item>
+			) : null}
 			<Menu.Item key="3">Logout</Menu.Item>
 		</Menu>
 	);

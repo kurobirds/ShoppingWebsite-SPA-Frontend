@@ -80,21 +80,23 @@ export default class Dashboard extends Component {
 		if (this.isTokenExpired()) {
 			message.error("Token expired");
 			this.props.logoutUser();
+			return;
 		}
 	}
 
 	componentDidMount() {
 		if (!this.props.isAuthenticated) {
 			message.error("Need login to access this site");
-		} else {
-			if (this.isTokenExpired()) {
-				message.error("Token expired");
-				this.props.logoutUser();
-			} else {
-				if (!this.isAdmin()) {
-					message.error("This site need Admin Permission");
-				}
-			}
+			return;
+		}
+		if (this.isTokenExpired()) {
+			message.error("Token expired");
+			this.props.logoutUser();
+			return;
+		}
+		if (!this.isAdmin()) {
+			message.error("This site need Admin Permission");
+			return;
 		}
 	}
 
