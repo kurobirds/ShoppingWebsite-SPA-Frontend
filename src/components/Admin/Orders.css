@@ -29,3 +29,7 @@
 .components-table-nested .ant-table-expanded-row:hover>td {
     background: #fbfbfb;
 }
+
+.ant-badge-status-processing {
+    background-color: #1890ff;
+}

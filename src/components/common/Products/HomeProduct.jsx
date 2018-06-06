@@ -6,6 +6,7 @@ export default class HomeProduct extends Component {
 	render() {
 		return (
 			<List
+				loading={this.props.productsIsLoading}
 				pagination={{
 					showQuickJumper: true,
 					onChange: page => {

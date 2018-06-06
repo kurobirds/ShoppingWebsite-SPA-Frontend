@@ -13,6 +13,7 @@ const mapStateToProps = state => {
 		producers: state.producers,
 		base_url: state.base_url,
 		carts: state.carts,
+		productsIsLoading: state.productsIsLoading,
 	};
 };
 
@@ -28,5 +29,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(HomeProduct)
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(HomeProduct)
 );

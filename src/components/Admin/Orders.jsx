@@ -154,6 +154,7 @@ export default class Orders extends Component {
 				dataSource={this.props.orders}
 				columns={this.state.columns}
 				expandedRowRender={element => expandedRowRender(element)}
+				loading={this.props.ordersIsLoading}
 			/>
 		);
 	}

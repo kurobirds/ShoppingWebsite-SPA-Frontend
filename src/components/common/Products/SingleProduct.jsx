@@ -25,12 +25,27 @@ const Detail = styled.p`
 export default class SingleProduct extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { quantityValue: 1 };
+		this.state = {
+			quantityValue: 1,
+			product: null,
+		};
 	}
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
 		this.props.fetchProducers(`${this.props.base_url}producers`);
+
+		const id = this.props.match.params.id;
+		const request = async () => {
+			const response = await fetch(
+				`${this.props.base_url}products/${id}`
+			);
+			const json = await response.json();
+
+			this.setState({ product: json });
+		};
+
+		request();
 	}
 
 	onChange = e => {
@@ -46,7 +61,7 @@ export default class SingleProduct extends Component {
 	};
 
 	addProductToCart = product => {
-		const infoProduct = product[0];
+		const infoProduct = product;
 		const quantity = this.state.quantityValue;
 
 		const productItem = {
@@ -62,7 +77,7 @@ export default class SingleProduct extends Component {
 	};
 
 	spinnerInputOnChange = (type = 0, product) => {
-		const infoProduct = product[0];
+		const infoProduct = product;
 		let quantityValue = this.state.quantityValue;
 
 		switch (type) {
@@ -86,17 +101,19 @@ export default class SingleProduct extends Component {
 	};
 
 	render() {
-		const product = this.props.products.filter(
-			element => element._id === this.props.match.params.id
-		);
+		const product = this.state.product;
+
 		const listImage = [];
-		if (product.length > 0) {
-			for (const index in product[0].Images) {
-				const element = product[0].Images[index];
-				listImage.push(
-					<img key={index} src={element} alt={product[0].Name} />
-				);
-			}
+
+		if (!product) {
+			return null;
+		}
+
+		for (const index in product.Images) {
+			const element = product.Images[index];
+			listImage.push(
+				<img key={index} src={element} alt={product.Name} />
+			);
 		}
 
 		return (
@@ -108,56 +125,50 @@ export default class SingleProduct extends Component {
 						</Carousel>
 					</Col>
 					<Col span={12}>
-						{!product[0] ? null : (
-							<Fragment>
-								<Name>{product[0].Name}</Name>
-								<Price>
-									{Number(product[0].Price).formatVND()}
-								</Price>
-								<Name
-									style={{
-										marginTop: "24px",
-									}}
-								>
-									Quantity
-								</Name>
-								<InputGroup compact>
-									<Col span={6}>
-										<SpinnerInputNumber
-											product={product}
-											quantityValue={
-												this.state.quantityValue
-											}
-											onChange={this.onChange}
-											spinnerInputOnChange={
-												this.spinnerInputOnChange
-											}
-										/>
-									</Col>
-									<Col span={6}>
-										<Button
-											style={{
-												width: "100%",
-											}}
-											type="primary"
-											onClick={() =>
-												this.addProductToCart(product)
-											}
-										>
-											ADD TO CART
-										</Button>
-									</Col>
-								</InputGroup>
+						<Fragment>
+							<Name>{product.Name}</Name>
+							<Price>{Number(product.Price).formatVND()}</Price>
+							<Name
+								style={{
+									marginTop: "24px",
+								}}
+							>
+								Quantity
+							</Name>
+							<InputGroup compact>
+								<Col span={6}>
+									<SpinnerInputNumber
+										product={product}
+										quantityValue={this.state.quantityValue}
+										onChange={this.onChange}
+										spinnerInputOnChange={
+											this.spinnerInputOnChange
+										}
+									/>
+								</Col>
+								<Col span={6}>
+									<Button
+										style={{
+											width: "100%",
+										}}
+										type="primary"
+										onClick={() =>
+											this.addProductToCart(product)
+										}
+									>
+										ADD TO CART
+									</Button>
+								</Col>
+							</InputGroup>
 
-								<Divider style={{ marginTop: "30px" }} />
-								<Name>Description</Name>
-								<Detail
-									dangerouslySetInnerHTML={{
-										__html: product[0].Description,
-									}}
-								/>
-							</Fragment>
-						)}
+							<Divider style={{ marginTop: "30px" }} />
+							<Name>Description</Name>
+							<Detail
+								dangerouslySetInnerHTML={{
+									__html: product.Description,
+								}}
+							/>
+						</Fragment>
 					</Col>
 				</Row>
 			</Fragment>
