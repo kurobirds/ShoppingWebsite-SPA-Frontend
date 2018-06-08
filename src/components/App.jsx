@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from "react";
 import NormalNavigation from "./common/Navigation/NormalNavigation";
 import RouteProduct from "../routes/products";
+import {
+	SideBar,
+	RefinementListFilter,
+	DynamicRangeFilter,
+	ItemHistogramList,
+} from "searchkit";
 
 import decode from "jwt-decode";
 
@@ -13,7 +19,34 @@ const breadcrumbNameMap = {
 	"/product": "Product List",
 };
 
-let location, pathSnippets, extraBreadcrumbItems, breadcrumbItems;
+let location,
+	pathSnippets,
+	extraBreadcrumbItems,
+	breadcrumbItems,
+	checkboxOption = [];
+
+const RefinementOption = props => {
+	console.log(props);
+	return (
+		<div
+			className={props.bemBlocks
+				.option()
+				.state({ selected: props.selected })
+				.mix(props.bemBlocks.container("item"))}
+			onClick={props.onClick}
+		>
+			<Checkbox
+				className={props.bemBlocks.option("text")}
+				checked={props.active}
+				onChange={props.onClick}
+			>
+				{props.label}
+			</Checkbox>
+			<div className={props.bemBlocks.option("text")} />
+			<div className={props.bemBlocks.option("count")}>{props.count}</div>
+		</div>
+	);
+};
 
 export default class App extends Component {
 	constructor(props) {
@@ -88,22 +121,18 @@ export default class App extends Component {
 			</Breadcrumb.Item>,
 			...extraBreadcrumbItems,
 		];
+
+		if (this.props.categories) {
+			checkboxOption = this.props.categories.map(element => ({
+				Name: element.Name,
+				_id: element._id,
+			}));
+		}
 	}
 
 	render() {
 		let products = this.props.products;
-		let checkboxOption = this.props.categories.map(element => {
-			return {
-				label: element.Name,
-				value: element._id,
-			};
-		});
-		const checkboxStyle = {
-			display: "block",
-			height: "30px",
-			lineHeight: "30px",
-			marginLeft: "8px",
-		};
+
 		return (
 			<Fragment>
 				<Layout>
@@ -127,30 +156,30 @@ export default class App extends Component {
 							}}
 							span={4}
 						>
-							<Layout
-								style={{
-									background: "#fff",
-								}}
-							>
-								<Content>
-									<h3
-										style={{
-											margin: "8px 0 5px 8px",
-											fontWeight: "bold",
-										}}
-									>
-										Category
-									</h3>
-									{checkboxOption.map(element => (
-										<Checkbox
-											style={checkboxStyle}
-											key={element.value}
-										>
-											{element.label}
-										</Checkbox>
-									))}
-								</Content>
-							</Layout>
+							<SideBar>
+								<div
+									style={{
+										margin: "0px 10%",
+									}}
+								>
+									<RefinementListFilter
+										id="categories"
+										title="Categories"
+										field={"Producer_Detail.Name"}
+										operator="OR"
+										size={10}
+										itemComponent={RefinementOption}
+									/>
+									<DynamicRangeFilter
+										field="Price"
+										id="price_filter"
+										title="Price Filter"
+										rangeFormatter={number =>
+											number.formatVND()
+										}
+									/>
+								</div>
+							</SideBar>
 						</Col>
 						<Col span={20}>
 							<Layout>
@@ -172,7 +201,6 @@ export default class App extends Component {
 							</Layout>
 						</Col>
 					</Row>
-
 					<Footer style={{ textAlign: "center" }}>
 						Ant Design ©2016 Created by Ant UED
 					</Footer>

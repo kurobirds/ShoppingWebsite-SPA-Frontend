@@ -2,11 +2,24 @@ import React, { Component } from "react";
 import Card from "../card";
 import { List } from "antd";
 
-export default class HomeProduct extends Component {
+import {
+	Hits,
+	SearchkitComponent,
+	Pagination,
+	DynamicRangeFilter,
+	ResetFilters,
+	InputFilter,
+	SelectedFilters,
+	PaginationSelect,
+	RefinementListFilter,
+	TermQuery,
+} from "searchkit";
+
+class ListProduct extends Component {
 	render() {
+		const { hits } = this.props;
 		return (
 			<List
-				loading={this.props.productsIsLoading}
 				pagination={{
 					showQuickJumper: true,
 					onChange: page => {
@@ -23,7 +36,7 @@ export default class HomeProduct extends Component {
 					xl: 4,
 					xxl: 4,
 				}}
-				dataSource={this.props.products}
+				dataSource={hits}
 				renderItem={card => (
 					<List.Item>
 						<Card
@@ -34,6 +47,37 @@ export default class HomeProduct extends Component {
 					</List.Item>
 				)}
 			/>
+		);
+	}
+}
+
+export default class HomeProduct extends SearchkitComponent {
+	render() {
+		return (
+			<React.Fragment>
+				<SelectedFilters />
+				<InputFilter
+					id="product_filter"
+					title="Product filter"
+					placeholder="Search product"
+					searchOnChange={true}
+					prefixQueryFields={["Name"]}
+					queryFields={["Name"]}
+				/>
+
+				<ResetFilters />
+				<Hits
+					hitsPerPage={100}
+					listComponent={
+						<ListProduct
+							match={this.props.match}
+							addCart={this.props.addCart}
+						/>
+					}
+				/>
+				<PaginationSelect />
+				<Pagination showNumbers={true} />
+			</React.Fragment>
 		);
 	}
 }

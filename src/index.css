@@ -1,11 +1,11 @@
 @import "~animate.css/animate.min.css";
+@import "~searchkit/release/theme.css";
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 body,
 html {
     margin: 0;
     padding: 0;
     background-color: #e5e5e5 !important;
-    font-size: .75rem;
     height: 100%;
 }
 
@@ -68,4 +68,8 @@ html {
     padding: 0 20px;
     height: 300px;
     width: 350px
+}
+
+.text-title {
+    font-size: 2rem;
 }

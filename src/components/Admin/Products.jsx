@@ -42,14 +42,14 @@ export default class Users extends Component {
 					key: "Producer_Detail",
 				},
 				{
-					title: "Quantity",
-					dataIndex: "Quantity",
-					key: "Quantity",
+					title: "Stock_Quantity",
+					dataIndex: "Stock_Quantity",
+					key: "Stock_Quantity",
 				},
 				{
-					title: "Sell_Quantity",
-					dataIndex: "Sell_Quantity",
-					key: "Sell_Quantity",
+					title: "Sold_Quantity",
+					dataIndex: "Sold_Quantity",
+					key: "Sold_Quantity",
 				},
 				{
 					title: "View",
@@ -85,6 +85,7 @@ export default class Users extends Component {
 			})
 				.then(response => response.json())
 				.then(data => {
+					console.log(data);
 					type
 						? this.props.updateProduct(data, id)
 						: this.props.addProduct(data);
@@ -117,8 +118,8 @@ export default class Users extends Component {
 			Price: data.Price,
 			Categories_Detail: data.Categories_Detail._id,
 			Producer_Detail: data.Producer_Detail._id,
-			Quantity: data.Quantity,
-			Sell_Quantity: data.Sell_Quantity,
+			Stock_Quantity: data.Stock_Quantity,
+			Sold_Quantity: data.Sold_Quantity,
 			View: data.View,
 		});
 	};

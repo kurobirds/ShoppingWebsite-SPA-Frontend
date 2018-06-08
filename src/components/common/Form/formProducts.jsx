@@ -92,13 +92,13 @@ export default class FormProduct extends React.Component {
 						],
 					})(<Select>{selectProducers}</Select>)}
 				</FormItem>
-				<FormItem {...formItemLayout} label="Quantity">
-					{getFieldDecorator("Quantity")(
+				<FormItem {...formItemLayout} label="Stock_Quantity">
+					{getFieldDecorator("Stock_Quantity")(
 						<InputNumber style={{ width: 150 }} />
 					)}
 				</FormItem>
-				<FormItem {...formItemLayout} label="Sell_Quantity">
-					{getFieldDecorator("Sell_Quantity")(
+				<FormItem {...formItemLayout} label="Sold_Quantity">
+					{getFieldDecorator("Sold_Quantity")(
 						<InputNumber style={{ width: 150 }} />
 					)}
 				</FormItem>

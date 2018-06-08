@@ -57,7 +57,7 @@ class LoginForm extends Component {
 					<div
 						style={{
 							position: "relative",
-							marginBottom: "1.5rem",
+							marginBottom: "15px",
 							border: "1px solid rgba(0, 0, 0, .1)",
 							borderRadius: ".25rem",
 							backgroundColor: "white",
@@ -156,13 +156,12 @@ class LoginForm extends Component {
 						style={{
 							zIndex: 1,
 							position: "relative",
-							margin: "15px 0 0",
 							textAlign: "center",
 						}}
 					>
 						<Link
 							style={{
-								fontSize: "1.10rem",
+								fontSize: "14px",
 								color: "white",
 							}}
 							to="/sign-up"
