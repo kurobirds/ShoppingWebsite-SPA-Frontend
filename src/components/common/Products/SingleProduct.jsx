@@ -1,8 +1,19 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import SpinnerInputNumber from "../SpinnerInputNumber";
-import { Carousel, Row, Col, Input, Button, Divider, notification } from "antd";
-const InputGroup = Input.Group;
+import {
+	Carousel,
+	Row,
+	Col,
+	Input,
+	Button,
+	Divider,
+	notification,
+	Spin,
+	Icon,
+} from "antd";
+const InputGroup = Input.Group,
+	antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 const Name = styled.h1`
 	font-size: 26px;
@@ -116,13 +127,36 @@ export default class SingleProduct extends Component {
 		const listImage = [];
 
 		if (!product) {
-			return null;
+			return (
+				<div
+					style={{
+						textAlign: "center",
+						background: "rgba(0,0,0,0.05)",
+						borderRadius: "4px",
+						marginBottom: "20px",
+						padding: "30px 50px",
+						margin: "20px 0",
+					}}
+				>
+					<Spin indicator={antIcon} size="large" />
+				</div>
+			);
 		}
 
 		for (const index in product.Images) {
 			const element = product.Images[index];
 			listImage.push(
 				<img key={index} src={element} alt={product.Name} />
+			);
+		}
+
+		if (!listImage[0]) {
+			listImage.push(
+				<img
+					key={0}
+					src="https://static1.squarespace.com/static/5937e362be659441f72e7c12/t/595120eadb29d60c5983e4a2/1498489067243/Sorry-image-not-available.png"
+					alt={product.Name}
+				/>
 			);
 		}
 
@@ -172,12 +206,31 @@ export default class SingleProduct extends Component {
 							</InputGroup>
 
 							<Divider style={{ marginTop: "30px" }} />
-							<Name>Description</Name>
-							<Detail
-								dangerouslySetInnerHTML={{
-									__html: product.Description,
-								}}
-							/>
+							<Col span={11}>
+								<Name>Description</Name>
+								<Detail
+									dangerouslySetInnerHTML={{
+										__html: product.Description,
+									}}
+								/>
+							</Col>
+							<Col span={1}>
+								<Divider
+									type="vertical"
+									style={{ height: "200px" }}
+								/>
+							</Col>
+
+							<Col span={12}>
+								<Detail>View: {product.View}</Detail>
+								<Detail>Sold: {product.Sold_Quantity}</Detail>
+								<Detail>
+									Category: {product.Categories_Detail.Name}
+								</Detail>
+								<Detail>
+									Producer: {product.Producer_Detail.Name}
+								</Detail>
+							</Col>
 						</Fragment>
 					</Col>
 				</Row>

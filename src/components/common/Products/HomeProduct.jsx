@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Card from "../card";
-import { List } from "antd";
-
 import { ReactiveList, SelectedFilters } from "@appbaseio/reactivesearch";
+import { List, Spin, Icon } from "antd";
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class ListProduct extends Component {
 	render() {
@@ -49,6 +49,7 @@ export default class HomeProduct extends Component {
 				/>
 				<ReactiveList
 					componentId="ListCard"
+					showResultStats={false}
 					react={{
 						and: [
 							"PriceSensor",
@@ -59,10 +60,29 @@ export default class HomeProduct extends Component {
 					}}
 					dataField="_id"
 					sortBy="asc"
-					loader="Loading Results.."
+					loader={
+						<div
+							style={{
+								textAlign: "center",
+								background: "rgba(0,0,0,0.05)",
+								borderRadius: "4px",
+								marginBottom: "20px",
+								padding: "30px 50px",
+								margin: "20px 0",
+							}}
+						>
+							<Spin indicator={antIcon} size="large" />
+						</div>
+					}
 					pagination={false}
 					onAllData={data => {
-						return <ListProduct cards={data} />;
+						return (
+							<ListProduct
+								cards={data}
+								match={this.props.match}
+								addCart={this.props.addCart}
+							/>
+						);
 					}}
 					size={100}
 				/>

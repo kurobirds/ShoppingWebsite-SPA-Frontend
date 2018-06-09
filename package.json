@@ -6,6 +6,7 @@
         "@appbaseio/reactivesearch": "^2.6.6",
         "animate.css": "^3.6.1",
         "antd": "^3.6.1",
+        "echarts-for-react": "^2.0.12-beta.0",
         "jwt-decode": "^2.2.0",
         "prop-types": "^15.6.1",
         "react": "^16.4.0",
