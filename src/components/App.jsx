@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from "react";
 import NormalNavigation from "./common/Navigation/NormalNavigation";
 import RouteProduct from "../routes/products";
+
 import {
-	SideBar,
-	RefinementListFilter,
-	DynamicRangeFilter,
-	ItemHistogramList,
-} from "searchkit";
+	CategorySearch,
+	MultiList,
+	DynamicRangeSlider,
+} from "@appbaseio/reactivesearch";
 
 import decode from "jwt-decode";
 
 import { Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, message, Row, Col, Checkbox } from "antd";
+import { Layout, Menu, Breadcrumb, message, Row, Col } from "antd";
 
 const { Content, Footer } = Layout;
 
@@ -19,34 +19,7 @@ const breadcrumbNameMap = {
 	"/product": "Product List",
 };
 
-let location,
-	pathSnippets,
-	extraBreadcrumbItems,
-	breadcrumbItems,
-	checkboxOption = [];
-
-const RefinementOption = props => {
-	console.log(props);
-	return (
-		<div
-			className={props.bemBlocks
-				.option()
-				.state({ selected: props.selected })
-				.mix(props.bemBlocks.container("item"))}
-			onClick={props.onClick}
-		>
-			<Checkbox
-				className={props.bemBlocks.option("text")}
-				checked={props.active}
-				onChange={props.onClick}
-			>
-				{props.label}
-			</Checkbox>
-			<div className={props.bemBlocks.option("text")} />
-			<div className={props.bemBlocks.option("count")}>{props.count}</div>
-		</div>
-	);
-};
+let location, pathSnippets, extraBreadcrumbItems, breadcrumbItems;
 
 export default class App extends Component {
 	constructor(props) {
@@ -121,13 +94,6 @@ export default class App extends Component {
 			</Breadcrumb.Item>,
 			...extraBreadcrumbItems,
 		];
-
-		if (this.props.categories) {
-			checkboxOption = this.props.categories.map(element => ({
-				Name: element.Name,
-				_id: element._id,
-			}));
-		}
 	}
 
 	render() {
@@ -156,30 +122,93 @@ export default class App extends Component {
 							}}
 							span={4}
 						>
-							<SideBar>
-								<div
-									style={{
-										margin: "0px 10%",
-									}}
-								>
-									<RefinementListFilter
-										id="categories"
-										title="Categories"
-										field={"Producer_Detail.Name"}
-										operator="OR"
-										size={10}
-										itemComponent={RefinementOption}
-									/>
-									<DynamicRangeFilter
-										field="Price"
-										id="price_filter"
-										title="Price Filter"
-										rangeFormatter={number =>
-											number.formatVND()
-										}
-									/>
-								</div>
-							</SideBar>
+							<Layout>
+								<Content>
+									<div
+										style={{
+											marginBottom: "5%",
+											background: "#fff",
+										}}
+									>
+										<CategorySearch
+											componentId="SearchSensor"
+											dataField="Name"
+											categoryField="Categories_Detail.Name"
+											placeholder="Search here"
+											URLParams={true}
+											onSuggestion={suggestion => ({
+												label: (
+													<div>
+														{
+															suggestion._source
+																.Name
+														}{" "}
+														in<span
+															style={{
+																color:
+																	"dodgerblue",
+																marginLeft: 5,
+															}}
+														>
+															{
+																suggestion
+																	._source
+																	.Categories_Detail
+																	.Name
+															}
+														</span>
+													</div>
+												),
+												value: suggestion._source.Name,
+											})}
+										/>
+									</div>
+									<div
+										style={{
+											marginBottom: "5%",
+											background: "#fff",
+										}}
+									>
+										<DynamicRangeSlider
+											title="Price"
+											componentId="PriceSensor"
+											dataField="Price"
+											rangeLabels={(min, max) => ({
+												start: Number(min).formatVND(),
+												end: Number(max).formatVND(),
+											})}
+										/>
+									</div>
+									<div
+										style={{
+											marginBottom: "5%",
+											background: "#fff",
+										}}
+									>
+										<MultiList
+											componentId="CategoriesSensor"
+											dataField="Categories_Detail.Name"
+											title="Category"
+											showSearch={false}
+											URLParams={true}
+										/>
+									</div>
+									<div
+										style={{
+											marginBottom: "5%",
+											background: "#fff",
+										}}
+									>
+										<MultiList
+											componentId="ProducerSensor"
+											dataField="Producer_Detail.Name"
+											title="Producer"
+											showSearch={false}
+											URLParams={true}
+										/>
+									</div>
+								</Content>
+							</Layout>
 						</Col>
 						<Col span={20}>
 							<Layout>

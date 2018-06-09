@@ -2,22 +2,10 @@ import React, { Component } from "react";
 import Card from "../card";
 import { List } from "antd";
 
-import {
-	Hits,
-	SearchkitComponent,
-	Pagination,
-	DynamicRangeFilter,
-	ResetFilters,
-	InputFilter,
-	SelectedFilters,
-	PaginationSelect,
-	RefinementListFilter,
-	TermQuery,
-} from "searchkit";
+import { ReactiveList, SelectedFilters } from "@appbaseio/reactivesearch";
 
 class ListProduct extends Component {
 	render() {
-		const { hits } = this.props;
 		return (
 			<List
 				pagination={{
@@ -36,7 +24,7 @@ class ListProduct extends Component {
 					xl: 4,
 					xxl: 4,
 				}}
-				dataSource={hits}
+				dataSource={this.props.cards}
 				renderItem={card => (
 					<List.Item>
 						<Card
@@ -51,32 +39,33 @@ class ListProduct extends Component {
 	}
 }
 
-export default class HomeProduct extends SearchkitComponent {
+export default class HomeProduct extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<SelectedFilters />
-				<InputFilter
-					id="product_filter"
-					title="Product filter"
-					placeholder="Search product"
-					searchOnChange={true}
-					prefixQueryFields={["Name"]}
-					queryFields={["Name"]}
+				<SelectedFilters
+					showClearAll={true}
+					clearAllLabel="Clear filters"
 				/>
-
-				<ResetFilters />
-				<Hits
-					hitsPerPage={100}
-					listComponent={
-						<ListProduct
-							match={this.props.match}
-							addCart={this.props.addCart}
-						/>
-					}
+				<ReactiveList
+					componentId="ListCard"
+					react={{
+						and: [
+							"PriceSensor",
+							"CategoriesSensor",
+							"SearchSensor",
+							"ProducerSensor",
+						],
+					}}
+					dataField="_id"
+					sortBy="asc"
+					loader="Loading Results.."
+					pagination={false}
+					onAllData={data => {
+						return <ListProduct cards={data} />;
+					}}
+					size={100}
 				/>
-				<PaginationSelect />
-				<Pagination showNumbers={true} />
 			</React.Fragment>
 		);
 	}

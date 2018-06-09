@@ -8,7 +8,7 @@ import Route from "./routes/routes";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
 
-import { SearchkitManager, SearchkitProvider } from "searchkit";
+import { ReactiveBase } from "@appbaseio/reactivesearch";
 
 require("./helpers");
 
@@ -18,21 +18,26 @@ store.subscribe(() => {
 	console.log("store changed", store.getState());
 });
 
-const searchkit = new SearchkitManager(
-	"https://thorin-us-east-1.searchly.com/products/",
-	{
-		basicAuth: "site:15535653c413eb3e183d85f478a93b2a",
-	}
-);
-
 ReactDOM.render(
 	<Provider store={store}>
-		<SearchkitProvider searchkit={searchkit}>
+		<ReactiveBase
+			app="products"
+			url="https://site:15535653c413eb3e183d85f478a93b2a@thorin-us-east-1.searchly.com"
+			theme={{
+				colors: {
+					primaryColor: "#1DA57A",
+				},
+				component: {
+					padding: 10,
+				},
+			}}
+		>
 			<BrowserRouter>
 				<Route />
 			</BrowserRouter>
-		</SearchkitProvider>
+		</ReactiveBase>
 	</Provider>,
 	document.getElementById("root")
 );
+
 registerServiceWorker();

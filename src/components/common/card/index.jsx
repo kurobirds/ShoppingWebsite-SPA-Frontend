@@ -6,7 +6,7 @@ export default class Card extends Component {
 	render() {
 		const productLink = `/product/${this.props.infoCard._id}`;
 
-		const infoCard = this.props.infoCard._source;
+		const infoCard = this.props.infoCard;
 		return (
 			<figure className="snip1268">
 				<div className="image">
