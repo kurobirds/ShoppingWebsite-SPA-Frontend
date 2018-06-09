@@ -1,13 +1,9 @@
 import React, { Component } from "react";
+import Exception from "ant-design-pro/lib/Exception";
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 export default class NotFound extends Component {
-	state = {
-		animated: "",
-	};
-	enter = () => {
-		this.setState({ animated: "hinge" });
-	};
-
 	render() {
 		return (
 			<div
@@ -15,16 +11,19 @@ export default class NotFound extends Component {
 					height: "100vh",
 					background: "#ececec",
 					overflow: "hidden",
-					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
+					backgroundColor: "#fff",
 				}}
 			>
-				<img
-					src="http://shorelineseafoodinc.com/assets/images/404.png"
-					alt="404"
-					className={`animated swing ${this.state.animated}`}
-					onMouseEnter={this.enter}
+				<Exception
+					type="404"
+					actions={
+						<Button type="primary">
+							<Link to="/">Home Page</Link>
+						</Button>
+					}
+					desc="Sorry, the page not found"
 				/>
 			</div>
 		);

@@ -63,7 +63,7 @@ export default class Navigation extends Component {
 				<Menu
 					theme={this.state.theme}
 					mode="inline"
-					defaultSelectedKeys={["1"]}
+					selectedKeys={[`${this.props.selectedKey}`]}
 				>
 					<Menu.Item key="1">
 						<Icon type="dashboard" />

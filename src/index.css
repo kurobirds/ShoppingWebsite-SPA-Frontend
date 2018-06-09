@@ -1,4 +1,5 @@
 @import "~animate.css/animate.min.css";
+@import '~ant-design-pro/dist/ant-design-pro.css';
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 body,
 html {
@@ -71,4 +72,26 @@ html {
 
 .text-title {
     font-size: 2rem;
+}
+
+/* rewrite css */
+
+.antd-pro-charts--pie-pie .antd-pro-charts--pie-legend {
+    min-width: 300px;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #1DA57A !important;
+    border-color: #1DA57A !important;
+}
+
+.ant-btn-primary:hover {
+    border-color: #1DA57A !important;
+    opacity: 0.8;
+}
+
+.ant-btn-primary:active:focus {
+    border-color: #136b4f !important;
+    background-color: #136b4f !important;
 }

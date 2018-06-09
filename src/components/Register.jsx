@@ -105,9 +105,13 @@ class RegisterForm extends Component {
 
 		return (
 			<div
+				className="animated slideInUp"
 				style={{
-					paddingTop: "150px",
+					height: "99vh",
+					width: "99vw",
+					overflow: "hidden",
 					display: "flex",
+					alignItems: "center",
 					justifyContent: "center",
 				}}
 			>

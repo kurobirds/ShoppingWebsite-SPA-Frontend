@@ -6,16 +6,11 @@ import Users from "../pages/Admin/Users";
 import Products from "../pages/Admin/Products";
 import Producers from "../pages/Admin/Producers";
 import Orders from "../pages/Admin/Orders";
-// Component
-const Dashboard = () => (
-	<div>
-		<h2>Dashboard</h2>
-	</div>
-);
+import DashboardChart from "../pages/Admin/DashboardChart";
 
 const RouteConfig = () => (
 	<Switch>
-		<Route exact path="/admin" component={Dashboard} />
+		<Route exact path="/admin" component={DashboardChart} />
 		<Route path="/admin/categories" component={Categories} />
 		<Route path="/admin/products" component={Products} />
 		<Route path="/admin/producers" component={Producers} />

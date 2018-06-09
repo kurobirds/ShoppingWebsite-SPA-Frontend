@@ -109,6 +109,31 @@ export default class Dashboard extends Component {
 			return <Redirect to="/" />;
 		}
 
+		const arrayURL = this.props.location.pathname.split("/");
+
+		let selectedKey = 1;
+
+		switch (arrayURL[arrayURL.length - 1]) {
+			case "orders":
+				selectedKey = 2;
+				break;
+			case "products":
+				selectedKey = 3;
+				break;
+			case "categories":
+				selectedKey = 4;
+				break;
+			case "producers":
+				selectedKey = 5;
+				break;
+			case "users":
+				selectedKey = 6;
+				break;
+			default:
+				selectedKey = 1;
+				break;
+		}
+
 		return (
 			<Layout
 				style={
@@ -122,6 +147,7 @@ export default class Dashboard extends Component {
 				}
 			>
 				<DashboardNavigation
+					selectedKey={selectedKey}
 					collapsed={this.state.collapsed}
 					toggle={this.toggle}
 				/>
