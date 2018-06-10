@@ -38,14 +38,6 @@ class FormComment extends React.Component {
 	};
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		const formItemLayout = {
-			labelCol: {
-				span: 6,
-			},
-			wrapperCol: {
-				span: 14,
-			},
-		};
 
 		let userName = "";
 		if (this.props.auth.isAuthenticated) {
@@ -60,7 +52,7 @@ class FormComment extends React.Component {
 						rules: [
 							{
 								required: true,
-								message: "Please input your author!",
+								message: "Please input author name!",
 							},
 						],
 					})(
@@ -81,18 +73,18 @@ class FormComment extends React.Component {
 						<Input
 							prefix={
 								<Icon
-									type="lock"
+									type="message"
 									style={{ color: "rgba(0,0,0,.25)" }}
 								/>
 							}
 							type="comment"
-							placeholder="comment"
+							placeholder="write a comment"
 						/>
 					)}
 				</FormItem>
 				<FormItem>
 					<Button type="primary" htmlType="submit">
-						Submit
+						Post comment
 					</Button>
 				</FormItem>
 			</Form>
