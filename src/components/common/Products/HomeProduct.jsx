@@ -10,9 +10,6 @@ class ListProduct extends Component {
 			<List
 				pagination={{
 					showQuickJumper: true,
-					onChange: page => {
-						console.log(page);
-					},
 					pageSize: 8,
 				}}
 				grid={{

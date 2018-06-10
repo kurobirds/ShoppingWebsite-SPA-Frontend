@@ -14,6 +14,8 @@ import {
 	Spin,
 	Icon,
 	Timeline,
+	List,
+	Avatar,
 } from "antd";
 const InputGroup = Input.Group,
 	antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
@@ -168,7 +170,9 @@ export default class SingleProduct extends Component {
 			);
 		}
 
-		const Comments = this.state.Comments;
+		const Comments = this.state.Comments.sort(
+			(obj1, obj2) => obj1.createdAt - obj2.createdAt
+		);
 
 		return (
 			<Fragment>
@@ -252,7 +256,7 @@ export default class SingleProduct extends Component {
 					<Divider orientation="left" dashed>
 						<Name>Comment</Name>
 					</Divider>
-					<Col style={{ paddingBottom: "4%" }} span={24}>
+					<Col style={{ paddingBottom: "1%" }} span={24}>
 						<FormComment
 							auth={this.props.auth}
 							id={product._id}
@@ -261,24 +265,29 @@ export default class SingleProduct extends Component {
 						/>
 					</Col>
 					<Col span={24}>
-						<Timeline>
-							{Comments.sort(
-								(obj1, obj2) => obj1.createdAt - obj2.createdAt
-							).map((element, index) => (
-								<Timeline.Item key={index}>
-									<span>
-										{moment
-											.unix(element.createdAt)
-											.format("YYYY-MM-DD HH:mm:ss")}
-										:{" "}
-										<b style={{ color: "#1890ff" }}>
-											{element.author}:
-										</b>{" "}
-										{element.comment}
-									</span>
-								</Timeline.Item>
-							))}
-						</Timeline>
+						<List
+							pagination={{
+								size: "small",
+								showSizeChanger: true,
+								showQuickJumper: true,
+							}}
+							itemLayout="horizontal"
+							dataSource={Comments}
+							renderItem={item => (
+								<List.Item>
+									<List.Item.Meta
+										avatar={
+											<Avatar size="large" icon="user" />
+										}
+										title={<b>{item.author}</b>}
+										description={item.comment}
+									/>
+									{moment
+										.unix(item.createdAt)
+										.format("YYYY-MM-DD HH:mm:ss")}
+								</List.Item>
+							)}
+						/>
 					</Col>
 				</Row>
 			</Fragment>
