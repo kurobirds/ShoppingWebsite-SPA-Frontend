@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
+import moment from "moment";
 import styled from "styled-components";
+import FormComment from "../../common/Form/formComment";
 import SpinnerInputNumber from "../SpinnerInputNumber";
 import {
 	Carousel,
@@ -11,6 +13,7 @@ import {
 	notification,
 	Spin,
 	Icon,
+	Timeline,
 } from "antd";
 const InputGroup = Input.Group,
 	antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
@@ -39,6 +42,7 @@ export default class SingleProduct extends Component {
 		this.state = {
 			quantityValue: 1,
 			product: null,
+			Comments: null,
 		};
 	}
 	componentDidMount() {
@@ -53,11 +57,15 @@ export default class SingleProduct extends Component {
 			);
 			const json = await response.json();
 
-			this.setState({ product: json });
+			this.setState({ product: json, Comments: json.Comments });
 		};
 
 		request();
 	}
+
+	updateComment = data => {
+		this.setState({ Comments: data });
+	};
 
 	onChange = e => {
 		const { value } = e.target;
@@ -160,6 +168,8 @@ export default class SingleProduct extends Component {
 			);
 		}
 
+		const Comments = this.state.Comments;
+
 		return (
 			<Fragment>
 				<Row>
@@ -232,6 +242,43 @@ export default class SingleProduct extends Component {
 								</Detail>
 							</Col>
 						</Fragment>
+					</Col>
+				</Row>
+				<Row
+					style={{
+						padding: "1%",
+					}}
+				>
+					<Divider orientation="left" dashed>
+						<Name>Comment</Name>
+					</Divider>
+					<Col style={{ paddingBottom: "4%" }} span={24}>
+						<FormComment
+							auth={this.props.auth}
+							id={product._id}
+							base_url={this.props.base_url}
+							updateComment={this.updateComment}
+						/>
+					</Col>
+					<Col span={24}>
+						<Timeline>
+							{Comments.sort(
+								(obj1, obj2) => obj1.createdAt - obj2.createdAt
+							).map((element, index) => (
+								<Timeline.Item key={index}>
+									<span>
+										{moment
+											.unix(element.createdAt)
+											.format("YYYY-MM-DD HH:mm:ss")}
+										:{" "}
+										<b style={{ color: "#1890ff" }}>
+											{element.author}:
+										</b>{" "}
+										{element.comment}
+									</span>
+								</Timeline.Item>
+							))}
+						</Timeline>
 					</Col>
 				</Row>
 			</Fragment>

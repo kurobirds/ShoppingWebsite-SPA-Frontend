@@ -8,6 +8,7 @@ import SingleProduct from "../../components/common/Products/SingleProduct";
 
 const mapStateToProps = state => {
 	return {
+		auth: state.auth,
 		products: state.products,
 		categories: state.categories,
 		producers: state.producers,
@@ -28,5 +29,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(SingleProduct)
 );

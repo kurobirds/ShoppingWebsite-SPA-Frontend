@@ -28,6 +28,7 @@ export default class App extends Component {
 			isDark: false,
 		};
 	}
+
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
