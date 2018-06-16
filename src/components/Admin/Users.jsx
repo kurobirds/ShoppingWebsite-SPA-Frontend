@@ -160,6 +160,7 @@ export default class Users extends Component {
 							.catch(err => console.error(err));
 						deleteUser(record._id);
 					},
+					maskClosable: true,
 				});
 			} else {
 				message.error("Can't delete current user");

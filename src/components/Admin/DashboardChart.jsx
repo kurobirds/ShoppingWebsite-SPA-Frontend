@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { Row, Col, Divider } from "antd";
 import { Pie } from "ant-design-pro/lib/Charts";
 
+import { Chart, Axis, Tooltip, Geom, Coord } from "bizcharts";
+import { View } from "@antv/data-set";
+
 export default class Users extends Component {
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
@@ -46,6 +49,17 @@ export default class Users extends Component {
 			}, []);
 	};
 
+	initProductSales = products => {
+		return products
+			.sort((obj1, obj2) => obj1.Sold_Quantity - obj2.Sold_Quantity)
+			.reverse()
+			.slice(0, 10)
+			.map(elem => ({
+				Sold_Quantity: elem.Sold_Quantity,
+				Name: elem.Name,
+			}));
+	};
+
 	render() {
 		const products = this.props.products;
 		if (!products) {
@@ -56,42 +70,77 @@ export default class Users extends Component {
 
 		let producerSales = this.initProducerSales(products);
 
-		const top10Product = products
-			.sort((obj1, obj2) => obj1.Sold_Quantity - obj2.Sold_Quantity)
-			.reverse()
-			.slice(0, 10);
+		const top10Product = this.initProductSales(products);
 
-		// TODO: make chart top 10 product sales
-
+		const dv = new View();
+		dv.source(top10Product).transform({
+			type: "sort",
+			callback(a, b) {
+				return a.Sold_Quantity - b.Sold_Quantity > 0;
+			},
+		});
 		return (
-			<Row>
-				<Col span={11}>
-					<b>Category Sales</b>
-					<Pie
-						hasLegend
-						title="Category Sales"
-						data={categorySales}
-						height={248}
-					/>
-				</Col>
-				<Col span={1}>
-					<Divider
-						type="vertical"
-						style={{
-							height: "248px",
-						}}
-					/>
-				</Col>
-				<Col span={11}>
-					<b>Producer Sales</b>
-					<Pie
-						hasLegend
-						title="Producer Sales"
-						data={producerSales}
-						height={248}
-					/>
-				</Col>
-			</Row>
+			<React.Fragment>
+				<Row>
+					<Col span={11}>
+						<b>Category Sales</b>
+						<Pie
+							hasLegend
+							title="Category Sales"
+							data={categorySales}
+							height={248}
+						/>
+					</Col>
+					<Col span={1}>
+						<Divider
+							type="vertical"
+							style={{
+								height: "248px",
+							}}
+						/>
+					</Col>
+					<Col span={11}>
+						<b>Producer Sales</b>
+						<Pie
+							hasLegend
+							title="Producer Sales"
+							data={producerSales}
+							height={248}
+						/>
+					</Col>
+				</Row>
+				<Divider style={{ margin: "5% 0px" }} />
+				<Row>
+					<Col span={24}>
+						<b>Product Sales</b>
+						<Chart
+							padding="auto"
+							height={400}
+							data={dv}
+							forceFit={true}
+						>
+							<Coord transpose />
+							<Axis name="Name" />
+							<Axis name="Sold_Quantity" />
+							<Tooltip />
+							<Geom
+								type="interval"
+								color="Sold_Quantity"
+								position="Name*Sold_Quantity"
+							/>
+						</Chart>
+					</Col>
+				</Row>
+
+				<Divider style={{ margin: "5% 0px" }} />
+
+				<Row>
+					<Col span={24}>
+						<b>Product Sales</b>
+						asd
+					</Col>
+				</Row>
+			</React.Fragment>
 		);
 	}
 }

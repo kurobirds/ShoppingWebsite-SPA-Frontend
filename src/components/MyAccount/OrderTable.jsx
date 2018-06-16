@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Orders.css";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 
 const expandedRowRender = props => {
 	const columns = [
@@ -97,16 +97,16 @@ export default class Orders extends Component {
 							break;
 						}
 						return (
-							<span
+							<Tag
 								style={{
-									borderRadius: "5px",
-									padding: "5px 10px",
-									backgroundColor: color,
-									color: "white",
+									margin: "0px",
+									fontSize: "14px",
+									cursor: "default",
 								}}
+								color={color}
 							>
 								{text}
-							</span>
+							</Tag>
 						);
 					},
 				},
