@@ -18,7 +18,8 @@ export default class NormalNavigation extends Component {
 					zIndex: "9",
 					position: "fixed",
 					width: "100%",
-					background: this.props.isDark ? null : "#fff",
+					background: "#fff",
+					borderBottom: "1px solid #ddd",
 				}}
 			>
 				<div
@@ -57,7 +58,7 @@ export default class NormalNavigation extends Component {
 						handleMenuClick={this.props.handleMenuClick}
 					/>
 				) : (
-					<GuestMenu isDark={this.props.isDark} />
+					<GuestMenu />
 				)}
 			</Header>
 		);

@@ -19,7 +19,6 @@ export default function auth(
 			...state,
 			isFetching: true,
 			isAuthenticated: false,
-			user: action.creds,
 		};
 
 	case LOGIN_SUCCESS:
@@ -42,6 +41,7 @@ export default function auth(
 			...state,
 			isFetching: true,
 			isAuthenticated: false,
+			token: action.token,
 		};
 	default:
 		return state;

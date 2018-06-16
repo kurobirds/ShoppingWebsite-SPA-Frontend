@@ -4,10 +4,9 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
-function requestLogin(creds) {
+function requestLogin() {
 	return {
 		type: LOGIN_REQUEST,
-		creds,
 	};
 }
 
@@ -33,7 +32,7 @@ export function loginUser(url, creds) {
 	};
 
 	return dispatch => {
-		dispatch(requestLogin(creds));
+		dispatch(requestLogin());
 
 		return fetch(url, config)
 			.then(response =>
@@ -70,6 +69,7 @@ function receiveLogout() {
 		type: LOGOUT_SUCCESS,
 		isFetching: false,
 		isAuthenticated: false,
+		token: "",
 	};
 }
 

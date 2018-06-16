@@ -57,21 +57,10 @@ export default class Users extends Component {
 		return (
 			<Row>
 				<Col span={11}>
+					<b>Category Sales</b>
 					<Pie
 						hasLegend
 						title="Category Sales"
-						subTitle={
-							<div
-								style={{
-									fontSize: "21px",
-									fontWeight: "500",
-									color: "#000",
-									marginTop: "15px",
-								}}
-							>
-								Category Sales
-							</div>
-						}
 						data={categorySales}
 						height={248}
 					/>
@@ -84,23 +73,11 @@ export default class Users extends Component {
 						}}
 					/>
 				</Col>
-
 				<Col span={11}>
+					<b>Producer Sales</b>
 					<Pie
 						hasLegend
 						title="Producer Sales"
-						subTitle={
-							<div
-								style={{
-									fontSize: "21px",
-									fontWeight: "500",
-									color: "#000",
-									marginTop: "15px",
-								}}
-							>
-								Producer Sales
-							</div>
-						}
 						data={producerSales}
 						height={248}
 					/>

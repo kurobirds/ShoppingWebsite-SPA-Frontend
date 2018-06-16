@@ -46,6 +46,7 @@ export default class SingleProduct extends Component {
 			Comments: null,
 		};
 	}
+
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);

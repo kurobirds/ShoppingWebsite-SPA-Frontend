@@ -22,13 +22,6 @@ const breadcrumbNameMap = {
 let location, pathSnippets, extraBreadcrumbItems, breadcrumbItems;
 
 export default class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isDark: false,
-		};
-	}
-
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
@@ -38,7 +31,6 @@ export default class App extends Component {
 	handleMenuClick = e => {
 		switch (e.key) {
 			case "1":
-				message.info(`Clicked ${e.item.props.children}`);
 				break;
 			case "3":
 				this.props.logoutUser();
@@ -52,7 +44,9 @@ export default class App extends Component {
 
 	menu = (
 		<Menu onClick={this.handleMenuClick}>
-			<Menu.Item key="1">About</Menu.Item>
+			<Menu.Item key="1">
+				<Link to="/account">My Account</Link>
+			</Menu.Item>
 			{this.props.isAuthenticated &&
 			decode(localStorage.token).Permission === 1 ? (
 				<Menu.Item key="2">
@@ -107,7 +101,6 @@ export default class App extends Component {
 						menu={this.menu}
 						handleMenuClick={this.handleMenuClick}
 						isAuthenticated={this.props.isAuthenticated}
-						isDark={this.state.isDark}
 						carts={this.props.carts}
 						deleteCart={this.props.deleteCart}
 					/>
@@ -136,7 +129,6 @@ export default class App extends Component {
 											dataField="Name"
 											categoryField="Categories_Detail.Name"
 											placeholder="Search here"
-											URLParams={true}
 											onSuggestion={suggestion => ({
 												label: (
 													<div>
@@ -191,7 +183,6 @@ export default class App extends Component {
 											dataField="Categories_Detail.Name"
 											title="Category"
 											showSearch={false}
-											URLParams={true}
 										/>
 									</div>
 									<div
@@ -205,7 +196,6 @@ export default class App extends Component {
 											dataField="Producer_Detail.Name"
 											title="Producer"
 											showSearch={false}
-											URLParams={true}
 										/>
 									</div>
 								</Content>
