@@ -10,13 +10,9 @@ export default class Users extends Component {
 		this.props.fetchProducers(`${this.props.base_url}producers`);
 	}
 
-	render() {
-		const products = this.props.products;
-		if (!products) {
-			return null;
-		}
+	initCategorySales = products => {
 		let categorySalesHelper = {};
-		let categorySales = products
+		return products
 			.map(element => ({
 				y: element.Sold_Quantity,
 				x: element.Categories_Detail.Name,
@@ -30,9 +26,11 @@ export default class Users extends Component {
 				}
 				return r;
 			}, []);
+	};
 
+	initProducerSales = products => {
 		let producerSalesHelper = {};
-		let producerSales = products
+		return products
 			.map(element => ({
 				y: element.Sold_Quantity,
 				x: element.Producer_Detail.Name,
@@ -46,6 +44,17 @@ export default class Users extends Component {
 				}
 				return r;
 			}, []);
+	};
+
+	render() {
+		const products = this.props.products;
+		if (!products) {
+			return null;
+		}
+
+		let categorySales = this.initCategorySales(products);
+
+		let producerSales = this.initProducerSales(products);
 
 		const top10Product = products
 			.sort((obj1, obj2) => obj1.Sold_Quantity - obj2.Sold_Quantity)

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import decode from "jwt-decode";
 import moment from "moment";
 import Table from "../common/Table";
 import ModalComponent from "../common/Modal";
@@ -141,23 +142,28 @@ export default class Users extends Component {
 				})
 				.catch(err => console.error(err));
 		} else if (e.key === "2") {
-			confirm({
-				title: "Are you sure delete this record?",
-				onOk() {
-					fetch(`${endpoint}/${record._id}`, {
-						method: "DELETE",
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					})
-						.then(response => response.json())
-						.then(data => {
-							message.success("Deleted");
+			const decoded = decode(localStorage.token);
+			if (decoded._id !== record._id) {
+				confirm({
+					title: "Are you sure delete this record?",
+					onOk() {
+						fetch(`${endpoint}/${record._id}`, {
+							method: "DELETE",
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
 						})
-						.catch(err => console.error(err));
-					deleteUser(record._id);
-				},
-			});
+							.then(response => response.json())
+							.then(data => {
+								message.success("Deleted");
+							})
+							.catch(err => console.error(err));
+						deleteUser(record._id);
+					},
+				});
+			} else {
+				message.error("Can't delete current user");
+			}
 		}
 	};
 
