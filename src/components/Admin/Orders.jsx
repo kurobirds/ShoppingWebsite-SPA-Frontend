@@ -70,6 +70,9 @@ export default class Orders extends Component {
 					title: "Price",
 					dataIndex: "Price",
 					key: "Price",
+					render(Price) {
+						return <div>{Price.formatVND()}</div>;
+					},
 				},
 				{
 					title: "Status",

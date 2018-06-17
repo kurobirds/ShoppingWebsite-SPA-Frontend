@@ -49,8 +49,8 @@ class LoginForm extends Component {
 			<div
 				className="animated slideInUp"
 				style={{
-					height: "100vh",
-					width: "100vw",
+					height: "99vh",
+					width: "99vw",
 					overflow: "hidden",
 					display: "flex",
 					alignItems: "center",

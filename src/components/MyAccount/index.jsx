@@ -9,7 +9,7 @@ import ModalEditDetails from "./ModalEditDetails";
 import ModalChangePassword from "./ModalChangePassword";
 import OrderTable from "./OrderTable";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import {
 	Button,
@@ -68,6 +68,10 @@ class MyAccount extends Component {
 	}
 
 	componentDidMount() {
+		if (!this.props.isAuthenticated) {
+			return <Redirect to="/" />;
+		}
+
 		const token = this.props.token;
 
 		const decoded = decode(token);
@@ -143,6 +147,10 @@ class MyAccount extends Component {
 	);
 
 	render() {
+		if (!this.props.isAuthenticated) {
+			return <Redirect to="/" />;
+		}
+
 		const user = this.state.user,
 			orders = this.state.orders;
 

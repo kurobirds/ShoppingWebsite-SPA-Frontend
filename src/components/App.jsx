@@ -92,8 +92,6 @@ export default class App extends Component {
 	}
 
 	render() {
-		let products = this.props.products;
-
 		return (
 			<Fragment>
 				<Layout>
@@ -215,7 +213,7 @@ export default class App extends Component {
 											minHeight: 380,
 										}}
 									>
-										<RouteProduct products={products} />
+										<RouteProduct />
 									</div>
 								</Content>
 							</Layout>

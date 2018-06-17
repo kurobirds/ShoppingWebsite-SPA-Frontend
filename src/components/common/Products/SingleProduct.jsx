@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 import FormComment from "../../common/Form/formComment";
@@ -15,7 +16,9 @@ import {
 	Icon,
 	List,
 	Avatar,
+	Card,
 } from "antd";
+const { Meta } = Card;
 const InputGroup = Input.Group,
 	antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
@@ -37,6 +40,13 @@ const Detail = styled.p`
 	font-weight: 400px;
 `;
 
+const fetchInfo = async (url, callback) => {
+	const response = await fetch(url);
+	const json = await response.json();
+
+	callback(json);
+};
+
 export default class SingleProduct extends Component {
 	constructor(props) {
 		super(props);
@@ -44,25 +54,39 @@ export default class SingleProduct extends Component {
 			quantityValue: 1,
 			product: null,
 			Comments: null,
+			similarProducts: [],
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount(newID) {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
 		this.props.fetchProducers(`${this.props.base_url}producers`);
 
-		const id = this.props.match.params.id;
-		const request = async () => {
-			const response = await fetch(
-				`${this.props.base_url}products/${id}`
-			);
-			const json = await response.json();
+		const id = newID || this.props.match.params.id;
 
-			this.setState({ product: json, Comments: json.Comments });
-		};
+		const productInfoURL = `${this.props.base_url}products/${id}`;
+		const similarProductsURL = `${
+			this.props.base_url
+		}products/Top10ProductSales`;
 
-		request();
+		fetchInfo(productInfoURL, data => {
+			this.setState({ product: data, Comments: data.Comments });
+		});
+
+		fetchInfo(similarProductsURL, data => {
+			data = data.filter(elem => elem._id !== id);
+			data = data.slice(0, 6);
+			this.setState({ similarProducts: data });
+		});
+
+		window.scrollTo(0, 0);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.match.params.id !== nextProps.match.params.id) {
+			this.componentDidMount(nextProps.match.params.id);
+		}
 	}
 
 	updateComment = data => {
@@ -247,6 +271,54 @@ export default class SingleProduct extends Component {
 							</Col>
 						</Fragment>
 					</Col>
+				</Row>
+				<Row
+					style={{
+						padding: "1%",
+					}}
+				>
+					<Divider orientation="right" dashed>
+						<Name>Similar products</Name>
+					</Divider>
+					<List
+						grid={{
+							gutter: 16,
+							xs: 1,
+							sm: 2,
+							md: 6,
+							lg: 6,
+							xl: 6,
+							xxl: 6,
+						}}
+						dataSource={this.state.similarProducts}
+						renderItem={infoCard => (
+							<List.Item>
+								<Link to={`/product/${infoCard._id}`}>
+									<Card
+										hoverable
+										style={{ width: 240, height: 320 }}
+										cover={
+											<img
+												height={220}
+												src={
+													infoCard.Images[0] ||
+													"https://static1.squarespace.com/static/5937e362be659441f72e7c12/t/595120eadb29d60c5983e4a2/1498489067243/Sorry-image-not-available.png"
+												}
+												alt={infoCard.Name}
+											/>
+										}
+									>
+										<Meta
+											title={infoCard.Name}
+											description={Number(
+												infoCard.Price
+											).formatVND()}
+										/>
+									</Card>
+								</Link>
+							</List.Item>
+						)}
+					/>
 				</Row>
 				<Row
 					style={{

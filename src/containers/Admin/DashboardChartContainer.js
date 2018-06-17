@@ -5,6 +5,7 @@ import { logoutUser } from "../../actions/auth";
 import { productsFetchData } from "../../actions/products";
 import { categoriesFetchData } from "../../actions/categories";
 import { producersFetchData } from "../../actions/producers";
+import { ordersFetchData } from "../../actions/order";
 
 import DashboardChart from "../../components/Admin/DashboardChart";
 
@@ -17,6 +18,7 @@ const mapStateToProps = state => {
 		products: state.products,
 		categories: state.categories,
 		producers: state.producers,
+		orders: state.orders,
 	};
 };
 
@@ -26,6 +28,7 @@ const mapDispatchToProps = dispatch => {
 		fetchProducts: url => dispatch(productsFetchData(url)),
 		fetchCategories: url => dispatch(categoriesFetchData(url)),
 		fetchProducers: url => dispatch(producersFetchData(url)),
+		fetchOrders: url => dispatch(ordersFetchData(url)),
 	};
 };
 

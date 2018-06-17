@@ -42,7 +42,6 @@ export function ordersFetchData(url) {
 					element.Order_Date = moment
 						.unix(element.Order_Date)
 						.format("YYYY-MM-DD HH:mm:ss");
-					element.Price = Number(element.Price).formatVND();
 				});
 				dispatch(ordersFetchDataSuccess(orders));
 			})
