@@ -2,8 +2,32 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Icon, Switch } from "antd";
+import logoImg from "./Logo.jpg";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
+
+const SwitchColor = styled.section`
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	height: 48px;
+	background-color: ${props => props.theme.bgColor};
+	border-top: solid 1px ${props => props.theme.bdColor};
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 16px;
+	overflow: hidden;
+	z-index: 9;
+	transition: all 0.3s;
+`;
+
+const Logo = styled.div`
+	height: 80px;
+	background: url(${logoImg});
+	background-size: 100% 100%;
+	margin: 16px;
+`;
 
 export default class Navigation extends Component {
 	constructor(props) {
@@ -22,22 +46,6 @@ export default class Navigation extends Component {
 	};
 
 	render() {
-		const SwitchColor = styled.section`
-			width: 100%;
-			position: absolute;
-			bottom: 0;
-			height: 48px;
-			background-color: ${props => props.theme.bgColor};
-			border-top: solid 1px ${props => props.theme.bdColor};
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 0 16px;
-			overflow: hidden;
-			z-index: 9;
-			transition: all 0.3s;
-		`;
-
 		const dark = {
 			bgColor: "#000d18",
 			bdColor: "#001629",
@@ -60,6 +68,9 @@ export default class Navigation extends Component {
 					left: 0,
 				}}
 			>
+				<Link to="/">
+					<Logo />
+				</Link>
 				<Menu
 					theme={this.state.theme}
 					mode="inline"

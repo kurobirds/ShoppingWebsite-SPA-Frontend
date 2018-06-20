@@ -41,7 +41,7 @@ export default function carts(
 		}
 
 		if (!duplicate) {
-			if (action.Select_Quantity < action.cart.Stock_Quantity) {
+			if (action.Select_Quantity <= action.cart.Stock_Quantity) {
 				action.cart.Select_Quantity = action.Select_Quantity || 1;
 				newState.push(action.cart);
 				message.success("Add Successfully");

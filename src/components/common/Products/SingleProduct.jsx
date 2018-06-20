@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 import FormComment from "../../common/Form/formComment";
@@ -40,8 +40,16 @@ const Detail = styled.p`
 	font-weight: 400px;
 `;
 
-const fetchInfo = async (url, callback) => {
+const fetchInfo = async (url, callback, callbackFetchError) => {
 	const response = await fetch(url);
+	if (!response.ok) {
+		notification.error({
+			message: "Somthing wrong",
+			description: `Server error or this product not exist in server anymore`,
+		});
+		callbackFetchError();
+		return;
+	}
 	const json = await response.json();
 
 	callback(json);
@@ -55,6 +63,7 @@ export default class SingleProduct extends Component {
 			product: null,
 			Comments: null,
 			similarProducts: [],
+			isError: false,
 		};
 	}
 
@@ -70,15 +79,27 @@ export default class SingleProduct extends Component {
 			this.props.base_url
 		}products/Top10ProductSales`;
 
-		fetchInfo(productInfoURL, data => {
-			this.setState({ product: data, Comments: data.Comments });
-		});
+		fetchInfo(
+			similarProductsURL,
+			data => {
+				data = data.filter(elem => elem._id !== id);
+				data = data.slice(0, 6);
+				data = data.sort(() => Math.random() - 0.5);
+				this.setState({ similarProducts: data });
+			},
+			() => {}
+		);
 
-		fetchInfo(similarProductsURL, data => {
-			data = data.filter(elem => elem._id !== id);
-			data = data.slice(0, 6);
-			this.setState({ similarProducts: data });
-		});
+		fetchInfo(
+			productInfoURL,
+			data => {
+				this.setState({ product: data, Comments: data.Comments });
+				if (!!!data) {
+					console.log("Not found");
+				}
+			},
+			this.isFetchError
+		);
 
 		window.scrollTo(0, 0);
 	}
@@ -88,6 +109,10 @@ export default class SingleProduct extends Component {
 			this.componentDidMount(nextProps.match.params.id);
 		}
 	}
+
+	isFetchError = () => {
+		this.setState({ isError: true });
+	};
 
 	updateComment = data => {
 		this.setState({ Comments: data });
@@ -156,6 +181,10 @@ export default class SingleProduct extends Component {
 	};
 
 	render() {
+		if (this.state.isError) {
+			return <Redirect to="/" />;
+		}
+
 		const product = this.state.product;
 
 		const listImage = [];

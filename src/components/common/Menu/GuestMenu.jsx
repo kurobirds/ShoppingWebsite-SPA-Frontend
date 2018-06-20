@@ -6,7 +6,7 @@ export default class GuestMenu extends Component {
 	render() {
 		return (
 			<Menu
-				theme={this.props.isDark ? "dark" : "light"}
+				theme="light"
 				mode="horizontal"
 				style={{
 					lineHeight: "64px",
@@ -16,17 +16,6 @@ export default class GuestMenu extends Component {
 				}}
 			>
 				<Menu.Item key="1">
-					<Link to="/admin">
-						<div
-							style={{
-								fontSize: "16px",
-							}}
-						>
-							Admin
-						</div>
-					</Link>
-				</Menu.Item>
-				<Menu.Item key="2">
 					<Link to="/sign-in">
 						<div
 							style={{
@@ -37,7 +26,7 @@ export default class GuestMenu extends Component {
 						</div>
 					</Link>
 				</Menu.Item>
-				<Menu.Item key="3">
+				<Menu.Item key="2">
 					<Link to="/sign-up">
 						<div
 							style={{

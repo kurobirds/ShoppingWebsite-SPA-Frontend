@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link, Redirect } from "react-router-dom";
-import { Form, Input, Button, Checkbox, message } from "antd";
+import { Form, Input, Button, message } from "antd";
 const FormItem = Form.Item;
 
 // Styled-component
@@ -210,10 +210,6 @@ class RegisterForm extends Component {
 									)}
 								</FormItem>
 								<FormItem>
-									{getFieldDecorator("remember", {
-										valuePropName: "checked",
-										initialValue: true,
-									})(<Checkbox>Remember me</Checkbox>)}
 									<Button
 										type="primary"
 										htmlType="submit"
