@@ -2,12 +2,13 @@
 
 1. ReactJS
 2. Redux
-3. Ant Design
+3. Ant Design (Pro)
 4. Styled Component
 5. Animate.css
 6. React-router-dom
 7. Passport
 8. Prop-types
+9. Reactive Search
 
 # How to use
 1. Install Node.js
