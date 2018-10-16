@@ -30,7 +30,7 @@ const WrapperInfo = styled.div`
 	color: #555;
 `;
 
-const Title = WrapperInfo.extend`
+const Title = styled(WrapperInfo)`
 	font-weight: 700;
 	font-size: 18px;
 `;
