@@ -220,7 +220,7 @@ export default class App extends Component {
 						</Col>
 					</Row>
 					<Footer style={{ textAlign: "center" }}>
-						Animal Monsters Store ©2016 Created by Sang
+						Animal Monsters Store ©2018 Created by Sang
 					</Footer>
 				</Layout>
 			</Fragment>

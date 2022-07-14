@@ -18,6 +18,7 @@ const RouteConfig = () => (
 		<Route path="/sign-in" component={Login} />
 		<Route path="/sign-up" component={Register} />
 		<Route path="/account" component={MyAccount} />
+		<Route path="/pc-accessories" component={App} />
 		<Route component={NotFound} />
 	</Switch>
 );

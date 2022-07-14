@@ -37,6 +37,17 @@ export default class GuestMenu extends Component {
 						</div>
 					</Link>
 				</Menu.Item>
+				<Menu.Item key="3">
+					<Link to="/pc-accessories">
+						<div
+							style={{
+								fontSize: "16px",
+							}}
+						>
+							PC Accessories
+						</div>
+					</Link>
+				</Menu.Item>
 			</Menu>
 		);
 	}
