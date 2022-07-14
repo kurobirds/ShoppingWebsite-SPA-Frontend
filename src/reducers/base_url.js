@@ -1,5 +1,5 @@
 export default function endpoint(
-	state = "https://shoppingwebsite-spa-backend.now.sh/api/",
+	state = "https://shoppingwebsite-spa-backend-akino0910.vercel.app/api/",
 	// state = "http://localhost:3000/api/",
 	action
 ) {
