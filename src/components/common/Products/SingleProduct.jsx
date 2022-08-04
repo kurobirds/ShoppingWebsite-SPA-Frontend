@@ -238,7 +238,7 @@ export default class SingleProduct extends Component {
 					<Col span={12}>
 						<Fragment>
 							<Name>{product.Name}</Name>
-							<Price>{Number(product.Price).formatVND()}</Price>
+							<Price>{Number(product.Price).formatUSD()}</Price>
 							<Name
 								style={{
 									marginTop: "24px",
@@ -341,7 +341,7 @@ export default class SingleProduct extends Component {
 											title={infoCard.Name}
 											description={Number(
 												infoCard.Price
-											).formatVND()}
+											).formatUSD()}
 										/>
 									</Card>
 								</Link>

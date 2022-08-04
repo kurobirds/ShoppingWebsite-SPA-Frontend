@@ -42,7 +42,7 @@ export default class Card extends Component {
 				<figcaption>
 					<h2>{infoCard.Name}</h2>
 					<div className="price">
-						{Number(infoCard.Price).formatVND()}
+						{Number(infoCard.Price).formatUSD()}
 					</div>
 				</figcaption>
 			</figure>

@@ -103,7 +103,7 @@ class MyAccount extends Component {
 			.then(response => response.json())
 			.then(data => {
 				for (const elem of data) {
-					elem.Price = elem.Price.formatVND();
+					elem.Price = elem.Price.formatUSD();
 				}
 				this.setState({ orders: data });
 			})

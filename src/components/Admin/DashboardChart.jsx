@@ -185,7 +185,7 @@ export default class Users extends Component {
 										(total, elem) => total + elem.Price,
 										0
 									)
-									.formatVND()}
+									.formatUSD()}
 							</div>
 						</div>
 						<div
@@ -234,7 +234,7 @@ export default class Users extends Component {
 									(_, Price) => {
 										return {
 											name: "Price",
-											value: Number(Price).formatVND(),
+											value: Number(Price).formatUSD(),
 										};
 									},
 								]}

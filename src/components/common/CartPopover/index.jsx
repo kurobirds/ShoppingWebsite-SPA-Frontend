@@ -16,7 +16,7 @@ export default class CardPopover extends Component {
 						<React.Fragment>
 							<b>Subtotal: </b>
 							<span style={{ float: "right" }}>
-								{Subtotal.formatVND()}
+								{Subtotal.formatUSD()}
 							</span>
 							<div style={{ paddingTop: "12px" }}>
 								<Button

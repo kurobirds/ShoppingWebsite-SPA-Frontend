@@ -22,11 +22,12 @@ const breadcrumbNameMap = {
 let location, pathSnippets, extraBreadcrumbItems, breadcrumbItems;
 
 export default class App extends Component {
+
 	componentDidMount() {
 		this.props.fetchProducts(`${this.props.base_url}products`);
 		this.props.fetchCategories(`${this.props.base_url}categories`);
 		this.props.fetchProducers(`${this.props.base_url}producers`);
-	}
+	};
 
 	handleMenuClick = e => {
 		switch (e.key) {
@@ -48,7 +49,7 @@ export default class App extends Component {
 				<Link to="/account">My Account</Link>
 			</Menu.Item>
 			{this.props.isAuthenticated &&
-			decode(localStorage.token).Permission === 1 ? (
+				decode(localStorage.token).Permission === 1 ? (
 				<Menu.Item key="2">
 					<Link to="/admin">Dashboard</Link>
 				</Menu.Item>
@@ -92,6 +93,8 @@ export default class App extends Component {
 	}
 
 	render() {
+		const fullPathCurrent = window.location.href;
+		const pathInclude = fullPathCurrent.includes("pc-accessories");
 		return (
 			<Fragment>
 				<Layout>
@@ -106,110 +109,118 @@ export default class App extends Component {
 						style={{
 							padding: "0 20px",
 							marginTop: 64,
+							display: pathInclude ? "flex" : "",
+							justifyContent: pathInclude ? "center" : ""
 						}}
 					>
-						<Col
-							style={{
-								padding: "20px 20px 0px 0px",
-							}}
-							span={4}
-						>
-							<Layout>
-								<Content>
-									<div
-										style={{
-											marginBottom: "5%",
-											background: "#fff",
-										}}
-									>
-										<CategorySearch
-											componentId="SearchSensor"
-											dataField="Name"
-											categoryField="Categories_Detail.Name"
-											placeholder="Search here"
-											onSuggestion={suggestion => ({
-												label: (
-													<div>
-														{
-															suggestion._source
-																.Name
-														}{" "}
-														in<span
-															style={{
-																color:
-																	"dodgerblue",
-																marginLeft: 5,
-															}}
-														>
-															{
-																suggestion
-																	._source
-																	.Categories_Detail
-																	.Name
-															}
-														</span>
-													</div>
-												),
-												value: suggestion._source.Name,
-											})}
-										/>
-									</div>
-									<div
-										style={{
-											marginBottom: "5%",
-											background: "#fff",
-										}}
-									>
-										<DynamicRangeSlider
-											title="Price"
-											componentId="PriceSensor"
-											dataField="Price"
-											rangeLabels={(min, max) => ({
-												start: Number(min).formatVND(),
-												end: Number(max).formatVND(),
-											})}
-										/>
-									</div>
-									<div
-										style={{
-											marginBottom: "5%",
-											background: "#fff",
-										}}
-									>
-										<MultiList
-											componentId="CategoriesSensor"
-											dataField="Categories_Detail.Name"
-											title="Category"
-											showSearch={false}
-										/>
-									</div>
-									<div
-										style={{
-											marginBottom: "5%",
-											background: "#fff",
-										}}
-									>
-										<MultiList
-											componentId="ProducerSensor"
-											dataField="Producer_Detail.Name"
-											title="Producer"
-											showSearch={false}
-										/>
-									</div>
-								</Content>
-							</Layout>
-						</Col>
+						{
+							!pathInclude &&
+							(
+								<Col
+									style={{
+										padding: "20px 20px 0px 0px",
+									}}
+									span={4}
+								>
+									<Layout>
+										<Content>
+											<div
+												style={{
+													marginBottom: "5%",
+													background: "#fff",
+												}}
+											>
+												<CategorySearch
+													componentId="SearchSensor"
+													dataField="Name"
+													categoryField="Categories_Detail.Name"
+													placeholder="Search here"
+													onSuggestion={suggestion => ({
+														label: (
+															<div>
+																{
+																	suggestion._source
+																		.Name
+																}{" "}
+																in<span
+																	style={{
+																		color:
+																			"dodgerblue",
+																		marginLeft: 5,
+																	}}
+																>
+																	{
+																		suggestion
+																			._source
+																			.Categories_Detail
+																			.Name
+																	}
+																</span>
+															</div>
+														),
+														value: suggestion._source.Name,
+													})}
+												/>
+											</div>
+											<div
+												style={{
+													marginBottom: "5%",
+													background: "#fff",
+												}}
+											>
+												<DynamicRangeSlider
+													title="Price"
+													componentId="PriceSensor"
+													dataField="Price"
+													rangeLabels={(min, max) => ({
+														start: Number(min).formatUSD(),
+														end: Number(max).formatUSD(),
+													})}
+												/>
+											</div>
+											<div
+												style={{
+													marginBottom: "5%",
+													background: "#fff",
+												}}
+											>
+												<MultiList
+													componentId="CategoriesSensor"
+													dataField="Categories_Detail.Name"
+													title="Category"
+													showSearch={false}
+												/>
+											</div>
+											{/* <div
+												style={{
+													marginBottom: "5%",
+													background: "#fff",
+												}}
+											>
+												<MultiList
+													componentId="ProducerSensor"
+													dataField="Producer_Detail.Name"
+													title="Producer"
+													showSearch={false}
+												/>
+											</div> */}
+										</Content>
+									</Layout>
+								</Col>
+							)
+						}
 						<Col span={20}>
 							<Layout>
 								<Content>
-									<Breadcrumb style={{ margin: "16px 0" }}>
+									{/* <Breadcrumb style={{ margin: "16px 0" }}>
 										{breadcrumbItems}
-									</Breadcrumb>
+									</Breadcrumb> */}
 
 									<div
 										style={{
 											background: "#fff",
 											padding: 24,
+											margin: "19px 0",
 											minHeight: 380,
 										}}
 									>

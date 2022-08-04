@@ -24,34 +24,36 @@ export default class NormalNavigation extends Component {
 			>
 				<div
 					style={{
-						width: "120px",
-						height: "31px",
+						width: "150px",
+						height: "64px",
 						background: "rgba(255,255,255,.2)",
-						margin: "16px 24px 16px 0",
+						margin: "0 24px 0 0",
 						float: "left",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center"
 					}}
-				/>
-				<Badge count={cartsLength}>
-					<Popover
-						placement="bottom"
-						content={
-							<CartPopover
-								carts={carts}
-								deleteCart={this.props.deleteCart}
-							/>
-						}
-						trigger="click"
+				>
+					<img
+						style={{
+							width: "48px",
+							height: "48px"
+						}}
+						src="hiptechlg128.jpg"
+					/>
+					<span
+						style={{
+							fontSize: "14px",
+							fontWeight: 800,
+							fontFamily: "sans-serif",
+							background: "linear-gradient(to right, #30CFD0, #330867 100%)",
+							WebkitBackgroundClip: "text",
+							WebkitTextFillColor: "transparent"
+						}}
 					>
-						<Icon
-							type="shopping-cart"
-							style={{
-								fontSize: 24,
-								marginRight: 8,
-								cursor: "pointer",
-							}}
-						/>
-					</Popover>
-				</Badge>
+						PopPro Store
+					</span>
+				</div>
 				{this.props.isAuthenticated ? (
 					<UserDropdown
 						menu={this.props.menu}

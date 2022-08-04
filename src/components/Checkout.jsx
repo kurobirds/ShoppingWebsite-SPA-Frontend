@@ -54,7 +54,7 @@ export default class Checkout extends Component {
 						this.props.products.find(
 							element => element._id === record._id
 						) || {};
-					return Number(product.Price).formatVND();
+					return Number(product.Price).formatUSD();
 				},
 			},
 			{
@@ -90,7 +90,7 @@ export default class Checkout extends Component {
 						) || {};
 					return Number(
 						product.Price * record.Select_Quantity
-					).formatVND();
+					).formatUSD();
 				},
 			},
 		];
@@ -109,7 +109,7 @@ export default class Checkout extends Component {
 						}}
 					>
 						<b style={{ marginRight: "50px" }}>Total:</b>
-						{Subtotal.formatVND()}
+						{Subtotal.formatUSD()}
 						<br />
 						<Button
 							type="primary"

@@ -30,7 +30,7 @@ const expandedRowRender = props => {
 			render(element) {
 				const Select_Quantity = Number(element.Select_Quantity);
 				const Price = Number(element.Product_Info.Price);
-				const Total = (Select_Quantity * Price).formatVND();
+				const Total = (Select_Quantity * Price).formatUSD();
 				return <div>{Total}</div>;
 			},
 		},

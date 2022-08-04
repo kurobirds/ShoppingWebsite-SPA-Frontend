@@ -4,6 +4,7 @@ Number.prototype.formatUSD = function() {
 	return new Intl.NumberFormat("en-US", {
 		style: "currency",
 		currency: "USD",
+		maximumFractionDigits: 1,
 	}).format(this);
 };
 
